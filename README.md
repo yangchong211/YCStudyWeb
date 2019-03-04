@@ -16,9 +16,11 @@
 ### 00.前言介绍
 - 项目截图展示
     - ![image](https://github.com/yangchong211/YCHybridFlutter/blob/master/YCAndroid/image/1.jpg)
+    - ![image](https://github.com/yangchong211/YCHybridFlutter/blob/master/YCAndroid/image/2.jpg)
 - 关于flutter项目推荐
     - flutter学习案例，接口使用玩Android开放的api，作为入门训练代码案例，耗时大概4个月【业余时间】，已经完成了基本的功能。努力打造一个体验好的flutter版本的玩android客户端！
     - 项目地址：https://github.com/yangchong211/ycflutter
+
 
 
 ### 01.创建项目
