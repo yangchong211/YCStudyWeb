@@ -207,7 +207,7 @@
     ```
 - Android接收并处理代码
     ```
-    new MethodChannel(flutterView, FLUTTER_TO_ANDROID_CHANNEL)
+    new MethodChannel(flutterView, "com.ycbjie.toandroid/plugin")
             .setMethodCallHandler(new MethodChannel.MethodCallHandler() {
         @Override
         public void onMethodCall(MethodCall methodCall, MethodChannel.Result result) {
@@ -263,6 +263,12 @@
     - Flutter提供 MethodChannel、EventChannel、BasicMessageChannel 三种方式
     - 类似注册监听，发送的模式原则。使用顺序：先注册，后发送，否则接收不到。尤其使用 MethodChannel、EventChannel 不符合该原则会抛出异常，BasicMessageChannel方式只是收不到消息
 
+
+#### 7.2 第一种方式MethodChannel
+- MethodChannel使用代码
+    - 可以直接看4.1代码
+- 注意要点如下所示
+    - 第一点：
 
 
 
