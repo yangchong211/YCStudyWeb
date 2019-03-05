@@ -1,8 +1,10 @@
 // Generated file. Do not edit.
 
+//这两行是确定文件路径
 def scriptFile = getClass().protectionDomain.codeSource.location.toURI()
 def flutterProjectRoot = new File(scriptFile).parentFile.parentFile
 
+//声明flutter的module，并设置module路径
 gradle.include ':flutter'
 gradle.project(':flutter').projectDir = new File(flutterProjectRoot, '.android/Flutter')
 

@@ -48,15 +48,19 @@ public class MainActivity extends AppCompatActivity {
         textView = findViewById(R.id.params);
         tvFlutter = findViewById(R.id.tv_flutter);
         frameLayout = findViewById(R.id.rl_flutter);
+        initListener();
+        addFlutterView();
+        createEventChannel();
+        createMethodChannel();
+    }
+
+    private void initListener() {
         tvFlutter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 toFlutterPage();
             }
         });
-        addFlutterView();
-        createEventChannel();
-        createMethodChannel();
     }
 
     private void addFlutterView() {

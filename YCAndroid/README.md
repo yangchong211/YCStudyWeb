@@ -15,13 +15,14 @@
 
 
 ### 00.前言介绍
+- 关于该flutter和Android混合开发案例apk
+    - [下载apk]()
 - 项目截图展示
     - ![image](https://github.com/yangchong211/YCHybridFlutter/blob/master/YCAndroid/image/1.jpg)
     - ![image](https://github.com/yangchong211/YCHybridFlutter/blob/master/YCAndroid/image/2.jpg)
 - 关于flutter项目推荐
     - flutter学习案例，接口使用玩Android开放的api，作为入门训练代码案例，耗时大概4个月【业余时间】，已经完成了基本的功能。努力打造一个体验好的flutter版本的玩android客户端！
     - 项目地址：https://github.com/yangchong211/ycflutter
-
 
 
 ### 01.创建项目
@@ -277,9 +278,8 @@
 
 ### 09.遇到的问题汇总
 #### 9.1 打开项目，项目的settings.gradle 文件报红
--
+- 报错如下所示
     - ![image](https://upload-images.jianshu.io/upload_images/4432347-c14425a90970007d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-
 
 
 
