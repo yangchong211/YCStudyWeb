@@ -23,7 +23,7 @@ public class AndroidFirstActivity extends AppCompatActivity {
         String params = getIntent().getStringExtra("yc");
         if (!TextUtils.isEmpty(params)) {
             Toast.makeText(this, "逗比" + params, Toast.LENGTH_SHORT).show();
-            tv.setText("flutter 传参普通字符串:" + params);
+            tv.setText("flutter 传参到Android普通字符串:" + params);
         }
     }
 

@@ -16,7 +16,7 @@
 
 ### 00.前言介绍
 - 关于该flutter和Android混合开发案例apk
-    - [下载apk]()
+    - [下载apk](https://github.com/yangchong211/YCHybridFlutter/tree/master/YCAndroid/apk)
 - 项目截图展示
     - ![image](https://github.com/yangchong211/YCHybridFlutter/blob/master/YCAndroid/image/1.jpg)
     - ![image](https://github.com/yangchong211/YCHybridFlutter/blob/master/YCAndroid/image/2.jpg)
@@ -85,7 +85,7 @@
 
 
 ### 03.Android跳转flutter
-#### 3.1 原生跳转flutter页面
+#### 3.1 原生跳转flutter页面【Native端 调用 Flutter端】
 - Android原生跳转代码
     ```
     flutterViewAbout = Flutter.createView(
@@ -129,7 +129,7 @@
     }
     ```
 
-#### 3.2 从Android这边传递数据到flutter
+#### 3.2 从Android这边传递数据到flutter【Native端 调用 Flutter端】
 - Android原生传递参数代码
     ```
     new EventChannel(flutterView, ANDROID_TO_FLUTTER_CHANNEL)
@@ -195,7 +195,7 @@
 
 
 ### 04.flutter跳转Android
-#### 4.1 跳转到原生界面，不带参数
+#### 4.1 跳转到原生界面，不带参数【Flutter端 调用 Native端】
 - flutter跳转代码
     ```
     static const toAndroidPlugin = const MethodChannel('com.ycbjie.toandroid/plugin');
@@ -243,7 +243,7 @@
 
 
 
-#### 4.2 跳转到原生界面，带参数
+#### 4.2 跳转到原生界面，带参数【Flutter端 调用 Native端】
 - flutter跳转代码
     ```
     static const toAndroidPlugin = const MethodChannel('com.ycbjie.toandroid/plugin');
@@ -267,8 +267,67 @@
 #### 7.2 第一种方式MethodChannel
 - MethodChannel使用代码
     - 可以直接看4.1代码
-- 注意要点如下所示
-    - 第一点：
+
+#### 7.3 第二种方式EventChannel
+- EventChannel使用代码
+    - 可以直接看3.2代码
+
+
+#### 7.4 第三种方式BasicMessageChannel【应用场景：以前两种都不一样，互相调用】
+- 在Android原生代码中
+    ```
+    /**
+     * 应用场景：以前两种都不一样，互相调用
+     */
+    private void createBasicMessageChannel() {
+        BasicMessageChannel<String> channel = new BasicMessageChannel<>(flutterView,
+                ANDROID_AND_FLUTTER_CHANNEL, StringCodec.INSTANCE);
+        //发送消息
+        channel.send("逗比，互相调用场景：我是Native发送的消息");
+        //接收消息
+        channel.setMessageHandler(new BasicMessageChannel.MessageHandler<String>() {
+            @Override
+            public void onMessage(String s, BasicMessageChannel.Reply<String> reply) {
+                reply.reply("It is reply from native");
+                Log.e("BasicMessageChannel",s);
+                Log.e("BasicMessageChannel",reply.toString());
+                Intent intent = new Intent(MainActivity.this, AndroidFirstActivity.class);
+                intent.putExtra("yc", s);
+                startActivity(intent);
+            }
+        });
+    }
+    ```
+- 在flutter代码中
+    ```
+    static const ycPlugin = const BasicMessageChannel('com.ycbjie.androidAndFlutter/plugin',StringCodec());
+
+    //BasicMessageChannel互相调用，接收消息
+    ycPlugin.setMessageHandler((str){
+      _nativeParams2 = str;
+    });
+
+    // 发送消息
+    ycPlugin.send("点击回掉信息");
+    ```
+- 测试结果
+    - 在Android原生代码中发送消息，flutter接收失败。后期再深入研究通信机制
+    - 在flutter代码中回调信息，Android原生代码接收消息成功
+
+
+
+#### 7.5 注意要点如下所示
+- 第一点：方法名称
+    - com.ycbjie.toandroid/plugin，可以不采取包名，对应一致即可，不同的方式最好不要重复
+- 第二点：关于消息编解码器
+    - StandardMethodCodec()非必传，默认是StandardMethodCodec.INSTANCE。
+    - 对于 MethodChannel 和 EventChannel 两种方式，有两种编解码器，均实现自MethodCodec ，分别为 StandardMethodCodec 和 JsonMethodCodec。
+    - 对于 BasicMessageChannel 方式，有四种编解码器，均实现自MessageCodec ，分别为 StandardMessageCodec、JSONMessageCodec、StringCodec和BinaryCodec。
+- 第三点：关于监听方式
+    - MethodChannel - setMethodCallHandler()
+    - EventChannel - setStreamHandler()
+    - BasicMessageChannel - setMessageHandler()
+
 
 
 
@@ -287,6 +346,7 @@
 
 #### 8.3 集成方案对比【图片摘自网络】
 - ![image](https://upload-images.jianshu.io/upload_images/4432347-d537ae7130636c7d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 
 
 ### 09.遇到的问题汇总

@@ -53,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
   // ignore: cancel_subscriptions
   StreamSubscription _fromAndroidSub;
 
-  var _nativeParams;
+  var _nativeParams1;
 
   @override
   void initState() {
@@ -92,14 +92,14 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _onFromAndroidEvent(Object event) {
     setState(() {
-      _nativeParams = event;
+      _nativeParams1 = event;
     });
   }
 
   //接收失败
   void _onFromAndroidError(Object error) {
     setState(() {
-      _nativeParams = "error";
+      _nativeParams1 = "error";
       print(error);
     });
   }
@@ -125,6 +125,7 @@ class _MyHomePageState extends State<MyHomePage> {
     String result = await toAndroidPlugin.invokeMethod('android', map);
     print(result);
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -170,9 +171,9 @@ class _MyHomePageState extends State<MyHomePage> {
               new Padding(
                 padding: const EdgeInsets.only(
                     left: 10.0, top: 10.0, right: 10.0),
-                child: new Text('这是一个从原生获取的参数：$_nativeParams'),
-              )
-              , new Padding(
+                child: new Text('EventChannel 这是一个从原生获取的参数：$_nativeParams1'),
+              ),
+              new Padding(
                 padding: const EdgeInsets.only(
                     left: 10.0, top: 10.0, right: 10.0),
                 child: new Text('Flutter 按钮 点击次数$_counter'),
