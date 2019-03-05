@@ -258,6 +258,13 @@
     - 同4.1处理逻辑
 
 
+### 07.通信Channel介绍
+#### 7.1 两端通信Flutter Platform Channel的使用
+    - Flutter提供 MethodChannel、EventChannel、BasicMessageChannel 三种方式
+    - 类似注册监听，发送的模式原则。使用顺序：先注册，后发送，否则接收不到。尤其使用 MethodChannel、EventChannel 不符合该原则会抛出异常，BasicMessageChannel方式只是收不到消息
+
+
+
 
 ### 08.混合开发优劣
 #### 8.1 混合开发必备条件
