@@ -10,6 +10,7 @@
 - 06.返回键问题
 - 07.通信Channel介绍
 - 08.混合开发优劣
+- 09.遇到的问题汇总
 
 
 
@@ -44,7 +45,7 @@
     - 代码如下所示
         ```
         include ':app'
-        //网上好多博客是这样写的，注意有可能会出现坑，在2.3中会说到
+        //网上好多博客是这样写的，注意有可能会出现坑，在1.3中会说到
         setBinding(new Binding([gradle: this]))                                 // new
         evaluate(new File(                                                      // new
                 settingsDir.parentFile,                                               // new
@@ -97,7 +98,7 @@
     layout.topMargin = 0;
     addContentView(flutterViewAbout, layout);
     ```
-- flutter接手处理代码
+- flutter接收并处理代码
     ```
     class MyApp extends StatelessWidget {
       // This widget is the root of your application.
@@ -119,6 +120,7 @@
         case 'yc_route':
           return  MyHomePage(title: '匹配到了，这个是flutter页面');
         case 'yc':
+          //接收到了匹配的规则，跳转到flutter指定页面
           return AboutMePage();
         default:
           return  MyHomePage(title: '没有匹配到，查看route是否一致');
@@ -273,7 +275,10 @@
 - ![image](https://upload-images.jianshu.io/upload_images/4432347-d537ae7130636c7d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 
-
+### 09.遇到的问题汇总
+#### 9.1 打开项目，项目的settings.gradle 文件报红
+-
+    - ![image](https://upload-images.jianshu.io/upload_images/4432347-c14425a90970007d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 
 
