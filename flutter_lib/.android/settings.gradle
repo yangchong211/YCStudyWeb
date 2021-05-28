@@ -2,5 +2,11 @@
 include ':app'
 
 rootProject.name = 'android_generated'
-setBinding(new Binding([gradle: this]))
-evaluate(new File('include_flutter.groovy'))
+//setBinding(new Binding([gradle: this]))
+//evaluate(new File('include_flutter.groovy'))
+
+setBinding(new Binding([gradle:this]))
+evaluate(new File(
+        settingsDir.parentFile,'flutter_lib/.android/include_flutter.groovy'
+))
+
