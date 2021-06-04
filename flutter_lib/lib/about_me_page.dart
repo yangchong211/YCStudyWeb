@@ -25,6 +25,7 @@ class AboutMeState extends State<AboutMePage> {
   void initState() {
     super.initState();
     //BasicMessageChannel互相调用，接收消息
+    // ignore: missing_return
     ycPlugin.setMessageHandler((str){
       _nativeParams2 = str;
     });
