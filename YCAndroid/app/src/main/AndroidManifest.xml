@@ -22,6 +22,7 @@
         <activity android:name=".DouBiActivity"/>
         <activity android:name=".FirstActivity"/>
         <activity android:name=".SecondActivity"/>
+        <activity android:name=".container.FlutterViewActivity"/>
     </application>
 
 </manifest>

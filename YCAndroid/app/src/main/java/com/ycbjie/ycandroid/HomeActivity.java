@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.ycbjie.ycandroid.container.FlutterViewActivity;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +35,7 @@ import io.flutter.embedding.android.FlutterView;
  */
 public class HomeActivity extends AppCompatActivity {
 
-    private TextView textView;
+    private TextView tvContainer;
     private TextView tvFlutter;
     private TextView tvFlutter1;
     private FrameLayout frameLayout;
@@ -54,7 +56,6 @@ public class HomeActivity extends AppCompatActivity {
      * 应用场景：以前两种都不一样，互相调用
      */
     public static final String ANDROID_AND_FLUTTER_CHANNEL = "com.ycbjie.androidAndFlutter/plugin";
-    private static final String INIT_ROUTE = "yc_route";
 
 
     @SuppressLint("SetTextI18n")
@@ -62,7 +63,7 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        textView = findViewById(R.id.params);
+        tvContainer = findViewById(R.id.tv_container);
         tvFlutter = findViewById(R.id.tv_flutter);
         tvFlutter1 = findViewById(R.id.tv_flutter1);
         frameLayout = findViewById(R.id.rl_flutter);
@@ -91,6 +92,12 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void initListener() {
+        tvContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeActivity.this, FlutterViewActivity.class));
+            }
+        });
         tvFlutter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

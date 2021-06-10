@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/params"
+        android:id="@+id/tv_container"
         android:layout_marginTop="10dp"
         android:padding="10dp"
         android:layout_width="match_parent"
@@ -13,11 +13,11 @@
         android:layout_centerHorizontal="true"
         android:background="@color/colorAccent"
         android:gravity="center"
-        android:text="我是原生文本控件" />
+        android:text="测试Android几种承载flutter容器" />
 
     <TextView
         android:id="@+id/tv_flutter"
-        android:layout_below="@+id/params"
+        android:layout_below="@+id/tv_container"
         android:layout_marginTop="10dp"
         android:padding="10dp"
         android:layout_width="match_parent"
@@ -37,7 +37,7 @@
         android:layout_centerHorizontal="true"
         android:background="@color/colorAccent"
         android:gravity="center"
-        android:text="从原生跳转到flutter页面，互相调用传递数据" />
+        android:text="使用" />
 
     <FrameLayout
         android:id="@+id/rl_flutter"
