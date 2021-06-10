@@ -11,8 +11,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.ycbjie.ycandroid.container.FlutterActivity;
-import com.ycbjie.ycandroid.container.FlutterViewActivity;
+import com.ycbjie.ycandroid.channel.ChannelActivity;
+import com.ycbjie.ycandroid.container.FlutterContainerActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,24 +39,22 @@ public class HomeActivity extends AppCompatActivity {
     private TextView tvContainer;
     private TextView tvFlutter;
     private TextView tvFlutter1;
+    private TextView tvChannel;
     private FrameLayout frameLayout;
     private FlutterView flutterView;
     private FlutterView flutterViewAbout;
     private FlutterEngine flutterEngine;
     private BinaryMessenger binaryMessenger;
 
-    /**
-     * 从flutter这边传递数据到Android
-     */
-    public static final String FLUTTER_TO_ANDROID_CHANNEL = "com.ycbjie.toandroid/plugin";
+
     /**
      * 从Android这边传递数据到flutter
      */
-    public static final String ANDROID_TO_FLUTTER_CHANNEL = "com.ycbjie.toflutter/plugin";
+    public static final String ANDROID_TO_FLUTTER_CHANNEL = "com.ycbjie.android/event";
     /**
      * 应用场景：以前两种都不一样，互相调用
      */
-    public static final String ANDROID_AND_FLUTTER_CHANNEL = "com.ycbjie.androidAndFlutter/plugin";
+    public static final String ANDROID_AND_FLUTTER_CHANNEL = "com.ycbjie.android/basic";
 
 
     @SuppressLint("SetTextI18n")
@@ -67,11 +65,11 @@ public class HomeActivity extends AppCompatActivity {
         tvContainer = findViewById(R.id.tv_container);
         tvFlutter = findViewById(R.id.tv_flutter);
         tvFlutter1 = findViewById(R.id.tv_flutter1);
+        tvChannel = findViewById(R.id.tv_channel);
         frameLayout = findViewById(R.id.rl_flutter);
         initListener();
         addFlutterView();
         createEventChannel();
-        createMethodChannel();
     }
 
     @Override
@@ -96,7 +94,7 @@ public class HomeActivity extends AppCompatActivity {
         tvContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(HomeActivity.this, FlutterActivity.class));
+                startActivity(new Intent(HomeActivity.this, FlutterContainerActivity.class));
             }
         });
         tvFlutter.setOnClickListener(new View.OnClickListener() {
@@ -109,6 +107,12 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 toFlutterPage2();
+            }
+        });
+        tvChannel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(HomeActivity.this, ChannelActivity.class));
             }
         });
     }
@@ -147,47 +151,6 @@ public class HomeActivity extends AppCompatActivity {
                     }
                 });
     }
-
-
-    /**
-     * 从flutter这边传递数据到Android
-     * 这里负责接收数据
-     */
-    private void createMethodChannel() {
-        new MethodChannel(binaryMessenger, FLUTTER_TO_ANDROID_CHANNEL,StandardMethodCodec.INSTANCE)
-                .setMethodCallHandler(new MethodChannel.MethodCallHandler() {
-            @Override
-            public void onMethodCall(MethodCall methodCall, MethodChannel.Result result) {
-                if ("doubi".equals(methodCall.method)) {
-                    //接收来自flutter的指令
-                    //跳转到指定Activity
-                    Intent intent = new Intent(HomeActivity.this, DouBiActivity.class);
-                    startActivity(intent);
-                    //返回给flutter的参数
-                    result.success("success");
-                } else if ("android".equals(methodCall.method)) {
-                    //接收来自flutter的指令
-                    //解析参数
-                    Object text = methodCall.argument("flutter");
-                    if (text instanceof String){
-                        //带参数跳转到指定Activity
-                        Intent intent = new Intent(HomeActivity.this, FirstActivity.class);
-                        intent.putExtra("yc", (String) text);
-                        startActivity(intent);
-                    }else if (text instanceof List){
-                        Intent intent = new Intent(HomeActivity.this, SecondActivity.class);
-                        intent.putStringArrayListExtra("yc", (ArrayList<String>) text);
-                        startActivity(intent);
-                    }
-                    //返回给flutter的参数
-                    result.success("success");
-                } else {
-                    result.notImplemented();
-                }
-            }
-        });
-    }
-
 
     /**
      * 应用场景：以前两种都不一样，互相调用

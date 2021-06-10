@@ -18,7 +18,7 @@ class AboutMePage extends  StatefulWidget{
 
 class AboutMeState extends State<AboutMePage> {
 
-  static const ycPlugin = const BasicMessageChannel('com.ycbjie.androidAndFlutter/plugin',StringCodec());
+  static const ycPlugin = const BasicMessageChannel('com.ycbjie.android/basic',StringCodec());
   var _nativeParams2;
 
   @override

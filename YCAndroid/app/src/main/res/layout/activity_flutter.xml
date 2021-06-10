@@ -37,7 +37,18 @@
         android:layout_centerHorizontal="true"
         android:background="@color/colorAccent"
         android:gravity="left"
-        android:text="3.使用FlutterView引入flutter" />
+        android:text="3.FlutterFragment改进版引入flutter" />
 
+
+    <TextView
+        android:id="@+id/tv_4"
+        android:layout_marginTop="10dp"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:background="@color/colorAccent"
+        android:gravity="left"
+        android:text="4.使用FlutterActivity引入flutter" />
 
 </LinearLayout>

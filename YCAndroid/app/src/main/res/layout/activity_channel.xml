@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <TextView
-        android:id="@+id/tv_container"
+        android:id="@+id/tv_1"
         android:layout_marginTop="10dp"
         android:padding="10dp"
         android:layout_width="match_parent"
@@ -13,11 +14,11 @@
         android:layout_centerHorizontal="true"
         android:background="@color/colorAccent"
         android:gravity="left"
-        android:text="测试Android几种承载flutter容器" />
+        android:text="1.使用MethodChannel进行交互" />
+
 
     <TextView
-        android:id="@+id/tv_flutter"
-        android:layout_below="@+id/tv_container"
+        android:id="@+id/tv_2"
         android:layout_marginTop="10dp"
         android:padding="10dp"
         android:layout_width="match_parent"
@@ -25,11 +26,10 @@
         android:layout_centerHorizontal="true"
         android:background="@color/colorAccent"
         android:gravity="left"
-        android:text="从原生跳转到flutter页面" />
+        android:text="2.使用FlutterFragment引入flutter" />
 
     <TextView
-        android:id="@+id/tv_flutter1"
-        android:layout_below="@+id/tv_flutter"
+        android:id="@+id/tv_3"
         android:layout_marginTop="10dp"
         android:padding="10dp"
         android:layout_width="match_parent"
@@ -37,11 +37,11 @@
         android:layout_centerHorizontal="true"
         android:background="@color/colorAccent"
         android:gravity="left"
-        android:text="使用" />
+        android:text="3.FlutterFragment改进版引入flutter" />
+
 
     <TextView
-        android:id="@+id/tv_channel"
-        android:layout_below="@+id/tv_flutter1"
+        android:id="@+id/tv_4"
         android:layout_marginTop="10dp"
         android:padding="10dp"
         android:layout_width="match_parent"
@@ -49,15 +49,6 @@
         android:layout_centerHorizontal="true"
         android:background="@color/colorAccent"
         android:gravity="left"
-        android:text="使用Channel进行Android原生与Flutter交互" />
+        android:text="4.使用FlutterActivity引入flutter" />
 
-    <FrameLayout
-        android:id="@+id/rl_flutter"
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/tv_channel">
-    </FrameLayout>
-
-
-</RelativeLayout>
+</LinearLayout>
