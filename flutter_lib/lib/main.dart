@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'dart:async';
 
 import 'package:flutter_lib/about_me_page.dart';
+import 'package:flutter_lib/net_work_page.dart';
 
 void main() => runApp(new MyApp());
 
@@ -29,6 +30,8 @@ Widget _widgetForRoute(String route) {
       return  MyHomePage(title: '匹配到了，这个是flutter页面');
     case 'yc':
       return AboutMePage();
+    case 'net':
+      return NetWorkPage();
     default:
       return  MyHomePage(title: '没有匹配到，查看route是否一致');
   }

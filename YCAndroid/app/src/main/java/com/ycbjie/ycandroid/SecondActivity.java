@@ -2,17 +2,18 @@ package com.ycbjie.ycandroid;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
 /**
  * @author yc
  */
-public class AndroidSecondActivity extends AppCompatActivity {
+public class SecondActivity extends AppCompatActivity {
 
     @SuppressLint("SetTextI18n")
     @Override
