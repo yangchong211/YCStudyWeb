@@ -13,7 +13,7 @@
         android:layout_centerHorizontal="true"
         android:background="@color/colorAccent"
         android:gravity="center"
-        android:text="使用FlutterView引入flutter" />
+        android:text="使用FlutterFragment引入flutter" />
 
     <FrameLayout
         android:id="@+id/rl_flutter"

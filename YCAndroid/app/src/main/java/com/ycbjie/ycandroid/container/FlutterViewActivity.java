@@ -27,7 +27,7 @@ public class FlutterViewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dou_bi);
+        setContentView(R.layout.activity_flutter_view);
         rlFlutter = findViewById(R.id.rl_flutter);
         addFlutterView();
     }
@@ -35,6 +35,9 @@ public class FlutterViewActivity extends AppCompatActivity {
     /**
      * 分别在onResume()、onPause()和onStop()方法中调用了LifecycleChannel的appIsResumed()、
      * appIsInactive()和appIsPaused()方法，作用就是同步Flutter端与原生端的生命周期。
+     *
+     * 猜想可能是FlutterVIew的渲染机制有了一些变化，在接收到原生端对应生命周期方法中发送的通知才会显示。
+     * todo 研究下原理
      */
     @Override
     protected void onResume() {
@@ -71,6 +74,9 @@ public class FlutterViewActivity extends AppCompatActivity {
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT);
         rlFlutter.addView(flutterView, lp);
+
+        //flutterEngine.getNavigationChannel().setInitialRoute("yc");
+
         // 关键代码，将Flutter页面显示到FlutterView中
         // 这个方法的作用就是将Flutter编写的UI页面显示到FlutterView中
         // flutterEngine的类型为FlutterEngine，字面意思就是Flutter引擎
@@ -79,6 +85,6 @@ public class FlutterViewActivity extends AppCompatActivity {
 
         // FlutterEngine加载的路由名称为"/"，我们可以通过下面的代码指定初始路由名称
         // 传参的情况没有变化，直接在路由名称后面拼接参数就可以
-        flutterEngine.getNavigationChannel().setInitialRoute("yc");
+         flutterEngine.getNavigationChannel().setInitialRoute("yc");
     }
 }

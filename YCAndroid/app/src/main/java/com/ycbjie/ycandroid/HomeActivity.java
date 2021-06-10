@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.ycbjie.ycandroid.container.FlutterActivity;
 import com.ycbjie.ycandroid.container.FlutterViewActivity;
 
 import java.util.ArrayList;
@@ -95,7 +96,7 @@ public class HomeActivity extends AppCompatActivity {
         tvContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(HomeActivity.this, FlutterViewActivity.class));
+                startActivity(new Intent(HomeActivity.this, FlutterActivity.class));
             }
         });
         tvFlutter.setOnClickListener(new View.OnClickListener() {
