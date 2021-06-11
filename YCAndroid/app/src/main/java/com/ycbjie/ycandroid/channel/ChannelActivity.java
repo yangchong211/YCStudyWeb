@@ -46,10 +46,10 @@ public class ChannelActivity extends AppCompatActivity implements View.OnClickLi
                 startActivity(new Intent(this, MethodChannelActivity.class));
                 break;
             case R.id.tv_2:
-                startActivity(new Intent(this, FlutterFragmentActivity.class));
+                startActivity(new Intent(this, EventChannelActivity.class));
                 break;
             case R.id.tv_3:
-                startActivity(new Intent(this, FlutterFragmentCachedActivity.class));
+                startActivity(new Intent(this, BasicChannelActivity.class));
                 break;
             case R.id.tv_4:
                 startActivity(new Intent(this, FlutterFragmentCachedActivity.class));

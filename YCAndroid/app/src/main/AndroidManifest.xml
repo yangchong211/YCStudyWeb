@@ -28,6 +28,8 @@
         <activity android:name=".container.FlutterFragmentCachedActivity"/>
         <activity android:name=".channel.ChannelActivity"/>
         <activity android:name=".channel.MethodChannelActivity"/>
+        <activity android:name=".channel.EventChannelActivity"/>
+        <activity android:name=".channel.BasicChannelActivity"/>
 
 
         <activity

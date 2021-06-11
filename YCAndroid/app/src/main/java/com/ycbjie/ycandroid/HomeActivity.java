@@ -48,10 +48,6 @@ public class HomeActivity extends AppCompatActivity {
 
 
     /**
-     * 从Android这边传递数据到flutter
-     */
-    public static final String ANDROID_TO_FLUTTER_CHANNEL = "com.ycbjie.android/event";
-    /**
      * 应用场景：以前两种都不一样，互相调用
      */
     public static final String ANDROID_AND_FLUTTER_CHANNEL = "com.ycbjie.android/basic";
@@ -69,7 +65,6 @@ public class HomeActivity extends AppCompatActivity {
         frameLayout = findViewById(R.id.rl_flutter);
         initListener();
         addFlutterView();
-        createEventChannel();
     }
 
     @Override
@@ -134,49 +129,10 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     /**
-     * 从Android这边传递数据到flutter
-     */
-    private void createEventChannel() {
-        new EventChannel(binaryMessenger, ANDROID_TO_FLUTTER_CHANNEL)
-                .setStreamHandler(new EventChannel.StreamHandler() {
-                    @Override
-                    public void onListen(Object o, EventChannel.EventSink eventSink) {
-                        String android = "逗比，来自android原生的参数";
-                        eventSink.success(android);
-                    }
-
-                    @Override
-                    public void onCancel(Object o) {
-
-                    }
-                });
-    }
-
-    /**
      * 应用场景：以前两种都不一样，互相调用
      */
     private void createBasicMessageChannel(FlutterView flutterViewAbout) {
-        BasicMessageChannel<String> channel = new BasicMessageChannel(binaryMessenger,
-                ANDROID_AND_FLUTTER_CHANNEL, StringCodec.INSTANCE);
-        //发送消息
-        channel.send("逗比，互相调用场景：我是Native发送的消息", new BasicMessageChannel.Reply<String>() {
-            @Override
-            public void reply(String s) {
-                Log.e("BasicMessageChannel发送消息",s);
-            }
-        });
-        //接收消息
-        channel.setMessageHandler(new BasicMessageChannel.MessageHandler<String>() {
-            @Override
-            public void onMessage(String s, BasicMessageChannel.Reply<String> reply) {
-                reply.reply("It is reply from native");
-                Log.e("BasicMessageChannel",s);
-                Log.e("BasicMessageChannel",reply.toString());
-                Intent intent = new Intent(HomeActivity.this, FirstActivity.class);
-                intent.putExtra("yc", s);
-                startActivity(intent);
-            }
-        });
+
     }
 
 

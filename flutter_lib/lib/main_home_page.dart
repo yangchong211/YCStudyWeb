@@ -1,8 +1,5 @@
 
-
-
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -20,7 +17,7 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   //获取到插件与原生的交互通道
   static const method = const MethodChannel('com.ycbjie.android/method');
-  static const fromAndroidPlugin = const EventChannel('com.ycbjie.android/event');
+  static const event = const EventChannel('com.ycbjie.android/event');
 
   // ignore: cancel_subscriptions
   StreamSubscription _fromAndroidSub;
@@ -76,18 +73,19 @@ class _MyHomePageState extends State<MyHomePage> {
   // 从Android原生项目接收传递的参数
   void _startFromAndroidPlugin(){
     if(_fromAndroidSub == null){
-      _fromAndroidSub =  fromAndroidPlugin.receiveBroadcastStream()
+      _fromAndroidSub =  event.receiveBroadcastStream()
           .listen(_onFromAndroidEvent,onError: _onFromAndroidError);
     }
   }
 
+  ///event事件交互成功监听
   void _onFromAndroidEvent(Object event) {
     setState(() {
       _nativeParams1 = event;
     });
   }
 
-  //接收失败
+  ///event事件交互失败监听
   void _onFromAndroidError(Object error) {
     setState(() {
       _nativeParams1 = "error";
