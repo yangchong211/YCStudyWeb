@@ -97,7 +97,7 @@ public class BasicChannelActivity extends AppCompatActivity implements View.OnCl
         flutterEngine = new FlutterEngine(this);
         dartExecutor = flutterEngine.getDartExecutor();
         binaryMessenger = dartExecutor.getBinaryMessenger();
-        flutterEngine.getNavigationChannel().setInitialRoute("yc_route");
+        flutterEngine.getNavigationChannel().setInitialRoute("basic_channel");
         flutterEngine.getDartExecutor().executeDartEntrypoint(
                 DartExecutor.DartEntrypoint.createDefault()
         );

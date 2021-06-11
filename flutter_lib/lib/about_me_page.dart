@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 /*
  * <pre>
  *     @author yangchong
@@ -18,17 +17,9 @@ class AboutMePage extends  StatefulWidget{
 
 class AboutMeState extends State<AboutMePage> {
 
-  static const ycPlugin = const BasicMessageChannel('com.ycbjie.android/basic',StringCodec());
-  var _nativeParams2;
-
   @override
   void initState() {
     super.initState();
-    //BasicMessageChannel互相调用，接收消息
-    // ignore: missing_return
-    ycPlugin.setMessageHandler((str){
-      _nativeParams2 = str;
-    });
   }
 
   @override
@@ -43,11 +34,6 @@ class AboutMeState extends State<AboutMePage> {
       body: new ListView(
         padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
         children: <Widget>[
-          new Padding(
-            padding: const EdgeInsets.only(
-                left: 10.0, top: 10.0, right: 10.0),
-            child: new Text('BasicMessageChannel 这是一个从原生获取的参数：$_nativeParams2'),
-          ),
           about,
           api,
           new ListTile(
@@ -70,15 +56,11 @@ class AboutMeState extends State<AboutMePage> {
         subtitle: const Text('(BasicMessageChannel点击回数据)'),
         trailing:  Icon(Icons.arrow_forward, color: Colors.black),
         onTap: () {
-          _jumpToNativeWithParams();
+
         });
     return layout;
   }
 
-  Future<Null> _jumpToNativeWithParams() async {
-    // 发送消息
-    ycPlugin.send("点击回掉信息");
-  }
 
 
   Widget initApiWidget() {

@@ -108,7 +108,7 @@ public class MethodChannelActivity extends AppCompatActivity implements View.OnC
         flutterEngine = new FlutterEngine(this);
         dartExecutor = flutterEngine.getDartExecutor();
         binaryMessenger = dartExecutor.getBinaryMessenger();
-        flutterEngine.getNavigationChannel().setInitialRoute("yc_route");
+        flutterEngine.getNavigationChannel().setInitialRoute("method_channel");
         flutterEngine.getDartExecutor().executeDartEntrypoint(
                 DartExecutor.DartEntrypoint.createDefault()
         );

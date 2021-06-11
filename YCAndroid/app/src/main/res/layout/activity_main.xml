@@ -16,32 +16,8 @@
         android:text="测试Android几种承载flutter容器" />
 
     <TextView
-        android:id="@+id/tv_flutter"
-        android:layout_below="@+id/tv_container"
-        android:layout_marginTop="10dp"
-        android:padding="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:background="@color/colorAccent"
-        android:gravity="left"
-        android:text="从原生跳转到flutter页面" />
-
-    <TextView
-        android:id="@+id/tv_flutter1"
-        android:layout_below="@+id/tv_flutter"
-        android:layout_marginTop="10dp"
-        android:padding="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:background="@color/colorAccent"
-        android:gravity="left"
-        android:text="使用" />
-
-    <TextView
         android:id="@+id/tv_channel"
-        android:layout_below="@+id/tv_flutter1"
+        android:layout_below="@+id/tv_container"
         android:layout_marginTop="10dp"
         android:padding="10dp"
         android:layout_width="match_parent"

@@ -106,7 +106,7 @@ public class EventChannelActivity extends AppCompatActivity implements View.OnCl
         flutterEngine = new FlutterEngine(this);
         dartExecutor = flutterEngine.getDartExecutor();
         binaryMessenger = dartExecutor.getBinaryMessenger();
-        flutterEngine.getNavigationChannel().setInitialRoute("yc_route");
+        flutterEngine.getNavigationChannel().setInitialRoute("event_channel");
         flutterEngine.getDartExecutor().executeDartEntrypoint(
                 DartExecutor.DartEntrypoint.createDefault()
         );

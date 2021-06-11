@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_lib/dio_utils.dart';
+import 'package:flutter_lib/network/dio_utils.dart';
 
 class NetWorkPage extends StatefulWidget {
   @override
