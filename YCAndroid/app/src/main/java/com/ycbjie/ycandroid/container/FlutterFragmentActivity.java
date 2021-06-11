@@ -60,7 +60,8 @@ public class FlutterFragmentActivity extends AppCompatActivity {
         // 错误原因是这里的delegate为null，全局搜索一下，发现在FlutterFragment的onAttach()方法中会对delegate赋值，也就是说明此时没有执行onAttach()方法。
         // 猜测这就是由于上面提到过的FlutterEngine的warm-up机制，这是一个耗时过程，
         // 因此FlutterFragment并不会立刻执行onAttach()方法，导致我们在Activity的onCreate()方法中直接使用FlutterFragment的getFlutterEngine()方法会抛出异常。
-        FlutterEngine flutterEngine = flutterFragment.getFlutterEngine();
+        // 调用下面这句话会空指针崩溃
+        // FlutterEngine flutterEngine = flutterFragment.getFlutterEngine();
     }
 
 

@@ -19,8 +19,6 @@ class _MethodChannelState extends State<MethodChannelPage> {
   //获取到插件与原生的交互通道
   static const method = const MethodChannel('com.ycbjie.android/method');
 
-  // ignore: cancel_subscriptions
-  StreamSubscription _fromAndroidSub;
 
   var _nativeParams2;
   var _methodResult1 = "";

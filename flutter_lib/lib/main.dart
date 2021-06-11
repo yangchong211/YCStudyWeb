@@ -22,13 +22,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-
-      onGenerateRoute: (RouteSettings settings) {
-        return AnimationPageRoute(builder: (context) {
-          return Router.parseRouter(settings.name, settings.arguments);
-        });
-      },
-      //home:  _widgetForRoute(window.defaultRouteName),
+      // onGenerateRoute: (RouteSettings settings) {
+      //   return AnimationPageRoute(builder: (context) {
+      //     return Router.parseRouter(settings.name, settings.arguments);
+      //   });
+      // },
+      home:  _widgetForRoute(window.defaultRouteName),
     );
   }
 

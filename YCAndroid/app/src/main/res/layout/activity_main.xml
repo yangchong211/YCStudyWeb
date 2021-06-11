@@ -15,8 +15,9 @@
         android:gravity="left"
         android:text="测试Android几种承载flutter容器" />
 
+
     <TextView
-        android:id="@+id/tv_channel"
+        android:id="@+id/tv_router"
         android:layout_below="@+id/tv_container"
         android:layout_marginTop="10dp"
         android:padding="10dp"
@@ -25,7 +26,20 @@
         android:layout_centerHorizontal="true"
         android:background="@color/colorAccent"
         android:gravity="left"
-        android:text="使用Channel进行Android原生与Flutter交互" />
+        android:text="测试混合路由原生和flutter相互跳转" />
+
+
+    <TextView
+        android:id="@+id/tv_channel"
+        android:layout_below="@+id/tv_router"
+        android:layout_marginTop="10dp"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:background="@color/colorAccent"
+        android:gravity="left"
+        android:text="测试Channel进行Android原生与Flutter交互" />
 
     <FrameLayout
         android:id="@+id/rl_flutter"
