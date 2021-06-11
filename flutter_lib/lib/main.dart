@@ -43,13 +43,13 @@ class MyApp extends StatelessWidget {
         return NetWorkPage();
       case 'method_channel':
       //method通信
-        return MethodChannelPage();
+        return MethodChannelPage(title: '匹配到，测试method_channel通信');
       case 'event_channel':
       //event通信
-        return EventChannelPage();
+        return EventChannelPage(title: '匹配到，测试event_channel通信');
       case 'basic_channel':
       //basic通信
-        return BasicChannelPage();
+        return BasicChannelPage(title: '匹配到，测试basic_channel通信');
       default:
         return  MyHomePage(title: '没有匹配到，查看route是否一致1');
     }

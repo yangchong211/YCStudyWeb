@@ -21,10 +21,10 @@ class _EventChannelState extends State<EventChannelPage> {
   // ignore: cancel_subscriptions
   StreamSubscription _fromAndroidSub;
 
-  var _nativeParams;
-  var _methodResult1 = "";
-  var _methodResult2 = "";
-  var _methodResult3 = "";
+  var _nativeParams1;
+  var _nativeParams2;
+
+
   @override
   void initState() {
     super.initState();
@@ -61,14 +61,19 @@ class _EventChannelState extends State<EventChannelPage> {
   ///event事件交互成功监听
   void _onFromAndroidEvent(Object event) {
     setState(() {
-      _nativeParams = event;
+      if(event is String){
+        _nativeParams1 = event;
+      } else {
+        Map<String , String> map = event;
+        _nativeParams2 = map["invokeKey"];
+      }
     });
   }
 
   ///event事件交互失败监听
   void _onFromAndroidError(Object error) {
     setState(() {
-      _nativeParams = "error";
+      _nativeParams1 = "error";
       print(error);
     });
   }
@@ -85,38 +90,14 @@ class _EventChannelState extends State<EventChannelPage> {
           child: new ListView(
             children: <Widget>[
               new Padding(
-                padding: const EdgeInsets.only(left: 10.0, top: 10.0, right: 10.0),
-                child: new RaisedButton(
-                    textColor: Colors.black,
-                    child: new Text('跳转到原生逗比界面，回调结果：$_methodResult1'),
-                    onPressed: () {
-
-                    }),
+                padding: const EdgeInsets.only(
+                    left: 10.0, top: 10.0, right: 10.0),
+                child: new Text('EventChannel 这是一个从原生获取的参数1：$_nativeParams1'),
               ),
               new Padding(
                 padding: const EdgeInsets.only(
                     left: 10.0, top: 10.0, right: 10.0),
-                child: new RaisedButton(
-                    textColor: Colors.black,
-                    child: new Text('跳转到原生界面(带参数Str)，回调结果：$_methodResult2'),
-                    onPressed: () {
-
-                    }),
-              ),
-              new Padding(
-                padding: const EdgeInsets.only(
-                    left: 10.0, top: 10.0, right: 10.0),
-                child: new RaisedButton(
-                    textColor: Colors.black,
-                    child: new Text('跳转到原生界面(带参数List)，回调结果：$_methodResult3'),
-                    onPressed: () {
-
-                    }),
-              ),
-              new Padding(
-                padding: const EdgeInsets.only(
-                    left: 10.0, top: 10.0, right: 10.0),
-                child: new Text('EventChannel 这是一个从原生获取的参数：$_nativeParams'),
+                child: new Text('EventChannel 这是一个从原生获取的参数2：$_nativeParams2'),
               ),
               new Padding(
                 padding: const EdgeInsets.only(

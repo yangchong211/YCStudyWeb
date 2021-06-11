@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import io.flutter.Log;
 import io.flutter.embedding.android.FlutterView;
 import io.flutter.embedding.engine.FlutterEngine;
 import io.flutter.embedding.engine.dart.DartExecutor;
@@ -169,7 +170,17 @@ public class EventChannelActivity extends AppCompatActivity implements View.OnCl
         if (nativeChannel!=null){
             HashMap<String , String> map = new HashMap<>();
             map.put("invokeKey","你好，这个是从NA传递过来的数据");
+            nativeChannel.setStreamHandler(new EventChannel.StreamHandler() {
+                @Override
+                public void onListen(Object arguments, EventChannel.EventSink events) {
+                    events.success(map);
+                }
 
+                @Override
+                public void onCancel(Object arguments) {
+
+                }
+            });
         }
     }
 }

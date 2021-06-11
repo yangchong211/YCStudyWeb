@@ -26,7 +26,7 @@
         android:layout_centerHorizontal="true"
         android:background="@color/colorAccent"
         android:gravity="left"
-        android:text="2.使用FlutterFragment引入flutter" />
+        android:text="2.使用EventChannel进行交互" />
 
     <TextView
         android:id="@+id/tv_3"
@@ -37,7 +37,7 @@
         android:layout_centerHorizontal="true"
         android:background="@color/colorAccent"
         android:gravity="left"
-        android:text="3.FlutterFragment改进版引入flutter" />
+        android:text="3.使用BasicMessageChannel进行交互" />
 
 
     <TextView
@@ -49,6 +49,6 @@
         android:layout_centerHorizontal="true"
         android:background="@color/colorAccent"
         android:gravity="left"
-        android:text="4.使用FlutterActivity引入flutter" />
+        android:text="4.使用自定义Channel进行交互" />
 
 </LinearLayout>
