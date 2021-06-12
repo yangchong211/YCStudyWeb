@@ -1,14 +1,16 @@
-package com.ycbjie.ycandroid;
+package com.ycbjie.ycandroid.router;
 
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.ycbjie.ycandroid.R;
+
 /**
  * @author yc
  */
-public class DouBiActivity extends AppCompatActivity {
+public class RouterToNaActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

@@ -1,4 +1,4 @@
-package com.ycbjie.ycandroid;
+package com.ycbjie.ycandroid.router;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -9,10 +9,12 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.ycbjie.ycandroid.R;
+
 /**
  * @author yc
  */
-public class FirstActivity extends AppCompatActivity {
+public class RouterToFlutterActivity extends AppCompatActivity {
 
     @SuppressLint("SetTextI18n")
     @Override

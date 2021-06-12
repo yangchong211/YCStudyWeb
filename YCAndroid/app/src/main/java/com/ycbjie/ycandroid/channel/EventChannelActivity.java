@@ -1,34 +1,23 @@
 package com.ycbjie.ycandroid.channel;
 
-import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.ycbjie.ycandroid.DouBiActivity;
-import com.ycbjie.ycandroid.FirstActivity;
 import com.ycbjie.ycandroid.R;
-import com.ycbjie.ycandroid.SecondActivity;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
-import io.flutter.Log;
 import io.flutter.embedding.android.FlutterView;
 import io.flutter.embedding.engine.FlutterEngine;
 import io.flutter.embedding.engine.dart.DartExecutor;
 import io.flutter.plugin.common.BinaryMessenger;
 import io.flutter.plugin.common.EventChannel;
-import io.flutter.plugin.common.MethodCall;
-import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.StandardMethodCodec;
 
 /**

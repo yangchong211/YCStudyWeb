@@ -1,6 +1,5 @@
 package com.ycbjie.ycandroid.channel;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,7 +10,7 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import com.ycbjie.ycandroid.FirstActivity;
+import com.ycbjie.ycandroid.router.RouterToFlutterActivity;
 import com.ycbjie.ycandroid.R;
 import java.util.HashMap;
 
@@ -145,7 +144,7 @@ public class BasicChannelActivity extends AppCompatActivity implements View.OnCl
             public void onMessage(String s, BasicMessageChannel.Reply<String> reply) {
                 Log.e("BasicMessageChannel",s);
                 Log.e("BasicMessageChannel",reply.toString());
-                Intent intent = new Intent(BasicChannelActivity.this, FirstActivity.class);
+                Intent intent = new Intent(BasicChannelActivity.this, RouterToFlutterActivity.class);
                 intent.putExtra("yc", s);
                 startActivity(intent);
                 reply.reply("Na收到指令");

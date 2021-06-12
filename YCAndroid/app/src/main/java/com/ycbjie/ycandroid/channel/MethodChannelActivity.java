@@ -12,11 +12,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.ycbjie.ycandroid.DouBiActivity;
-import com.ycbjie.ycandroid.FirstActivity;
-import com.ycbjie.ycandroid.HomeActivity;
+import com.ycbjie.ycandroid.router.RouterToNaActivity;
+import com.ycbjie.ycandroid.router.RouterToFlutterActivity;
 import com.ycbjie.ycandroid.R;
-import com.ycbjie.ycandroid.SecondActivity;
+import com.ycbjie.ycandroid.router.SecondActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -157,7 +156,7 @@ public class MethodChannelActivity extends AppCompatActivity implements View.OnC
                 if ("doubi".equals(methodCall.method)) {
                     //接收来自flutter的指令
                     //跳转到指定Activity
-                    Intent intent = new Intent(MethodChannelActivity.this, DouBiActivity.class);
+                    Intent intent = new Intent(MethodChannelActivity.this, RouterToNaActivity.class);
                     startActivity(intent);
                     //返回给flutter的参数
                     result.success("Na收到指令");
@@ -167,7 +166,7 @@ public class MethodChannelActivity extends AppCompatActivity implements View.OnC
                     Object text = methodCall.argument("flutter");
                     if (text instanceof String){
                         //带参数跳转到指定Activity
-                        Intent intent = new Intent(MethodChannelActivity.this, FirstActivity.class);
+                        Intent intent = new Intent(MethodChannelActivity.this, RouterToFlutterActivity.class);
                         intent.putExtra("yc", (String) text);
                         startActivity(intent);
                     }else if (text instanceof List){
