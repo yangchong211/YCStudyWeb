@@ -12,6 +12,7 @@ import com.ycbjie.ycandroid.R;
 import io.flutter.embedding.android.FlutterView;
 import io.flutter.embedding.engine.FlutterEngine;
 import io.flutter.embedding.engine.dart.DartExecutor;
+import io.flutter.embedding.engine.systemchannels.NavigationChannel;
 import io.flutter.plugin.common.BinaryMessenger;
 
 /**
@@ -62,7 +63,9 @@ public class FlutterViewActivity extends AppCompatActivity {
     private void addFlutterView() {
         flutterEngine = new FlutterEngine(this);
         binaryMessenger = flutterEngine.getDartExecutor().getBinaryMessenger();
-        //flutterEngine.getNavigationChannel().setInitialRoute("yc");
+        NavigationChannel navigationChannel = flutterEngine.getNavigationChannel();
+        String route = "yc?{\"name\":\"杨充\"}";
+        navigationChannel.setInitialRoute(route);
         flutterEngine.getDartExecutor().executeDartEntrypoint(
                 DartExecutor.DartEntrypoint.createDefault()
         );
@@ -86,7 +89,7 @@ public class FlutterViewActivity extends AppCompatActivity {
 
         // FlutterEngine加载的路由名称为"/"，我们可以通过下面的代码指定初始路由名称
         // 传参的情况没有变化，直接在路由名称后面拼接参数就可以
-        // 放在这里不生效，思考为什么
-         flutterEngine.getNavigationChannel().setInitialRoute("yc");
+        // todo 放在这里不生效，思考为什么
+        // flutterEngine.getNavigationChannel().setInitialRoute("yc");
     }
 }

@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_lib/about_me_page.dart';
@@ -27,18 +28,21 @@ class MyApp extends StatelessWidget {
       //     return Router.parseRouter(settings.name, settings.arguments);
       //   });
       // },
-      home:  _widgetForRoute(window.defaultRouteName),
+      home:  _widgetForRoute(),
     );
   }
 
 
   //在runApp()方法中通过window.defaultRouteName可以获取到我们在NA代码中路由方法中传入的路由名称
-  Widget _widgetForRoute(String route) {
+  Widget _widgetForRoute() {
+    //var route = window.defaultRouteName;
+    Map<String, dynamic> router = parseRouter();
+    var route = router["route"];
     switch (route) {
       case 'yc_route':
         return  MyHomePage(title: '匹配到了，这个是flutter页面');
       case 'yc':
-        return AboutMePage();
+        return AboutMePage(title: '匹配到了，这个是flutter页面',params : router);
       case 'net':
         return NetWorkPage();
       case 'method_channel':
@@ -54,6 +58,19 @@ class MyApp extends StatelessWidget {
         return  MyHomePage(title: '没有匹配到，查看route是否一致1');
     }
   }
+
+  Map<String, dynamic> parseRouter(){
+    String url = window.defaultRouteName;
+    // route名称，路由path路径名称
+    String route = url.indexOf('?') == -1 ? url : url.substring(0, url.indexOf('?'));
+    // 参数Json字符串
+    String paramsJson = url.indexOf('?') == -1 ? '{}' : url.substring(url.indexOf('?') + 1);
+    // 解析参数
+    Map<String, dynamic> params = json.decode(paramsJson);
+    params["route"] = route;
+    return params;
+  }
+
 }
 
 

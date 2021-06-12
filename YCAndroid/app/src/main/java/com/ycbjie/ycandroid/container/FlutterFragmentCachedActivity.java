@@ -40,8 +40,8 @@ public class FlutterFragmentCachedActivity extends AppCompatActivity {
         flutterEngine.getDartExecutor().executeDartEntrypoint(
                 DartExecutor.DartEntrypoint.createDefault()
         );
-        //放在这里不生效，思考为什么
-        flutterEngine.getNavigationChannel().setInitialRoute("yc");
+        // todo 放在这里不生效，思考为什么
+        // flutterEngine.getNavigationChannel().setInitialRoute("yc");
         // 将FlutterEngine缓存起来，这里传入的"my_engine_id"就相当于缓存名称。
         FlutterEngineCache.getInstance().put("my_engine_id", flutterEngine);
 
@@ -61,7 +61,7 @@ public class FlutterFragmentCachedActivity extends AppCompatActivity {
                 .commit();
 
         //放在这里不生效，思考为什么
-        //flutterEngine.getNavigationChannel().setInitialRoute("yc");
+        // todo flutterEngine.getNavigationChannel().setInitialRoute("yc");
     }
 
 

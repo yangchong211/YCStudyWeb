@@ -36,7 +36,9 @@ public class FlutterFragmentActivity extends AppCompatActivity {
         FlutterFragment.NewEngineFragmentBuilder fragmentBuilder = FlutterFragment.withNewEngine();
         // 使用建造者模式构造出FlutterFragment对象，可以通过initialRoute()方法指定初始路由名称。
         // 传递参数只需要在路由名称后面进行拼接。
-        FlutterFragment flutterFragment = fragmentBuilder.initialRoute("yc").build();
+        String route = "yc?{\"author\":\"杨充\"}";
+        FlutterFragment.NewEngineFragmentBuilder initialRoute = fragmentBuilder.initialRoute(route);
+        FlutterFragment flutterFragment = initialRoute.build();
 
         getSupportFragmentManager()
                 .beginTransaction()
@@ -60,7 +62,7 @@ public class FlutterFragmentActivity extends AppCompatActivity {
         // 错误原因是这里的delegate为null，全局搜索一下，发现在FlutterFragment的onAttach()方法中会对delegate赋值，也就是说明此时没有执行onAttach()方法。
         // 猜测这就是由于上面提到过的FlutterEngine的warm-up机制，这是一个耗时过程，
         // 因此FlutterFragment并不会立刻执行onAttach()方法，导致我们在Activity的onCreate()方法中直接使用FlutterFragment的getFlutterEngine()方法会抛出异常。
-        // 调用下面这句话会空指针崩溃
+        // todo 调用下面这句话会空指针崩溃
         // FlutterEngine flutterEngine = flutterFragment.getFlutterEngine();
     }
 

@@ -3,16 +3,21 @@
 //import android.annotation.SuppressLint;
 //import android.content.Intent;
 //import android.os.Bundle;
-//import android.support.v7.app.AppCompatActivity;
 //import android.util.Log;
 //import android.view.View;
 //import android.view.ViewGroup;
 //import android.widget.FrameLayout;
 //import android.widget.TextView;
 //
+//import androidx.appcompat.app.AppCompatActivity;
+//import androidx.fragment.app.FragmentTransaction;
+//
+//import com.ycbjie.ycandroid.router.RouterToNaActivity;
+//
 //import java.util.ArrayList;
 //import java.util.List;
 //
+//import io.flutter.embedding.android.FlutterFragment;
 //import io.flutter.facade.Flutter;
 //import io.flutter.plugin.common.BasicMessageChannel;
 //import io.flutter.plugin.common.EventChannel;
@@ -71,19 +76,28 @@
 //                toFlutterPage();
 //            }
 //        });
-//        tvFlutter1.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                toFlutterPage1();
-//            }
-//        });
 //    }
 //
 //    private void addFlutterView() {
+//        // 通过FlutterView引入Flutter编写的页面
+//        // Flutter.createView()方法返回的是一个FlutterView，它继承自View，我们可以把它当做一个普通的View
+//        // Flutter.createView()方法的第三个参数传入了"yc_route"字符串，表示路由名称，它确定了Flutter中要显示的Widget
 //        flutterView = Flutter.createView(this, getLifecycle(), INIT_ROUTE);
 //        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(
 //                FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
+//        //添加到布局中
 //        frameLayout.addView(flutterView, layoutParams);
+//        //addContentView(flutterView, layout);
+//    }
+//
+//    private void addFlutterFragment(){
+//        // 通过FlutterFragment引入Flutter编写的页面
+//        FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
+//        // Flutter.createFragment()方法传入的参数同样表示路由名称，用于确定Flutter要显示的Widget
+//        // 返回一个FlutterFragment，该类继承自Fragment，将该Fragment添加到Activity中就可以了。
+//        FlutterFragment flutterFragment = Flutter.createFragment(INIT_ROUTE);
+//        tx.replace(R.id.rl_flutter, flutterFragment);
+//        tx.commit();
 //    }
 //
 //    /**
@@ -118,7 +132,7 @@
 //                if ("doubi".equals(methodCall.method)) {
 //                    //接收来自flutter的指令
 //                    //跳转到指定Activity
-//                    Intent intent = new Intent(MainActivity.this, DouBiActivity.class);
+//                    Intent intent = new Intent(MainActivity.this, RouterToNaActivity.class);
 //                    startActivity(intent);
 //                    //返回给flutter的参数
 //                    result.success("success");
@@ -128,11 +142,11 @@
 //                    Object text = methodCall.argument("flutter");
 //                    if (text instanceof String){
 //                        //带参数跳转到指定Activity
-//                        Intent intent = new Intent(MainActivity.this, AndroidFirstActivity.class);
+//                        Intent intent = new Intent(MainActivity.this, RouterToNaActivity.class);
 //                        intent.putExtra("yc", (String) text);
 //                        startActivity(intent);
 //                    }else if (text instanceof List){
-//                        Intent intent = new Intent(MainActivity.this, AndroidSecondActivity.class);
+//                        Intent intent = new Intent(MainActivity.this, RouterToNaActivity.class);
 //                        intent.putStringArrayListExtra("yc", (ArrayList<String>) text);
 //                        startActivity(intent);
 //                    }
@@ -166,7 +180,7 @@
 //                reply.reply("It is reply from native");
 //                Log.e("BasicMessageChannel",s);
 //                Log.e("BasicMessageChannel",reply.toString());
-//                Intent intent = new Intent(MainActivity.this, AndroidFirstActivity.class);
+//                Intent intent = new Intent(MainActivity.this, RouterToNaActivity.class);
 //                intent.putExtra("yc", s);
 //                startActivity(intent);
 //            }
@@ -178,19 +192,6 @@
 //     * Android跳转flutter页面
 //     */
 //    private void toFlutterPage() {
-//        flutterViewAbout = Flutter.createView(
-//                MainActivity.this,
-//                getLifecycle(),
-//                "yc"
-//        );
-//        FrameLayout.LayoutParams layout = new FrameLayout.LayoutParams(
-//                ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
-//        layout.leftMargin = 0;
-//        layout.topMargin = 0;
-//        addContentView(flutterViewAbout, layout);
-//    }
-//
-//    private void toFlutterPage1() {
 //        flutterViewAbout = Flutter.createView(
 //                MainActivity.this,
 //                getLifecycle(),

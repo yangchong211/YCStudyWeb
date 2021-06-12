@@ -16,19 +16,14 @@ import io.flutter.embedding.android.FlutterActivity;
  */
 public class FlutterContainerActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private TextView tv1;
-    private TextView tv2;
-    private TextView tv3;
-    private TextView tv4;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flutter);
-        tv1 = findViewById(R.id.tv_1);
-        tv2 = findViewById(R.id.tv_2);
-        tv3 = findViewById(R.id.tv_3);
-        tv4 = findViewById(R.id.tv_4);
+        TextView tv1 = findViewById(R.id.tv_1);
+        TextView tv2 = findViewById(R.id.tv_2);
+        TextView tv3 = findViewById(R.id.tv_3);
+        TextView tv4 = findViewById(R.id.tv_4);
         tv1.setOnClickListener(this);
         tv2.setOnClickListener(this);
         tv3.setOnClickListener(this);

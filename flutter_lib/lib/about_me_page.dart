@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 /*
  * <pre>
@@ -9,6 +11,12 @@ import 'package:flutter/material.dart';
  * </pre>
  */
 class AboutMePage extends  StatefulWidget{
+
+  AboutMePage({Key key, this.title, Map<String, dynamic> params, this.param}) : super(key: key);
+
+  final String title;
+  final Map<String, dynamic> param;
+
   @override
   State<StatefulWidget> createState() {
     return new AboutMeState();
@@ -22,6 +30,8 @@ class AboutMeState extends State<AboutMePage> {
     super.initState();
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     Widget about = initAboutWidget();
@@ -29,11 +39,16 @@ class AboutMeState extends State<AboutMePage> {
     Widget zhy = initZhyWidget();
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text('关于'),
+        title: new Text('关于--'+widget.title),
       ),
       body: new ListView(
         padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
         children: <Widget>[
+          new Padding(
+            padding: const EdgeInsets.only(
+                left: 10.0, top: 10.0, right: 10.0),
+            child: new Text('这个是接收的参数：'+json.encode(widget.param)),
+          ),
           about,
           api,
           new ListTile(
