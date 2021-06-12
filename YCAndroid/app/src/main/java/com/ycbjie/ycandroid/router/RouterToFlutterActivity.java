@@ -20,7 +20,7 @@ public class RouterToFlutterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_android);
+        setContentView(R.layout.activity_router_to_flutter);
         TextView tv = findViewById(R.id.tv);
 
         String params = getIntent().getStringExtra("yc");

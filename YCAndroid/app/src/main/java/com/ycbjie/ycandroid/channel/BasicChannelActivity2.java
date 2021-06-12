@@ -1,65 +1,56 @@
 package com.ycbjie.ycandroid.channel;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.ycbjie.ycandroid.router.RouterToNaActivity;
-import com.ycbjie.ycandroid.router.RouterToFlutterActivity;
 import com.ycbjie.ycandroid.R;
-import com.ycbjie.ycandroid.router.SecondActivity;
+import com.ycbjie.ycandroid.router.RouterToFlutterActivity;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import io.flutter.embedding.android.FlutterView;
 import io.flutter.embedding.engine.FlutterEngine;
 import io.flutter.embedding.engine.dart.DartExecutor;
+import io.flutter.plugin.common.BasicMessageChannel;
 import io.flutter.plugin.common.BinaryMessenger;
-import io.flutter.plugin.common.MethodCall;
-import io.flutter.plugin.common.MethodChannel;
-import io.flutter.plugin.common.StandardMethodCodec;
+import io.flutter.plugin.common.StringCodec;
 
 /**
  * @author yc
  */
-public class MethodChannelActivity extends AppCompatActivity implements View.OnClickListener {
+public class BasicChannelActivity2 extends AppCompatActivity implements View.OnClickListener {
 
+    private TextView tv;
     private TextView tvContent;
+    private TextView tvInvoke;
     private FrameLayout rlFlutter;
     private FlutterView flutterView;
     private FlutterEngine flutterEngine;
     private DartExecutor dartExecutor;
     private BinaryMessenger binaryMessenger;
-    private MethodChannel nativeChannel;
-    /**
-     * 从flutter这边传递数据到Android
-     */
-    public static final String METHOD_CHANNEL = "com.ycbjie.android/method";
+    private BasicMessageChannel<String> nativeChannel;
+    public static final String BASIC_CHANNEL = "com.ycbjie.android/basic";
 
-    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_channel_method);
 
-        TextView tv = findViewById(R.id.tv);
+        tv = findViewById(R.id.tv);
         tvContent = findViewById(R.id.tv_content);
-        TextView tvInvoke = findViewById(R.id.tv_invoke);
+        tvInvoke = findViewById(R.id.tv_invoke);
         rlFlutter = findViewById(R.id.rl_flutter);
 
         tvInvoke.setOnClickListener(this);
 
-        tv.setText("MethodChannel通信交互（FlutterView）");
         addFlutterView();
         createChannel();
     }
@@ -107,7 +98,7 @@ public class MethodChannelActivity extends AppCompatActivity implements View.OnC
         flutterEngine = new FlutterEngine(this);
         dartExecutor = flutterEngine.getDartExecutor();
         binaryMessenger = dartExecutor.getBinaryMessenger();
-        flutterEngine.getNavigationChannel().setInitialRoute("method_channel");
+        flutterEngine.getNavigationChannel().setInitialRoute("basic_channel");
         flutterEngine.getDartExecutor().executeDartEntrypoint(
                 DartExecutor.DartEntrypoint.createDefault()
         );
@@ -145,77 +136,35 @@ public class MethodChannelActivity extends AppCompatActivity implements View.OnC
         // 那么这个参数应该传什么呢。通过查看继承关系我们可以找到两个相关的类：DartExecutor和DartMessenger。
         // DartExecutor可以通过FlutterEngine的getDartExecutor()方法获得，
         // 而DartMessenger又可以通过DartExecutor的getBinaryMessenger()方法获得
-        // MethodChannel nativeChannel = new MethodChannel(dartExecutor, METHOD_CHANNEL);
+        // nativeChannel = new BasicMessageChannel(dartExecutor, BASIC_CHANNEL,StringCodec.INSTANCE);
         // 或
-        //MethodChannel nativeChannel = new MethodChannel(binaryMessenger, METHOD_CHANNEL);
         // 或者
-        nativeChannel = new MethodChannel(binaryMessenger, METHOD_CHANNEL, StandardMethodCodec.INSTANCE);
-        nativeChannel.setMethodCallHandler(new MethodChannel.MethodCallHandler() {
+        nativeChannel = new BasicMessageChannel(binaryMessenger, BASIC_CHANNEL, StringCodec.INSTANCE);
+        //接收消息
+        nativeChannel.setMessageHandler(new BasicMessageChannel.MessageHandler<String>() {
             @Override
-            public void onMethodCall(@NonNull MethodCall methodCall, @NonNull MethodChannel.Result result) {
-                if ("doubi".equals(methodCall.method)) {
-                    //接收来自flutter的指令
-                    //跳转到指定Activity
-                    Intent intent = new Intent(MethodChannelActivity.this, RouterToNaActivity.class);
-                    startActivity(intent);
-                    //返回给flutter的参数
-                    result.success("Na收到指令");
-                } else if ("android".equals(methodCall.method)) {
-                    //接收来自flutter的指令
-                    //解析参数
-                    Object text = methodCall.argument("flutter");
-                    if (text instanceof String){
-                        //带参数跳转到指定Activity
-                        Intent intent = new Intent(MethodChannelActivity.this, RouterToFlutterActivity.class);
-                        intent.putExtra("yc", (String) text);
-                        startActivity(intent);
-                    }else if (text instanceof List){
-                        Intent intent = new Intent(MethodChannelActivity.this, SecondActivity.class);
-                        intent.putStringArrayListExtra("yc", (ArrayList<String>) text);
-                        startActivity(intent);
-                    }
-                    //返回给flutter的参数
-                    result.success("Na成功");
-                } if ("goBackWithResult".equals(methodCall.method)) {
-                    // 返回上一页，携带数据
-                    Intent backIntent = new Intent();
-                    backIntent.putExtra("message", (String) methodCall.argument("message"));
-                    setResult(RESULT_OK, backIntent);
-                    finish();
-                } else {
-                    result.notImplemented();
-                }
+            public void onMessage(String s, BasicMessageChannel.Reply<String> reply) {
+                Log.e("BasicMessageChannel",s);
+                Log.e("BasicMessageChannel",reply.toString());
+                Intent intent = new Intent(BasicChannelActivity2.this, RouterToFlutterActivity.class);
+                intent.putExtra("yc", s);
+                startActivity(intent);
+                reply.reply("Na收到指令");
             }
         });
-        //todo 需要注意，这里在创建MethodChannel时传入的FlutterEngine对象
-        //     必须和我们此前创建好的FlutterView/FlutterFragment中使用的是同一个。
-
     }
 
     private void invoke(){
         if (nativeChannel!=null){
             HashMap<String , String> map = new HashMap<>();
             map.put("invokeKey","你好，这个是从NA传递过来的数据");
-            //nativeChannel.resizeChannelBuffer(100);
-            nativeChannel.invokeMethod("getFlutterResult", map , new MethodChannel.Result() {
-                @SuppressLint("SetTextI18n")
+            //发送消息
+            nativeChannel.send("逗比，互相调用场景：我是Native发送的消息", new BasicMessageChannel.Reply<String>() {
                 @Override
-                public void success(@Nullable Object result) {
-                    tvContent.setText("测试内容："+result);
-                }
-
-                @SuppressLint("SetTextI18n")
-                @Override
-                public void error(String errorCode, @Nullable String errorMessage, @Nullable Object errorDetails) {
-                    tvContent.setText("测试内容：flutter传递给na数据传递错误");
-                }
-
-                @Override
-                public void notImplemented() {
-
+                public void reply(String s) {
+                    Log.e("BasicMessageChannel发送消息",s);
                 }
             });
         }
     }
-
 }

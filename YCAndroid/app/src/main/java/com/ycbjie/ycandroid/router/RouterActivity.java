@@ -19,23 +19,16 @@ import com.ycbjie.ycandroid.container.FlutterFragmentCachedActivity;
  */
 public class RouterActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private TextView tv1;
-    private TextView tv2;
-    private TextView tv3;
-    private TextView tv4;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_channel);
-        tv1 = findViewById(R.id.tv_1);
-        tv2 = findViewById(R.id.tv_2);
-        tv3 = findViewById(R.id.tv_3);
-        tv4 = findViewById(R.id.tv_4);
+        setContentView(R.layout.activity_router);
+        TextView tv1 = findViewById(R.id.tv_1);
+        TextView tv2 = findViewById(R.id.tv_2);
+        TextView tv3 = findViewById(R.id.tv_3);
         tv1.setOnClickListener(this);
         tv2.setOnClickListener(this);
         tv3.setOnClickListener(this);
-        tv4.setOnClickListener(this);
     }
 
 
@@ -50,9 +43,6 @@ public class RouterActivity extends AppCompatActivity implements View.OnClickLis
                 break;
             case R.id.tv_3:
                 startActivity(new Intent(this, BasicChannelActivity.class));
-                break;
-            case R.id.tv_4:
-                startActivity(new Intent(this, FlutterFragmentCachedActivity.class));
                 break;
             default:
                 break;

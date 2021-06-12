@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <TextView
-        android:id="@+id/params"
+        android:id="@+id/tv"
         android:layout_marginTop="10dp"
         android:padding="10dp"
         android:layout_width="match_parent"
@@ -13,11 +14,10 @@
         android:layout_centerHorizontal="true"
         android:background="@color/colorAccent"
         android:gravity="center"
-        android:text="我是原生文本控件" />
+        android:text="使用MethodChannel进行交互" />
 
     <TextView
-        android:id="@+id/tv_flutter"
-        android:layout_below="@+id/params"
+        android:id="@+id/tv_content"
         android:layout_marginTop="10dp"
         android:padding="10dp"
         android:layout_width="match_parent"
@@ -25,11 +25,10 @@
         android:layout_centerHorizontal="true"
         android:background="@color/colorAccent"
         android:gravity="center"
-        android:text="从原生跳转到flutter页面" />
+        android:text="测试内容：" />
 
     <TextView
-        android:id="@+id/tv_flutter1"
-        android:layout_below="@+id/tv_flutter"
+        android:id="@+id/tv_invoke"
         android:layout_marginTop="10dp"
         android:padding="10dp"
         android:layout_width="match_parent"
@@ -37,15 +36,14 @@
         android:layout_centerHorizontal="true"
         android:background="@color/colorAccent"
         android:gravity="center"
-        android:text="从原生跳转到flutter页面，互相调用传递数据" />
+        android:text="调用invoke方法na--->flutter" />
 
     <FrameLayout
         android:id="@+id/rl_flutter"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/tv_flutter1">
+        android:layout_height="match_parent">
     </FrameLayout>
 
 
-</RelativeLayout>
+</LinearLayout>

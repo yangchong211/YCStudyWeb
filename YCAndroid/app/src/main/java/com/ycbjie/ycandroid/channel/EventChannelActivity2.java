@@ -1,65 +1,57 @@
 package com.ycbjie.ycandroid.channel;
 
-import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.ycbjie.ycandroid.router.RouterToNaActivity;
-import com.ycbjie.ycandroid.router.RouterToFlutterActivity;
 import com.ycbjie.ycandroid.R;
-import com.ycbjie.ycandroid.router.SecondActivity;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import io.flutter.embedding.android.FlutterView;
 import io.flutter.embedding.engine.FlutterEngine;
 import io.flutter.embedding.engine.dart.DartExecutor;
 import io.flutter.plugin.common.BinaryMessenger;
-import io.flutter.plugin.common.MethodCall;
-import io.flutter.plugin.common.MethodChannel;
+import io.flutter.plugin.common.EventChannel;
 import io.flutter.plugin.common.StandardMethodCodec;
 
 /**
  * @author yc
  */
-public class MethodChannelActivity extends AppCompatActivity implements View.OnClickListener {
+public class EventChannelActivity2 extends AppCompatActivity implements View.OnClickListener {
 
+    private TextView tv;
     private TextView tvContent;
+    private TextView tvInvoke;
     private FrameLayout rlFlutter;
     private FlutterView flutterView;
     private FlutterEngine flutterEngine;
     private DartExecutor dartExecutor;
     private BinaryMessenger binaryMessenger;
-    private MethodChannel nativeChannel;
-    /**
-     * 从flutter这边传递数据到Android
-     */
-    public static final String METHOD_CHANNEL = "com.ycbjie.android/method";
+    private EventChannel nativeChannel;
 
-    @SuppressLint("SetTextI18n")
+    /**
+     * 首先定义Channel名称，需要保证是唯一的，在Flutter端需要使用同样的名称来创建MethodChannel。
+     */
+    public static final String EVENT_CHANNEL = "com.ycbjie.android/event";
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_channel_method);
 
-        TextView tv = findViewById(R.id.tv);
+        tv = findViewById(R.id.tv);
         tvContent = findViewById(R.id.tv_content);
-        TextView tvInvoke = findViewById(R.id.tv_invoke);
+        tvInvoke = findViewById(R.id.tv_invoke);
         rlFlutter = findViewById(R.id.rl_flutter);
 
         tvInvoke.setOnClickListener(this);
 
-        tv.setText("MethodChannel通信交互（FlutterView）");
         addFlutterView();
         createChannel();
     }
@@ -107,7 +99,7 @@ public class MethodChannelActivity extends AppCompatActivity implements View.OnC
         flutterEngine = new FlutterEngine(this);
         dartExecutor = flutterEngine.getDartExecutor();
         binaryMessenger = dartExecutor.getBinaryMessenger();
-        flutterEngine.getNavigationChannel().setInitialRoute("method_channel");
+        flutterEngine.getNavigationChannel().setInitialRoute("event_channel");
         flutterEngine.getDartExecutor().executeDartEntrypoint(
                 DartExecutor.DartEntrypoint.createDefault()
         );
@@ -145,77 +137,44 @@ public class MethodChannelActivity extends AppCompatActivity implements View.OnC
         // 那么这个参数应该传什么呢。通过查看继承关系我们可以找到两个相关的类：DartExecutor和DartMessenger。
         // DartExecutor可以通过FlutterEngine的getDartExecutor()方法获得，
         // 而DartMessenger又可以通过DartExecutor的getBinaryMessenger()方法获得
-        // MethodChannel nativeChannel = new MethodChannel(dartExecutor, METHOD_CHANNEL);
+        // EventChannel nativeChannel = new EventChannel(dartExecutor, EVENT_CHANNEL);
         // 或
-        //MethodChannel nativeChannel = new MethodChannel(binaryMessenger, METHOD_CHANNEL);
+        // EventChannel nativeChannel = new EventChannel(binaryMessenger, EVENT_CHANNEL);
         // 或者
-        nativeChannel = new MethodChannel(binaryMessenger, METHOD_CHANNEL, StandardMethodCodec.INSTANCE);
-        nativeChannel.setMethodCallHandler(new MethodChannel.MethodCallHandler() {
+        // 第一个参数：是messenger，类型是BinaryMessenger，是一个接口，代表消息信使，是消息发送与接收的工具
+        // 第二个参数：是name，就是Channel名称，和flutter定义的要一样
+        // 第三个参数：是codec，类型是MethodCodec，代表消息的编解码器，如果没有传该参数，默认使用StandardMethodCodec。
+        nativeChannel = new EventChannel(binaryMessenger, EVENT_CHANNEL, StandardMethodCodec.INSTANCE);
+        // 注册Handler实现
+        nativeChannel.setStreamHandler(new EventChannel.StreamHandler() {
             @Override
-            public void onMethodCall(@NonNull MethodCall methodCall, @NonNull MethodChannel.Result result) {
-                if ("doubi".equals(methodCall.method)) {
-                    //接收来自flutter的指令
-                    //跳转到指定Activity
-                    Intent intent = new Intent(MethodChannelActivity.this, RouterToNaActivity.class);
-                    startActivity(intent);
-                    //返回给flutter的参数
-                    result.success("Na收到指令");
-                } else if ("android".equals(methodCall.method)) {
-                    //接收来自flutter的指令
-                    //解析参数
-                    Object text = methodCall.argument("flutter");
-                    if (text instanceof String){
-                        //带参数跳转到指定Activity
-                        Intent intent = new Intent(MethodChannelActivity.this, RouterToFlutterActivity.class);
-                        intent.putExtra("yc", (String) text);
-                        startActivity(intent);
-                    }else if (text instanceof List){
-                        Intent intent = new Intent(MethodChannelActivity.this, SecondActivity.class);
-                        intent.putStringArrayListExtra("yc", (ArrayList<String>) text);
-                        startActivity(intent);
-                    }
-                    //返回给flutter的参数
-                    result.success("Na成功");
-                } if ("goBackWithResult".equals(methodCall.method)) {
-                    // 返回上一页，携带数据
-                    Intent backIntent = new Intent();
-                    backIntent.putExtra("message", (String) methodCall.argument("message"));
-                    setResult(RESULT_OK, backIntent);
-                    finish();
-                } else {
-                    result.notImplemented();
-                }
+            public void onListen(Object arguments, EventChannel.EventSink events) {
+                String android = "逗比，来自android原生的参数";
+                events.success(android);
+            }
+
+            @Override
+            public void onCancel(Object arguments) {
+
             }
         });
-        //todo 需要注意，这里在创建MethodChannel时传入的FlutterEngine对象
-        //     必须和我们此前创建好的FlutterView/FlutterFragment中使用的是同一个。
-
     }
 
     private void invoke(){
         if (nativeChannel!=null){
             HashMap<String , String> map = new HashMap<>();
             map.put("invokeKey","你好，这个是从NA传递过来的数据");
-            //nativeChannel.resizeChannelBuffer(100);
-            nativeChannel.invokeMethod("getFlutterResult", map , new MethodChannel.Result() {
-                @SuppressLint("SetTextI18n")
+            nativeChannel.setStreamHandler(new EventChannel.StreamHandler() {
                 @Override
-                public void success(@Nullable Object result) {
-                    tvContent.setText("测试内容："+result);
-                }
-
-                @SuppressLint("SetTextI18n")
-                @Override
-                public void error(String errorCode, @Nullable String errorMessage, @Nullable Object errorDetails) {
-                    tvContent.setText("测试内容：flutter传递给na数据传递错误");
+                public void onListen(Object arguments, EventChannel.EventSink events) {
+                    events.success(map);
                 }
 
                 @Override
-                public void notImplemented() {
+                public void onCancel(Object arguments) {
 
                 }
             });
         }
     }
-
 }

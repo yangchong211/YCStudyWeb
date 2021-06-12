@@ -87,6 +87,12 @@ class _MethodChannelState extends State<MethodChannelPage> {
     });
   }
 
+  Future<Null> _jumpToNativeWithParams3() async {
+    // 返回给上一页的数据
+    Map<String, dynamic> map = {'message': '我从Flutter页面回来了'};
+    String result = await method.invokeMethod('goBackWithResult', map);
+    print(result);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -126,6 +132,16 @@ class _MethodChannelState extends State<MethodChannelPage> {
                     child: new Text('跳转到原生界面(带参数List)，回调结果：$_methodResult3'),
                     onPressed: () {
                       _jumpToNativeWithParams2();
+                    }),
+              ),
+              new Padding(
+                padding: const EdgeInsets.only(
+                    left: 10.0, top: 10.0, right: 10.0),
+                child: new RaisedButton(
+                    textColor: Colors.black,
+                    child: new Text('返回上一界面，并携带数据'),
+                    onPressed: () {
+                      _jumpToNativeWithParams3();
                     }),
               ),
               new Padding(

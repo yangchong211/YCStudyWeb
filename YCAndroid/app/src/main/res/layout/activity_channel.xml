@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/tv_1"
+        android:id="@+id/tv_1_1"
         android:layout_marginTop="10dp"
         android:padding="10dp"
         android:layout_width="match_parent"
@@ -14,11 +14,40 @@
         android:layout_centerHorizontal="true"
         android:background="@color/colorAccent"
         android:gravity="left"
-        android:text="1.NA跳转Flutter页面" />
-
+        android:text="1.1 MethodChannel通信交互（FlutterView）" />
+    <TextView
+        android:id="@+id/tv_1_2"
+        android:layout_marginTop="10dp"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:background="@color/colorAccent"
+        android:gravity="left"
+        android:text="1.2 MethodChannel通信交互（FlutterFragment）" />
+    <TextView
+        android:id="@+id/tv_2_1"
+        android:layout_marginTop="10dp"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:background="@color/colorAccent"
+        android:gravity="left"
+        android:text="2.1 EventChannel通信交互（FlutterView）" />
+    <TextView
+        android:id="@+id/tv_2_2"
+        android:layout_marginTop="10dp"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:background="@color/colorAccent"
+        android:gravity="left"
+        android:text="2.2 EventChannel通信交互（FlutterFragment）" />
 
     <TextView
-        android:id="@+id/tv_2"
+        android:id="@+id/tv_3_1"
         android:layout_marginTop="10dp"
         android:padding="10dp"
         android:layout_width="match_parent"
@@ -26,10 +55,9 @@
         android:layout_centerHorizontal="true"
         android:background="@color/colorAccent"
         android:gravity="left"
-        android:text="2.Flutter跳转NA页面" />
-
+        android:text="3.1 BasicChannel通信交互（FlutterView）" />
     <TextView
-        android:id="@+id/tv_3"
+        android:id="@+id/tv_3_2"
         android:layout_marginTop="10dp"
         android:padding="10dp"
         android:layout_width="match_parent"
@@ -37,6 +65,6 @@
         android:layout_centerHorizontal="true"
         android:background="@color/colorAccent"
         android:gravity="left"
-        android:text="3.混合路由跳转使用" />
+        android:text="3.2 BasicChannel通信交互（FlutterFragment）" />
 
 </LinearLayout>

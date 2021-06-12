@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,44 +20,58 @@ import com.ycbjie.ycandroid.container.FlutterViewActivity;
  */
 public class ChannelActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private TextView tv1;
-    private TextView tv2;
-    private TextView tv3;
-    private TextView tv4;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_channel);
-        tv1 = findViewById(R.id.tv_1);
-        tv2 = findViewById(R.id.tv_2);
-        tv3 = findViewById(R.id.tv_3);
-        tv4 = findViewById(R.id.tv_4);
-        tv1.setOnClickListener(this);
-        tv2.setOnClickListener(this);
-        tv3.setOnClickListener(this);
-        tv4.setOnClickListener(this);
+        TextView tv_1_1 = findViewById(R.id.tv_1_1);
+        TextView tv_1_2 = findViewById(R.id.tv_1_2);
+        TextView tv_2_1 = findViewById(R.id.tv_2_1);
+        TextView tv_2_2 = findViewById(R.id.tv_2_2);
+        TextView tv_3_1 = findViewById(R.id.tv_3_1);
+        TextView tv_3_2 = findViewById(R.id.tv_3_2);
+        tv_1_1.setOnClickListener(this);
+        tv_1_2.setOnClickListener(this);
+        tv_2_1.setOnClickListener(this);
+        tv_2_2.setOnClickListener(this);
+        tv_3_1.setOnClickListener(this);
+        tv_3_2.setOnClickListener(this);
     }
 
 
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.tv_1:
-                startActivity(new Intent(this, MethodChannelActivity.class));
+            case R.id.tv_1_1:
+                //startActivity(new Intent(this, MethodChannelActivity.class));
+                startActivityForResult(new Intent(this, MethodChannelActivity.class),1);
                 break;
-            case R.id.tv_2:
+            case R.id.tv_1_2:
+                startActivity(new Intent(this, MethodChannelActivity2.class));
+                break;
+            case R.id.tv_2_1:
                 startActivity(new Intent(this, EventChannelActivity.class));
                 break;
-            case R.id.tv_3:
+            case R.id.tv_2_2:
+                startActivity(new Intent(this, EventChannelActivity2.class));
+                break;
+            case R.id.tv_3_1:
                 startActivity(new Intent(this, BasicChannelActivity.class));
                 break;
-            case R.id.tv_4:
-                startActivity(new Intent(this, FlutterFragmentCachedActivity.class));
+            case R.id.tv_3_2:
+                startActivity(new Intent(this, BasicChannelActivity2.class));
                 break;
             default:
                 break;
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && data!=null){
+            String message = data.getStringExtra("message");
+            Toast.makeText(ChannelActivity.this,message+"",Toast.LENGTH_SHORT).show();
+        }
+    }
 }

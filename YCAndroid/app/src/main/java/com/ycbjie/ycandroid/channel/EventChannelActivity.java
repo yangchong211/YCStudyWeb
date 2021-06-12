@@ -35,6 +35,9 @@ public class EventChannelActivity extends AppCompatActivity implements View.OnCl
     private BinaryMessenger binaryMessenger;
     private EventChannel nativeChannel;
 
+    /**
+     * 首先定义Channel名称，需要保证是唯一的，在Flutter端需要使用同样的名称来创建MethodChannel。
+     */
     public static final String EVENT_CHANNEL = "com.ycbjie.android/event";
 
     @Override
@@ -138,7 +141,9 @@ public class EventChannelActivity extends AppCompatActivity implements View.OnCl
         // 或
         // EventChannel nativeChannel = new EventChannel(binaryMessenger, EVENT_CHANNEL);
         // 或者
-        // EventChannel类似广播，
+        // 第一个参数：是messenger，类型是BinaryMessenger，是一个接口，代表消息信使，是消息发送与接收的工具
+        // 第二个参数：是name，就是Channel名称，和flutter定义的要一样
+        // 第三个参数：是codec，类型是MethodCodec，代表消息的编解码器，如果没有传该参数，默认使用StandardMethodCodec。
         nativeChannel = new EventChannel(binaryMessenger, EVENT_CHANNEL, StandardMethodCodec.INSTANCE);
         // 注册Handler实现
         nativeChannel.setStreamHandler(new EventChannel.StreamHandler() {

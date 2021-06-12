@@ -19,25 +19,34 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
         <activity android:name=".router.RouterToNaActivity"/>
         <activity android:name=".router.RouterToFlutterActivity"/>
         <activity android:name=".router.SecondActivity"/>
+
+
         <activity android:name=".container.FlutterContainerActivity"/>
         <activity android:name=".container.FlutterViewActivity"/>
         <activity android:name=".container.FlutterFragmentActivity"/>
         <activity android:name=".container.FlutterFragmentCachedActivity"/>
-        <activity android:name=".channel.ChannelActivity"/>
-        <activity android:name=".channel.MethodChannelActivity"/>
-        <activity android:name=".channel.EventChannelActivity"/>
-        <activity android:name=".channel.BasicChannelActivity"/>
-
-
         <activity
             android:name="io.flutter.embedding.android.FlutterActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
             android:hardwareAccelerated="true"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustResize" />
+
+
+        <activity android:name=".channel.ChannelActivity"/>
+        <activity android:name=".channel.MethodChannelActivity"/>
+        <activity android:name=".channel.EventChannelActivity"/>
+        <activity android:name=".channel.BasicChannelActivity"/>
+        <activity android:name=".channel.MethodChannelActivity2"/>
+        <activity android:name=".channel.EventChannelActivity2"/>
+        <activity android:name=".channel.BasicChannelActivity2"/>
+
+
     </application>
 
 </manifest>

@@ -14,10 +14,10 @@
         android:layout_centerHorizontal="true"
         android:background="@color/colorAccent"
         android:gravity="center"
-        android:text="使用MethodChannel进行交互" />
+        android:text="跳转到原生小杨界面" />
+
 
     <TextView
-        android:id="@+id/tv_content"
         android:layout_marginTop="10dp"
         android:padding="10dp"
         android:layout_width="match_parent"
@@ -25,20 +25,7 @@
         android:layout_centerHorizontal="true"
         android:background="@color/colorAccent"
         android:gravity="center"
-        android:text="测试内容：" />
-
-    <TextView
-        android:id="@+id/tv_invoke"
-        android:layout_marginTop="10dp"
-        android:padding="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:background="@color/colorAccent"
-        android:gravity="center"
-        android:text="调用invoke方法na--->flutter" />
-
-
+        android:text="使用FlutterView引入flutter" />
 
     <FrameLayout
         android:id="@+id/rl_flutter"
@@ -46,6 +33,5 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </FrameLayout>
-
 
 </LinearLayout>

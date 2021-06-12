@@ -38,8 +38,6 @@
         android:gravity="center"
         android:text="调用invoke方法na--->flutter" />
 
-
-
     <FrameLayout
         android:id="@+id/rl_flutter"
         android:layout_marginTop="10dp"
