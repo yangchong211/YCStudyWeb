@@ -20,6 +20,7 @@ import com.ycbjie.ycandroid.router.SecondActivity;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import io.flutter.embedding.android.FlutterView;
 import io.flutter.embedding.engine.FlutterEngine;
@@ -45,6 +46,8 @@ public class MethodChannelActivity extends AppCompatActivity implements View.OnC
      * 从flutter这边传递数据到Android
      */
     public static final String METHOD_CHANNEL = "com.ycbjie.android/method";
+    public static final int RESULT_OK1 = 100;
+    public static final int RESULT_OK2 = 100;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -156,8 +159,8 @@ public class MethodChannelActivity extends AppCompatActivity implements View.OnC
                 if ("doubi".equals(methodCall.method)) {
                     //接收来自flutter的指令
                     //跳转到指定Activity
-                    Intent intent = new Intent(MethodChannelActivity.this, RouterToNaActivity.class);
-                    startActivity(intent);
+                    Intent intent = new Intent(MethodChannelActivity.this, MethodResultActivity.class);
+                    startActivityForResult(intent,RESULT_OK2);
                     //返回给flutter的参数
                     result.success("Na收到指令");
                 } else if ("android".equals(methodCall.method)) {
@@ -180,7 +183,7 @@ public class MethodChannelActivity extends AppCompatActivity implements View.OnC
                     // 返回上一页，携带数据
                     Intent backIntent = new Intent();
                     backIntent.putExtra("message", (String) methodCall.argument("message"));
-                    setResult(RESULT_OK, backIntent);
+                    setResult(RESULT_OK1, backIntent);
                     finish();
                 } else {
                     result.notImplemented();
@@ -207,7 +210,37 @@ public class MethodChannelActivity extends AppCompatActivity implements View.OnC
                 @SuppressLint("SetTextI18n")
                 @Override
                 public void error(String errorCode, @Nullable String errorMessage, @Nullable Object errorDetails) {
-                    tvContent.setText("测试内容：flutter传递给na数据传递错误");
+                    tvContent.setText("测试内容：flutter传递给na数据传递错误1");
+                }
+
+                @Override
+                public void notImplemented() {
+
+                }
+            });
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (data != null && resultCode==RESULT_OK2) {
+            // NativePageActivity返回的数据
+            String message = data.getStringExtra("message");
+            Map<String, Object> result = new HashMap<>();
+            result.put("message", message);
+            // 调用Flutter端定义的方法
+            nativeChannel.invokeMethod("onActivityResult", result, new MethodChannel.Result() {
+                @SuppressLint("SetTextI18n")
+                @Override
+                public void success(@Nullable Object result) {
+                    tvContent.setText("测试内容："+result);
+                }
+
+                @SuppressLint("SetTextI18n")
+                @Override
+                public void error(String errorCode, @Nullable String errorMessage, @Nullable Object errorDetails) {
+                    tvContent.setText("测试内容：flutter传递给na数据传递错误2");
                 }
 
                 @Override

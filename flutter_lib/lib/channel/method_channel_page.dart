@@ -54,6 +54,15 @@ class _MethodChannelState extends State<MethodChannelPage> {
         });
         return "你好，这个是从flutter传递过来的数据";
         break;
+      case "onActivityResult":
+      //获取参数
+        String message = await methodCall.arguments["message"];
+        print("原生android传递过来的参数为------ $message");
+        setState(() {
+          _nativeParams2 = message;
+        });
+        return "你好，这个是从flutter传递过来的数据";
+        break;
     }
   }
 

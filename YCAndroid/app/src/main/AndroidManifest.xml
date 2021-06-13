@@ -45,6 +45,7 @@
         <activity android:name=".channel.MethodChannelActivity2"/>
         <activity android:name=".channel.EventChannelActivity2"/>
         <activity android:name=".channel.BasicChannelActivity2"/>
+        <activity android:name=".channel.MethodResultActivity"/>
 
 
     </application>

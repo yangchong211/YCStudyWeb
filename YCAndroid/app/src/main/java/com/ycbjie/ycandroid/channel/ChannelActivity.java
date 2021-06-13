@@ -15,6 +15,9 @@ import com.ycbjie.ycandroid.container.FlutterFragmentActivity;
 import com.ycbjie.ycandroid.container.FlutterFragmentCachedActivity;
 import com.ycbjie.ycandroid.container.FlutterViewActivity;
 
+import static com.ycbjie.ycandroid.channel.MethodChannelActivity.RESULT_OK1;
+import static com.ycbjie.ycandroid.channel.MethodChannelActivity.RESULT_OK2;
+
 /**
  * @author yc
  */
@@ -69,7 +72,10 @@ public class ChannelActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && data!=null){
+        if (resultCode == RESULT_OK1 && data!=null){
+            String message = data.getStringExtra("message");
+            Toast.makeText(ChannelActivity.this,message+"",Toast.LENGTH_SHORT).show();
+        } else if (resultCode == RESULT_OK2 && data!=null){
             String message = data.getStringExtra("message");
             Toast.makeText(ChannelActivity.this,message+"",Toast.LENGTH_SHORT).show();
         }
