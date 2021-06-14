@@ -51,7 +51,7 @@ public class EventChannelActivity extends AppCompatActivity implements View.OnCl
         rlFlutter = findViewById(R.id.rl_flutter);
 
         tvInvoke.setOnClickListener(this);
-
+        tv.setText("EventChannel通信交互（FlutterView）");
         addFlutterView();
         createChannel();
     }

@@ -48,7 +48,7 @@ public class BasicChannelActivity extends AppCompatActivity implements View.OnCl
         rlFlutter = findViewById(R.id.rl_flutter);
 
         tvInvoke.setOnClickListener(this);
-
+        tv.setText("BasicMessageChannel通信交互（FlutterView）");
         addFlutterView();
         createChannel();
     }
