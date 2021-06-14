@@ -2,6 +2,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_lib/about_me_page.dart';
 
 class MethodChannelPage extends StatefulWidget {
 
@@ -52,7 +53,7 @@ class _MethodChannelState extends State<MethodChannelPage> {
         setState(() {
           _nativeParams2 = paramsFromNative;
         });
-        return "你好，这个是从flutter传递过来的数据";
+        return "你好，这个是从flutter传递过来的数据1";
         break;
       case "onActivityResult":
       //获取参数
@@ -61,7 +62,7 @@ class _MethodChannelState extends State<MethodChannelPage> {
         setState(() {
           _nativeParams2 = message;
         });
-        return "你好，这个是从flutter传递过来的数据";
+        return "你好，这个是从flutter传递过来的数据2";
         break;
     }
   }
@@ -161,6 +162,19 @@ class _MethodChannelState extends State<MethodChannelPage> {
               new Padding(
                 padding: const EdgeInsets.only(
                     left: 10.0, top: 10.0, right: 10.0),
+                child: new RaisedButton(
+                    textColor: Colors.black,
+                    child: new Text('跳转flutter页面，测试回退栈'),
+                    onPressed: () {
+                      Navigator.of(context)
+                          .push(MaterialPageRoute(builder: (context) {
+                        return AboutMePage(title:"路由跳转",param:null);
+                      }));
+                    }),
+              ),
+              new Padding(
+                padding: const EdgeInsets.only(
+                    left: 10.0, top: 10.0, right: 10.0),
                 child: new Text('Flutter 按钮 点击次数$_counter'),
               )
 
@@ -175,3 +189,4 @@ class _MethodChannelState extends State<MethodChannelPage> {
     );
   }
 }
+

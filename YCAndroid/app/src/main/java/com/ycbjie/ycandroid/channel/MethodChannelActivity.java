@@ -204,7 +204,7 @@ public class MethodChannelActivity extends AppCompatActivity implements View.OnC
                 @SuppressLint("SetTextI18n")
                 @Override
                 public void success(@Nullable Object result) {
-                    tvContent.setText("测试内容："+result);
+                    tvContent.setText("测试内容1："+result);
                 }
 
                 @SuppressLint("SetTextI18n")
@@ -225,7 +225,7 @@ public class MethodChannelActivity extends AppCompatActivity implements View.OnC
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (data != null && resultCode==RESULT_OK2) {
-            // NativePageActivity返回的数据
+            // MethodResultActivity返回的数据
             String message = data.getStringExtra("message");
             Map<String, Object> result = new HashMap<>();
             result.put("message", message);
@@ -234,7 +234,7 @@ public class MethodChannelActivity extends AppCompatActivity implements View.OnC
                 @SuppressLint("SetTextI18n")
                 @Override
                 public void success(@Nullable Object result) {
-                    tvContent.setText("测试内容："+result);
+                    tvContent.setText("测试内容2："+result);
                 }
 
                 @SuppressLint("SetTextI18n")
@@ -251,4 +251,8 @@ public class MethodChannelActivity extends AppCompatActivity implements View.OnC
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 }

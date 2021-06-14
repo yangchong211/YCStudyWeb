@@ -75,9 +75,6 @@ public class ChannelActivity extends AppCompatActivity implements View.OnClickLi
         if (resultCode == RESULT_OK1 && data!=null){
             String message = data.getStringExtra("message");
             Toast.makeText(ChannelActivity.this,message+"",Toast.LENGTH_SHORT).show();
-        } else if (resultCode == RESULT_OK2 && data!=null){
-            String message = data.getStringExtra("message");
-            Toast.makeText(ChannelActivity.this,message+"",Toast.LENGTH_SHORT).show();
         }
     }
 }

@@ -30,6 +30,9 @@ import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.StandardMethodCodec;
 
+import static com.ycbjie.ycandroid.channel.MethodChannelActivity.RESULT_OK1;
+import static com.ycbjie.ycandroid.channel.MethodChannelActivity.RESULT_OK2;
+
 /**
  * @author yc
  */
@@ -57,7 +60,13 @@ public class MethodChannelActivity2 extends AppCompatActivity implements View.On
 
         tv.setText("MethodChannel通信交互（FlutterFragment）");
         addFlutterView();
-        createChannel();
+        tvInvoke.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //todo 思考如何解决flutterFragment.getFlutterEngine()报空指针问题，或者如何做到在flutterFragment渲染完后在创建channel
+                createChannel();
+            }
+        },2000);
     }
 
     @Override
@@ -82,7 +91,7 @@ public class MethodChannelActivity2 extends AppCompatActivity implements View.On
         FlutterFragment.NewEngineFragmentBuilder fragmentBuilder = FlutterFragment.withNewEngine();
         // 使用建造者模式构造出FlutterFragment对象，可以通过initialRoute()方法指定初始路由名称。
         // 传递参数只需要在路由名称后面进行拼接。
-        String route = "yc?{\"author\":\"杨充\"}";
+        String route = "method_channel?{\"author\":\"杨充\"}";
         FlutterFragment.NewEngineFragmentBuilder initialRoute = fragmentBuilder.initialRoute(route);
         flutterFragment = initialRoute.build();
 
@@ -136,8 +145,8 @@ public class MethodChannelActivity2 extends AppCompatActivity implements View.On
                 if ("doubi".equals(methodCall.method)) {
                     //接收来自flutter的指令
                     //跳转到指定Activity
-                    Intent intent = new Intent(MethodChannelActivity2.this, RouterToNaActivity.class);
-                    startActivity(intent);
+                    Intent intent = new Intent(MethodChannelActivity2.this, MethodResultActivity.class);
+                    startActivityForResult(intent,RESULT_OK2);
                     //返回给flutter的参数
                     result.success("Na收到指令");
                 } else if ("android".equals(methodCall.method)) {
@@ -156,6 +165,12 @@ public class MethodChannelActivity2 extends AppCompatActivity implements View.On
                     }
                     //返回给flutter的参数
                     result.success("Na成功");
+                } if ("goBackWithResult".equals(methodCall.method)) {
+                    // 返回上一页，携带数据
+                    Intent backIntent = new Intent();
+                    backIntent.putExtra("message", (String) methodCall.argument("message"));
+                    setResult(RESULT_OK1, backIntent);
+                    finish();
                 } else {
                     result.notImplemented();
                 }
