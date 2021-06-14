@@ -23,10 +23,13 @@ allprojects {
         //android studio download maven-metadata.xml卡住问题
         //原因：引用资源版本号不确定，每次构建都会通过资源库中下载maven-metadata.xml，然后得到最新发布版本号或最新版本号，才会根据这个版本号来下载对应的jar
         //https://blog.csdn.net/baidu_27196493/article/details/107752261
+        //使用阿里云代理
         //jcenter
         maven { url 'https://maven.aliyun.com/repository/public'}
         //central
         maven { url 'https://maven.aliyun.com/repository/central'}
+        //google
+        maven { url 'https://maven.aliyun.com/repository/google'}
     }
 }
 
