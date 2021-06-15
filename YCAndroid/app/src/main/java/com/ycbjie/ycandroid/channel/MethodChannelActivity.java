@@ -106,6 +106,14 @@ public class MethodChannelActivity extends AppCompatActivity implements View.OnC
         flutterEngine.getLifecycleChannel().appIsPaused();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (flutterEngine != null) {
+            flutterEngine.destroy();
+        }
+    }
+
     private void addFlutterView() {
         flutterEngine = new FlutterEngine(this);
         dartExecutor = flutterEngine.getDartExecutor();

@@ -60,6 +60,7 @@ class MyApp extends StatelessWidget {
   }
 
   Map<String, dynamic> parseRouter(){
+    // window.defaultRouteName就是获取Android传递过来的参数
     String url = window.defaultRouteName;
     // route名称，路由path路径名称
     String route = url.indexOf('?') == -1 ? url : url.substring(0, url.indexOf('?'));

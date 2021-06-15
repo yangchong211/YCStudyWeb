@@ -70,6 +70,14 @@ public class MethodChannelActivity2 extends AppCompatActivity implements View.On
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (flutterFragment != null && flutterFragment.getFlutterEngine()!=null) {
+            flutterFragment.getFlutterEngine().destroy();
+        }
+    }
+
+    @Override
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.tv_invoke:

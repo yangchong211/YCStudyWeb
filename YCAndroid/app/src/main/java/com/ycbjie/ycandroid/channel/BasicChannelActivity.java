@@ -92,6 +92,14 @@ public class BasicChannelActivity extends AppCompatActivity implements View.OnCl
         flutterEngine.getLifecycleChannel().appIsPaused();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (flutterEngine != null) {
+            flutterEngine.destroy();
+        }
+    }
+
     private void addFlutterView() {
         flutterEngine = new FlutterEngine(this);
         dartExecutor = flutterEngine.getDartExecutor();
@@ -142,6 +150,7 @@ public class BasicChannelActivity extends AppCompatActivity implements View.OnCl
         nativeChannel.setMessageHandler(new BasicMessageChannel.MessageHandler<String>() {
             @Override
             public void onMessage(String s, BasicMessageChannel.Reply<String> reply) {
+                // 接收消息并处理
                 Log.e("BasicMessageChannel",s);
                 Log.e("BasicMessageChannel",reply.toString());
                 Intent intent = new Intent(BasicChannelActivity.this, RouterToFlutterActivity.class);
@@ -160,6 +169,7 @@ public class BasicChannelActivity extends AppCompatActivity implements View.OnCl
             nativeChannel.send("逗比，互相调用场景：我是Native发送的消息", new BasicMessageChannel.Reply<String>() {
                 @Override
                 public void reply(String s) {
+                    // 发送回调
                     Log.e("BasicMessageChannel发送消息",s);
                 }
             });

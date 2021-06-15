@@ -95,6 +95,16 @@ public class EventChannelActivity extends AppCompatActivity implements View.OnCl
         flutterEngine.getLifecycleChannel().appIsPaused();
     }
 
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (flutterEngine != null) {
+            flutterEngine.destroy();
+        }
+    }
+
+
     private void addFlutterView() {
         flutterEngine = new FlutterEngine(this);
         dartExecutor = flutterEngine.getDartExecutor();

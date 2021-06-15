@@ -1,5 +1,6 @@
 package com.ycbjie.ycandroid.channel;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,7 +31,6 @@ import io.flutter.plugin.common.StringCodec;
  */
 public class BasicChannelActivity2 extends AppCompatActivity implements View.OnClickListener {
 
-    private TextView tv;
     private TextView tvContent;
     private TextView tvInvoke;
     private FrameLayout rlFlutter;
@@ -38,12 +38,13 @@ public class BasicChannelActivity2 extends AppCompatActivity implements View.OnC
     private FlutterFragment flutterFragment;
     public static final String BASIC_CHANNEL = "com.ycbjie.android/basic";
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_channel_method);
 
-        tv = findViewById(R.id.tv);
+        TextView tv = findViewById(R.id.tv);
         tvContent = findViewById(R.id.tv_content);
         tvInvoke = findViewById(R.id.tv_invoke);
         rlFlutter = findViewById(R.id.rl_flutter);
@@ -59,6 +60,15 @@ public class BasicChannelActivity2 extends AppCompatActivity implements View.OnC
             }
         },2000);
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (flutterFragment != null && flutterFragment.getFlutterEngine()!=null) {
+            flutterFragment.getFlutterEngine().destroy();
+        }
+    }
+
 
     @Override
     public void onClick(View view) {
