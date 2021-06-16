@@ -147,16 +147,19 @@ public class BasicChannelActivity extends AppCompatActivity implements View.OnCl
         // 或者
         nativeChannel = new BasicMessageChannel(binaryMessenger, BASIC_CHANNEL, StringCodec.INSTANCE);
         //接收消息
-        nativeChannel.setMessageHandler(new BasicMessageChannel.MessageHandler<String>() {
+        nativeChannel.setMessageHandler(new BasicMessageChannel.MessageHandler() {
             @Override
-            public void onMessage(String s, BasicMessageChannel.Reply<String> reply) {
+            public void onMessage(Object message, BasicMessageChannel.Reply reply) {
                 // 接收消息并处理
-                Log.e("BasicMessageChannel",s);
-                Log.e("BasicMessageChannel",reply.toString());
-                Intent intent = new Intent(BasicChannelActivity.this, RouterToFlutterActivity.class);
-                intent.putExtra("yc", s);
-                startActivity(intent);
-                reply.reply("Na收到指令");
+                if (message instanceof String){
+                    String str = (String) message;
+                    Intent intent = new Intent(BasicChannelActivity.this, RouterToFlutterActivity.class);
+                    intent.putExtra("yc", str);
+                    startActivity(intent);
+                    reply.reply("Na收到指令");
+
+                    //todo 打开相机案例并返回文件路径给flutter ： https://juejin.cn/post/6970858908051046414
+                }
             }
         });
     }

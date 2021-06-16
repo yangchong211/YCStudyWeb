@@ -221,3 +221,9 @@
 //
 //
 //}
+
+//todo 关闭mas日志
+//MASConfig.LOG_PRINT = false;
+
+
+

@@ -79,5 +79,7 @@ public class FlutterContainerActivity extends AppCompatActivity implements View.
                         .withCachedEngine("my_engine_id")
                         .build(this)
         );*/
+
+        FlutterAppActivity.start(this,"yc");
     }
 }

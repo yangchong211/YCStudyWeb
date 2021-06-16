@@ -87,7 +87,7 @@ class _BasicChannelState extends State<BasicChannelPage> {
                     left: 10.0, top: 10.0, right: 10.0),
                 child: new RaisedButton(
                     textColor: Colors.black,
-                    child: new Text('跳转到原生界面(带参数List)，回调结果：$_methodResult3'),
+                    child: new Text('打开原生相册，回调结果：$_methodResult3'),
                     onPressed: () {
 
                     }),
