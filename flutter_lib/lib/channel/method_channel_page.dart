@@ -22,6 +22,7 @@ class _MethodChannelState extends State<MethodChannelPage> {
 
 
   var _nativeParams2;
+  var _methodResult0 = "";
   var _methodResult1 = "";
   var _methodResult2 = "";
   var _methodResult3 = "";
@@ -65,6 +66,15 @@ class _MethodChannelState extends State<MethodChannelPage> {
         return "你好，这个是从flutter传递过来的数据2";
         break;
     }
+  }
+
+  Future<Null> _imageToNative() async {
+    Map<String, String> map = { "image": "assets/images/map_marker_b.png" };
+    String result = await method.invokeMethod('image',map);
+    print(result);
+    setState(() {
+      _methodResult0 = result;
+    });
   }
 
   Future<Null> _jumpToNative() async {
@@ -115,6 +125,15 @@ class _MethodChannelState extends State<MethodChannelPage> {
       body:  Center(
           child: new ListView(
             children: <Widget>[
+              new Padding(
+                padding: const EdgeInsets.only(left: 10.0, top: 10.0, right: 10.0),
+                child: new RaisedButton(
+                    textColor: Colors.black,
+                    child: new Text('传递图片给NA显示，回调结果：$_methodResult0'),
+                    onPressed: () {
+                      _imageToNative();
+                    }),
+              ),
               new Padding(
                 padding: const EdgeInsets.only(left: 10.0, top: 10.0, right: 10.0),
                 child: new RaisedButton(

@@ -1,11 +1,16 @@
 package com.ycbjie.ycandroid.channel;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,6 +22,8 @@ import com.ycbjie.ycandroid.router.RouterToFlutterActivity;
 import com.ycbjie.ycandroid.R;
 import com.ycbjie.ycandroid.router.SecondActivity;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,6 +32,8 @@ import java.util.Map;
 import io.flutter.embedding.android.FlutterView;
 import io.flutter.embedding.engine.FlutterEngine;
 import io.flutter.embedding.engine.dart.DartExecutor;
+import io.flutter.embedding.engine.plugins.FlutterPlugin;
+import io.flutter.embedding.engine.plugins.PluginRegistry;
 import io.flutter.plugin.common.BinaryMessenger;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
@@ -36,6 +45,7 @@ import io.flutter.plugin.common.StandardMethodCodec;
 public class MethodChannelActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView tvContent;
+    private ImageView ivImage;
     private FrameLayout rlFlutter;
     private FlutterView flutterView;
     private FlutterEngine flutterEngine;
@@ -56,6 +66,7 @@ public class MethodChannelActivity extends AppCompatActivity implements View.OnC
         setContentView(R.layout.activity_channel_method);
 
         TextView tv = findViewById(R.id.tv);
+        ivImage = findViewById(R.id.iv_image);
         tvContent = findViewById(R.id.tv_content);
         TextView tvInvoke = findViewById(R.id.tv_invoke);
         rlFlutter = findViewById(R.id.rl_flutter);
@@ -187,6 +198,14 @@ public class MethodChannelActivity extends AppCompatActivity implements View.OnC
                     }
                     //返回给flutter的参数
                     result.success("Na成功");
+                } else if ("image".equals(methodCall.method)) {
+                    //接收来自flutter的指令
+                    //解析参数
+                    String image = methodCall.argument("image");
+                    Bitmap bitmap = getImageFromAssetsFile(MethodChannelActivity.this, image);
+                    ivImage.setImageBitmap(bitmap);
+                    //返回给flutter的参数
+                    result.success("Na设置图片成功");
                 } if ("goBackWithResult".equals(methodCall.method)) {
                     // 返回上一页，携带数据
                     Intent backIntent = new Intent();
@@ -263,4 +282,33 @@ public class MethodChannelActivity extends AppCompatActivity implements View.OnC
     public void onBackPressed() {
         super.onBackPressed();
     }
+
+
+    /**
+     * 从资源路径获取文件，并加载成bitmap，注意仅限于加载图片资源
+     * @param context                                   上下文
+     * @param fileName                                  文件路径
+     * @return
+     */
+    public Bitmap getImageFromAssetsFile(Context context, String fileName) {
+        Bitmap bitmap = null;
+        AssetManager am = context.getResources().getAssets();
+        InputStream is = null;
+        try {
+            is = am.open(fileName);
+            bitmap = BitmapFactory.decodeStream(is);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (is!=null){
+                try {
+                    is.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return bitmap;
+    }
+
 }
