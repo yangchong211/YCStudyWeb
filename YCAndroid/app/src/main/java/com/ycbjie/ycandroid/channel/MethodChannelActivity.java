@@ -3,6 +3,7 @@ package com.ycbjie.ycandroid.channel;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -22,6 +23,7 @@ import com.ycbjie.ycandroid.router.RouterToFlutterActivity;
 import com.ycbjie.ycandroid.R;
 import com.ycbjie.ycandroid.router.SecondActivity;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -32,6 +34,7 @@ import java.util.Map;
 import io.flutter.embedding.android.FlutterView;
 import io.flutter.embedding.engine.FlutterEngine;
 import io.flutter.embedding.engine.dart.DartExecutor;
+import io.flutter.embedding.engine.loader.FlutterLoader;
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.embedding.engine.plugins.PluginRegistry;
 import io.flutter.plugin.common.BinaryMessenger;
@@ -70,8 +73,9 @@ public class MethodChannelActivity extends AppCompatActivity implements View.OnC
         tvContent = findViewById(R.id.tv_content);
         TextView tvInvoke = findViewById(R.id.tv_invoke);
         rlFlutter = findViewById(R.id.rl_flutter);
-
+        TextView tvImage = findViewById(R.id.tv_image);
         tvInvoke.setOnClickListener(this);
+        tvImage.setOnClickListener(this);
 
         tv.setText("MethodChannel通信交互（FlutterView）");
         addFlutterView();
@@ -83,6 +87,10 @@ public class MethodChannelActivity extends AppCompatActivity implements View.OnC
         switch (view.getId()){
             case R.id.tv_invoke:
                 invoke();
+                break;
+            case R.id.tv_image:
+                Bitmap bitmap = getImageFromAssetsFile(MethodChannelActivity.this, "assets/images/map_marker_c.png");
+                ivImage.setImageBitmap(bitmap);
                 break;
             default:
                 break;
@@ -200,9 +208,9 @@ public class MethodChannelActivity extends AppCompatActivity implements View.OnC
                     result.success("Na成功");
                 } else if ("image".equals(methodCall.method)) {
                     //接收来自flutter的指令
-                    //解析参数
+                    //解析参数，测试
                     String image = methodCall.argument("image");
-                    Bitmap bitmap = getImageFromAssetsFile(MethodChannelActivity.this, image);
+                    Bitmap bitmap = getImageFromFlutterFile(MethodChannelActivity.this, image);
                     ivImage.setImageBitmap(bitmap);
                     //返回给flutter的参数
                     result.success("Na设置图片成功");
@@ -297,6 +305,30 @@ public class MethodChannelActivity extends AppCompatActivity implements View.OnC
         try {
             is = am.open(fileName);
             bitmap = BitmapFactory.decodeStream(is);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (is!=null){
+                try {
+                    is.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return bitmap;
+    }
+
+    public static Bitmap getImageFromFlutterFile(Context context, String fileName) {
+        Bitmap bitmap = null;
+        AssetManager assetManager = context.getResources().getAssets();
+        FlutterLoader loader = FlutterLoader.getInstance();
+        String key = loader.getLookupKeyForAsset(fileName);
+        AssetFileDescriptor is = null;
+        try {
+            is = assetManager.openFd(key);
+            FileInputStream inputStream = is.createInputStream();
+            bitmap = BitmapFactory.decodeStream(inputStream);
         } catch (IOException e) {
             e.printStackTrace();
         } finally {

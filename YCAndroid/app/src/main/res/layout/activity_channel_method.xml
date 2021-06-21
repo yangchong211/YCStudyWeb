@@ -38,6 +38,17 @@
         android:gravity="center"
         android:text="调用invoke方法na--->flutter" />
 
+    <TextView
+        android:id="@+id/tv_image"
+        android:layout_marginTop="10dp"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:background="@color/colorAccent"
+        android:gravity="center"
+        android:text="调用图片--->NA" />
+
     <ImageView
         android:id="@+id/iv_image"
         android:layout_marginTop="10dp"

@@ -24,12 +24,13 @@ public class FlutterContainerActivity extends AppCompatActivity implements View.
         TextView tv2 = findViewById(R.id.tv_2);
         TextView tv3 = findViewById(R.id.tv_3);
         TextView tv4 = findViewById(R.id.tv_4);
+        TextView tv5 = findViewById(R.id.tv_5);
         tv1.setOnClickListener(this);
         tv2.setOnClickListener(this);
         tv3.setOnClickListener(this);
         tv4.setOnClickListener(this);
+        tv5.setOnClickListener(this);
     }
-
 
     @Override
     public void onClick(View view) {
@@ -45,6 +46,9 @@ public class FlutterContainerActivity extends AppCompatActivity implements View.
                 break;
             case R.id.tv_4:
                 test();
+                break;
+            case R.id.tv_5:
+                startActivity(new Intent(FlutterContainerActivity.this, FlutterViewActivity2.class));
                 break;
             default:
                 break;
