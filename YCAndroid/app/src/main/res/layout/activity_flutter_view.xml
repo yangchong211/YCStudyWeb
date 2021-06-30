@@ -6,6 +6,7 @@
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/tv_title"
         android:layout_marginTop="10dp"
         android:padding="10dp"
         android:layout_width="match_parent"

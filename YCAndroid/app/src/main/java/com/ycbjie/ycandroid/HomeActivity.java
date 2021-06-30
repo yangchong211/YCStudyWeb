@@ -15,6 +15,8 @@ import androidx.core.app.ActivityCompat;
 
 import com.ycbjie.ycandroid.channel.ChannelActivity;
 import com.ycbjie.ycandroid.container.FlutterContainerActivity;
+import com.ycbjie.ycandroid.flutter.FlutterDemoActivity;
+
 import io.flutter.embedding.engine.FlutterEngine;
 import io.flutter.embedding.engine.dart.DartExecutor;
 import io.flutter.plugin.common.BinaryMessenger;
@@ -29,6 +31,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private TextView tvContainer;
     private TextView tvChannel;
+    private TextView tvFlutter;
     private FrameLayout frameLayout;
     private FlutterView flutterView;
     private FlutterView flutterViewAbout;
@@ -66,6 +69,7 @@ public class HomeActivity extends AppCompatActivity {
         tvContainer = findViewById(R.id.tv_container);
         tvChannel = findViewById(R.id.tv_channel);
         frameLayout = findViewById(R.id.rl_flutter);
+        tvFlutter = findViewById(R.id.tv_flutter);
         initListener();
         addFlutterView();
         verifyStoragePermissions(this);
@@ -100,6 +104,12 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(HomeActivity.this, ChannelActivity.class));
+            }
+        });
+        tvFlutter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(HomeActivity.this, FlutterDemoActivity.class));
             }
         });
     }

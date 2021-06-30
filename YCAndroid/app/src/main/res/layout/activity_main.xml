@@ -17,7 +17,7 @@
 
 
     <TextView
-        android:id="@+id/tv_router"
+        android:id="@+id/tv_flutter"
         android:layout_below="@+id/tv_container"
         android:layout_marginTop="10dp"
         android:padding="10dp"
@@ -26,12 +26,12 @@
         android:layout_centerHorizontal="true"
         android:background="@color/colorAccent"
         android:gravity="left"
-        android:text="测试混合路由原生和flutter相互跳转" />
+        android:text="各种flutter使用案例大汇总" />
 
 
     <TextView
         android:id="@+id/tv_channel"
-        android:layout_below="@+id/tv_router"
+        android:layout_below="@+id/tv_flutter"
         android:layout_marginTop="10dp"
         android:padding="10dp"
         android:layout_width="match_parent"

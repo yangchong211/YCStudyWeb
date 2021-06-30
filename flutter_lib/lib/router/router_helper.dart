@@ -11,6 +11,7 @@ import 'package:flutter_lib/channel/event_channel_page.dart';
 import 'package:flutter_lib/channel/method_channel_page.dart';
 import 'package:flutter_lib/main_home_page.dart';
 import 'package:flutter_lib/network/net_work_page.dart';
+import 'package:flutter_lib/page/main/main_app_page.dart';
 
 class Router {
   static const String HOME_PATH = "/home_page";
@@ -50,6 +51,9 @@ class Router {
       case 'basic_channel':
       //basic通信
         return BasicChannelPage(title: '匹配到，测试basic_channel通信');
+      case 'app':
+      //flutter demo
+        return MainApp();
       default:
         return  MyHomePage(title: '没有匹配到哈，查看route是否一致1');
     }
