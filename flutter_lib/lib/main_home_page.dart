@@ -14,6 +14,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
+  // 没有关键词 public 、private 等修饰符
+  // _下横向直接代表 private ，但是有 @protected 注解。
   int _counter = 0;
 
   @override
@@ -64,4 +67,53 @@ class _MyHomePageState extends State<MyHomePage> {
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
+}
+
+///无参构造方法，需要手动添加无参构造方法。
+class HomePage extends  StatefulWidget{
+  @override
+  State<StatefulWidget> createState() {
+    return new HomeState();
+  }
+}
+
+class HomeState extends State<HomePage> {
+
+  //这个方法必须写
+  @override
+  Widget build(BuildContext context) {
+    return widget;
+  }
+  //构造方法
+  HomeState(){
+
+  }
+}
+
+/// 有参构造方法
+class BannerView extends StatefulWidget {
+
+  var data;
+  BannerView(data){
+    this.data = data;
+  }
+
+  @override
+  State<StatefulWidget> createState() {
+    return new BannerViewState(data);
+  }
+}
+
+class BannerViewState extends State<BannerView>{
+
+  List data;
+  BannerViewState(data){
+    this.data = data;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return widget;
+  }
+
 }
