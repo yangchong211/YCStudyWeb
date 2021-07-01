@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_lib/page/event/provider/business_state_service.dart';
+import 'package:flutter_lib/page/event/provider/service_locator.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_lib/page/event/provider/business_pattern.dart';
 
@@ -12,35 +14,41 @@ class ProviderStatePage extends StatefulWidget{
 }
 
 class ProviderStateState extends State<ProviderStatePage>{
+
   @override
-  Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text("Provider"),
-      ),
-      body: getWidget(context),
-    );
+  void initState() {
+    super.initState();
+    BusinessPatternService _patternService = serviceLocator<BusinessPatternService>();
+    _patternService.normalBusinessPattern();
   }
 
-  Widget getWidget(BuildContext context) {
-    return Consumer<BusinessPattern>(builder: (context, businessModel, child) {
-      switch (businessModel.currentState) {
-        case PatternState.none:
-          return Scaffold(body: WidgetPage("无模式"));
-          break;
-        case PatternState.normal:
-          return Scaffold(body: WidgetPage("正常模式"));
-          break;
-        case PatternState.small:
-          return Scaffold(body: WidgetPage("小屏模式"));
-          break;
-        case PatternState.overview:
-          return Scaffold(body: WidgetPage("全屏模式"));
-          break;
-        default:
-          return SizedBox();
-      }
-    });
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        children: [
+          Consumer<BusinessPattern>(builder: (context, businessModel, child) {
+            switch (businessModel.currentState) {
+              case BusinessPatternState.none:
+                return WidgetPage("无模式");
+                break;
+              case BusinessPatternState.normal:
+                return WidgetPage("正常模式");
+                break;
+              case BusinessPatternState.small:
+                return WidgetPage("小屏模式");
+                break;
+              case BusinessPatternState.overview:
+                return WidgetPage("全屏模式");
+                break;
+              default:
+                return WidgetPage("默认模式");
+                break;
+            }
+          })
+        ],
+      ),
+    );
   }
 }
 
@@ -70,14 +78,9 @@ class WidgetState extends State<WidgetPage>{
     this._title = title;
   }
 
-
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text("Provider状态事件"),
-      ),
-      body: new Center(
+    return new Center(
         child: new ListView(
           children: [
             new Text(
@@ -89,7 +92,6 @@ class WidgetState extends State<WidgetPage>{
             ),
           ],
         ),
-      ),
     );
   }
 }

@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 
 class ScreenUtil {
+
   static ScreenUtil instance = new ScreenUtil();
 
   //设计稿的设备尺寸修改
