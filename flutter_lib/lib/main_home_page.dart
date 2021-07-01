@@ -1,7 +1,6 @@
 
-import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_lib/utils/screen_utils.dart';
 
 class MyHomePage extends StatefulWidget {
 
@@ -15,9 +14,9 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
-  // 没有关键词 public 、private 等修饰符
-  // _下横向直接代表 private ，但是有 @protected 注解。
+  //没有关键词 public 、private 等修饰符
   int _counter = 0;
+  String screen = "";
 
   @override
   void initState() {
@@ -40,8 +39,6 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
       body:  Center(
@@ -56,7 +53,14 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: const EdgeInsets.only(
                     left: 10.0, top: 10.0, right: 10.0),
                 child: new Text('Flutter 按钮 点击次数$_counter'),
-              )
+              ),
+              new RaisedButton(
+                  onPressed: () {
+                    set(context);
+                  },
+                  child: new Text("获取屏幕的宽高属性")
+              ),
+              new Text(screen),
             ],
           )
       ),
@@ -64,9 +68,31 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: _incrementCounter,
         tooltip: 'Increment',
         child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
     );
   }
+
+  void set(BuildContext context){
+    ScreenUtil.instance.init(context);
+    var screenWidthDp = ScreenUtil.screenWidthDp;
+    var screenHeightDp = ScreenUtil.screenHeightDp;
+    var pixelRatio = ScreenUtil.pixelRatio;
+    var screenWidth = ScreenUtil.screenWidth;
+    var screenHeight = ScreenUtil.screenHeight;
+    var statusBarHeight = ScreenUtil.statusBarHeight;
+    screen =
+        "当前设备宽度 dp:"+screenWidthDp.toString() + "\n" +
+            "当前设备高度 dp:"+screenHeightDp.toString() + "\n" +
+            "设备的像素密度 :"+pixelRatio.toString() + "\n" +
+            "当前设备宽度 px:"+screenWidth.toString() + "\n" +
+            "当前设备高度 px:"+screenHeight.toString() + "\n" +
+            "状态栏高度 dp:"+statusBarHeight.toString() + "\n"
+    ;
+    setState(() {
+
+    });
+  }
+
 }
 
 ///无参构造方法，需要手动添加无参构造方法。
