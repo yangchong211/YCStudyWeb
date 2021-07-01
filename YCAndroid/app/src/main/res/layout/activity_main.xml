@@ -26,7 +26,7 @@
         android:layout_centerHorizontal="true"
         android:background="@color/colorAccent"
         android:gravity="left"
-        android:text="各种flutter使用案例大汇总" />
+        android:text="各种Flutter使用案例大汇总" />
 
 
     <TextView
