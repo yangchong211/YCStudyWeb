@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_lib/res/color/yc_colors.dart';
 import 'package:flutter_lib/utils/log_utils.dart';
-import 'package:flutter_lib/utils/screen_utils.dart';
+import 'package:flutter_lib/utils/screen/screen_utils.dart';
 
 class TextPage extends StatefulWidget{
   @override

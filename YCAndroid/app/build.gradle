@@ -33,4 +33,5 @@ dependencies {
 
     //在app下的build.gradle文件中添加该module的依赖
     implementation project(':flutter')
+    //provided rootProject.findProject(':flutter_uni')
 }

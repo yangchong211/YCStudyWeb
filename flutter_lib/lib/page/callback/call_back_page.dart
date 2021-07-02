@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_lib/utils/bus/event_bus_service.dart';
 import 'package:flutter_lib/widget/common_widget.dart';
 
 class CallBackPage extends StatefulWidget {
@@ -11,6 +14,57 @@ class PageState extends State<CallBackPage> {
 
   var _stateInfo = "初始值1";
   var _stateInfo2 = "初始值2";
+  var message = "";
+  StreamSubscription subscription;
+
+  @override
+  void initState() {
+    super.initState();
+    _addEventBusListener();
+    setFail(_showFail);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    if (subscription != null) {
+      subscription.cancel();
+      subscription = null;
+    }
+  }
+
+  /// 添加监听
+  void _addEventBusListener() {
+    subscription = EventBusService.instance.eventBus.on<EventMessage>().listen((event) {
+      String name = event.eventName;
+      setState(() {
+        _stateInfo = "发送通知收到了1";
+      });
+      if (name == "sendListener") {
+        message = event.arguments["message"];
+        setState(() {
+          _stateInfo2 = "发送通知收到了2";
+        });
+        _callBackFail();
+      }
+    });
+  }
+
+  void _showFail() {
+    _showFailDialog(context);
+  }
+
+  void _showFailDialog(BuildContext context) {
+    Scaffold.of(context).showSnackBar(new SnackBar(
+      content: new Text("SanckBar"),
+      action: new SnackBarAction(
+          label: "撤销",
+          onPressed: () {
+            print("点击撤回---------------");
+          }),
+    ));
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -83,13 +137,22 @@ class PageState extends State<CallBackPage> {
               }),
           MaterialButton(
               color: Colors.pinkAccent,
-              child: Text("刷新回调测试案例1"),
+              child: Text("发通知刷新回调弹出弹窗"),
               onPressed: () {
-                showDialog(context);
+                EventBusService.instance.eventBus.fire(EventMessage(
+                  "sendListener",
+                  arguments: {"state": 1, "message" : "message"},
+                ));
               }),
           MaterialButton(
               color: Colors.pinkAccent,
-              child: Text("恢复数据"),
+              child: Text("吊起弹唱测试"),
+              onPressed: () {
+                _showFailDialog(context);
+              }),
+          MaterialButton(
+              color: Colors.pinkAccent,
+              child: Text("恢复初始化数据"),
               onPressed: () {
                 setState(() {
                   _stateInfo = "初始值1";
@@ -129,20 +192,12 @@ class PageState extends State<CallBackPage> {
     _valueCallback2(10);
   }
 
-  void showDialog(BuildContext context){
-    PermissionUtils.showDialog(context, "权限提醒",
-        "使用之前，需要开启\"电话权限\"、\"短信权限\"、\"存储权限\"，"
-            "以确保账号登录安全和信息安全。\n\n请在设置-应用-YCAndroid-权限中开启相关权限。",
-            () {
-          Navigator.pop(context);
-          setState(() {
-            _stateInfo="去开启权限";
-          });
-        }, () {
-          setState(() {
-            _stateInfo="取消权限开启";
-          });
-        });
+  /// 失败回调
+  Function _callBackFail;
+
+  /// 失败弹框回调
+  void setFail(Function callBack) {
+    _callBackFail = callBack;
   }
 
   ///利用callback的思想类似方法回调，要处理一件事的时机是另外一件事处理完成之后触发。
@@ -153,6 +208,7 @@ class PageState extends State<CallBackPage> {
     print("------------");
   }
 }
+
 
 // typedef FunctionTest = Function();//定义成这样也是可以的
 typedef Function2<int> = void Function(int result);//限定参数和返回值

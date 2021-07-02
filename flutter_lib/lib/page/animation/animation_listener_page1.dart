@@ -2,7 +2,7 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:flutter_lib/page/event/bus/event_bus_helper.dart';
+import 'package:flutter_lib/utils/bus/event_bus_helper.dart';
 import 'package:flutter_lib/res/image/images.dart';
 
 class AnimationListenerPage1 extends StatefulWidget{

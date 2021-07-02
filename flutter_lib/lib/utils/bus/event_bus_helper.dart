@@ -1,17 +1,19 @@
 
+//定义一个top-level（全局）变量，页面引入该文件后可以直接使用bus
+var bus = new EventBusHelper();
 
 //订阅者回调签名
 typedef void EventCallback(arg);
 
-class EventBus {
+class EventBusHelper {
   //私有构造函数
-  EventBus._internal();
+  EventBusHelper._internal();
 
   //保存单例
-  static EventBus _singleton = new EventBus._internal();
+  static EventBusHelper _singleton = new EventBusHelper._internal();
 
   //工厂构造函数
-  factory EventBus()=> _singleton;
+  factory EventBusHelper()=> _singleton;
 
   //保存事件订阅者队列，key:事件名(id)，value: 对应事件的订阅者队列
   var _emap = new Map<Object, List<EventCallback>>();
@@ -45,6 +47,3 @@ class EventBus {
     }
   }
 }
-
-//定义一个top-level（全局）变量，页面引入该文件后可以直接使用bus
-var bus = new EventBus();

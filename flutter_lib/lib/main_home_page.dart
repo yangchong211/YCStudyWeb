@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter_lib/utils/screen_utils.dart';
+import 'package:flutter_lib/utils/screen/screen_utils.dart';
 
 class MyHomePage extends StatefulWidget {
 
