@@ -2,16 +2,22 @@ package com.ycbjie.ycandroid;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Point;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.view.ViewCompat;
 
 import com.ycbjie.ycandroid.channel.ChannelActivity;
 import com.ycbjie.ycandroid.container.FlutterContainerActivity;
@@ -24,6 +30,8 @@ import io.flutter.plugin.common.BinaryMessenger;
 //import io.flutter.view.FlutterView;
 import io.flutter.embedding.android.FlutterView;
 
+import static androidx.core.view.ViewCompat.getDisplay;
+
 /**
  * @author yc
  */
@@ -32,6 +40,7 @@ public class HomeActivity extends AppCompatActivity {
     private TextView tvContainer;
     private TextView tvChannel;
     private TextView tvFlutter;
+    private TextView tvInfo;
     private FrameLayout frameLayout;
     private FlutterView flutterView;
     private FlutterView flutterViewAbout;
@@ -70,9 +79,12 @@ public class HomeActivity extends AppCompatActivity {
         tvChannel = findViewById(R.id.tv_channel);
         frameLayout = findViewById(R.id.rl_flutter);
         tvFlutter = findViewById(R.id.tv_flutter);
+        tvInfo = findViewById(R.id.tv_info);
+
         initListener();
         addFlutterView();
         verifyStoragePermissions(this);
+        test();
     }
 
     @Override
@@ -135,5 +147,33 @@ public class HomeActivity extends AppCompatActivity {
         super.onBackPressed();
     }
 
+    @SuppressLint("SetTextI18n")
+    private void test(){
+        int heightPixels = getHeightPixels(this);
+        int widthPixels = getWidthPixels(this);
+        tvInfo.setText("宽："+widthPixels + " 高："+heightPixels);
+    }
+
+    public static int getWidthPixels(Context context) {
+        DisplayMetrics metrics = new DisplayMetrics();
+        WindowManager windowManager = (WindowManager) context.getApplicationContext()
+                .getSystemService(Context.WINDOW_SERVICE);
+        if (windowManager == null) {
+            return 0;
+        }
+        windowManager.getDefaultDisplay().getMetrics(metrics);
+        return metrics.widthPixels;
+    }
+
+    public static int getHeightPixels(Context context) {
+        DisplayMetrics metrics = new DisplayMetrics();
+        WindowManager windowManager = (WindowManager) context.getApplicationContext()
+                .getSystemService(Context.WINDOW_SERVICE);
+        if (windowManager == null) {
+            return 0;
+        }
+        windowManager.getDefaultDisplay().getMetrics(metrics);
+        return metrics.heightPixels;
+    }
 
 }

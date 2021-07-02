@@ -15,7 +15,6 @@
         android:gravity="left"
         android:text="测试Android几种承载flutter容器" />
 
-
     <TextView
         android:id="@+id/tv_flutter"
         android:layout_below="@+id/tv_container"
@@ -41,12 +40,25 @@
         android:gravity="left"
         android:text="测试Channel进行Android原生与Flutter交互" />
 
+    <TextView
+        android:id="@+id/tv_info"
+        android:layout_below="@+id/tv_channel"
+        android:layout_marginTop="10dp"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:background="@color/colorAccent"
+        android:gravity="left"
+        android:text="" />
+
+
     <FrameLayout
         android:id="@+id/rl_flutter"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/tv_channel">
+        android:layout_below="@+id/tv_info">
     </FrameLayout>
 
 
