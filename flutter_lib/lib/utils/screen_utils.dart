@@ -13,6 +13,7 @@ class ScreenUtil {
   static MediaQueryData _mediaQueryData;
   static double _screenWidth;
   static double _screenHeight;
+  //设备的像素密度
   static double _pixelRatio;
   static double _statusBarHeight;
 
@@ -55,7 +56,7 @@ class ScreenUtil {
   ///当前设备高度 dp
   static double get screenHeightDp => _screenHeight;
 
-  ///当前设备宽度 px
+  ///当前设备宽度 px = dp * 密度
   static double get screenWidth => _screenWidth * _pixelRatio;
 
   ///当前设备高度 px
