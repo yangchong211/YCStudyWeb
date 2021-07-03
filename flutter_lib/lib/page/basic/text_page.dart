@@ -14,6 +14,7 @@ class TextPage extends StatefulWidget{
 
 class TextPageState extends State<TextPage>{
 
+  @toDo("这个定义的变量", "注意初始化")
   String text1 = "初始化值";
 
   @override
@@ -144,4 +145,11 @@ class TextPageState extends State<TextPage>{
     painter.layout(maxWidth: maxWidth);
     return painter;
   }
+}
+
+/// 自定义注解
+class toDo {
+  final String who;
+  final String what;
+  const toDo(this.who, this.what);
 }
