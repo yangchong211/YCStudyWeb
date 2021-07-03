@@ -211,6 +211,20 @@ class ToastAndDialogPage extends StatelessWidget {
             child: new Text("SimpleDialog"),
             color: Colors.redAccent,
           ),
+          MaterialButton(
+            onPressed: () {
+              // 查找父级最近的Scaffold对应的ScaffoldState对象
+              ScaffoldState _state = context.findAncestorStateOfType<ScaffoldState>();
+              //调用ScaffoldState的showSnackBar来弹出SnackBar
+              _state.showSnackBar(
+                SnackBar(
+                  content: Text("我是SnackBar"),
+                ),
+              );
+            },
+            child: new Text("子树中获取State对象然后弹出SnackBar"),
+            color: Colors.redAccent,
+          ),
 
           //跟SnackBar不显示原理一样
           Builder(builder: (BuildContext context) {

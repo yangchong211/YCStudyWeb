@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_lib/router/router_helper.dart';
+import 'package:flutter_lib/utils/screen/screen_utils.dart';
 
 void main() => runApp(new MyApp());
 
@@ -9,6 +10,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.instance.init(context);
     return MaterialApp(
       title: 'flutter和Android混编项目',
       theme: ThemeData(

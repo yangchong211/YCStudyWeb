@@ -34,8 +34,11 @@ class ScreenUtil {
   void init(BuildContext context) {
     MediaQueryData mediaQuery = MediaQuery.of(context);
     _mediaQueryData = mediaQuery;
+    //当前设备密度比
     _pixelRatio = mediaQuery.devicePixelRatio;
+    //当前设备宽度 dp
     _screenWidth = mediaQuery.size.width;
+    //当前设备高度 dp
     _screenHeight = mediaQuery.size.height;
     _statusBarHeight = mediaQuery.padding.top;
     _bottomBarHeight = _mediaQueryData.padding.bottom;

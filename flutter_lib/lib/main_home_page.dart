@@ -73,7 +73,6 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void set(BuildContext context){
-    ScreenUtil.instance.init(context);
     var screenWidthDp = ScreenUtil.screenWidthDp;
     var screenHeightDp = ScreenUtil.screenHeightDp;
     var pixelRatio = ScreenUtil.pixelRatio;
