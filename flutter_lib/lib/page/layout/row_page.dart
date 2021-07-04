@@ -10,6 +10,13 @@ class RowPage extends StatelessWidget {
           children: <Widget>[
             new Text("从网络加载图片"),
             new Text('从本地加载图片'),
+            new RaisedButton(
+              onPressed: () {
+                print('点击红色按钮');
+              },
+              color: const Color(0xffff0000),
+              child: new Text('红色按钮'),
+            ),
           ],
         ));
   }
