@@ -6,6 +6,7 @@ import 'package:flutter_lib/page/basic/basic_skeleton_page.dart';
 import 'package:flutter_lib/page/basic/icon_page.dart';
 import 'package:flutter_lib/page/basic/image_page.dart';
 import 'package:flutter_lib/page/basic/indicator_progress_page.dart';
+import 'package:flutter_lib/page/basic/licycle_app_page.dart';
 import 'package:flutter_lib/page/basic/states_widget_page.dart';
 import 'package:flutter_lib/page/basic/switch_page.dart';
 import 'package:flutter_lib/page/basic/text_page.dart';
@@ -79,6 +80,7 @@ class BasicWidgetState extends State<BasicWidgetPage>{
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             CustomRaisedButton(new StatesWidgetPage(), "状态(State)管理"),
+            CustomRaisedButton(new LifecycleAppPage(), "lifecycle生命周期"),
             CustomRaisedButton(new TextPage(), "Text组件"),
             CustomRaisedButton(new TextFieldPage(), "TextField组件"),
             CustomRaisedButton(new ImagePage(), "Image组件"),
