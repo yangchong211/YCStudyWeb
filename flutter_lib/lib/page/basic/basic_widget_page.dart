@@ -13,7 +13,7 @@ import 'package:flutter_lib/page/basic/text_page.dart';
 import 'package:flutter_lib/page/basic/text_field_page.dart';
 import 'package:flutter_lib/page/basic/button_page.dart';
 import 'package:flutter_lib/utils/log_utils.dart';
-import 'package:flutter_lib/utils/timer_utils.dart';
+import 'package:flutter_lib/utils/timer/timer_utils.dart';
 import 'package:flutter_lib/widget/custom_raised_button.dart';
 
 class BasicWidgetPage extends StatefulWidget{
@@ -27,12 +27,13 @@ class BasicWidgetPage extends StatefulWidget{
 class BasicWidgetState extends State<BasicWidgetPage>{
 
   bool skeleton = true;
+  TimerUtils timerUtils;
 
   @override
   void initState() {
     super.initState();
     LogUtils.showPrint('BasicWidgetState---initState');
-    var timerUtils = new TimerUtils();
+    timerUtils = new TimerUtils();
     timerUtils.setTotalTime(3000);
     timerUtils.startTimer();
     timerUtils.setOnTimerTickCallback((millisUntilFinished) {
@@ -41,6 +42,7 @@ class BasicWidgetState extends State<BasicWidgetPage>{
       });
     });
   }
+
 
   @override
   void didChangeDependencies() {
@@ -58,6 +60,9 @@ class BasicWidgetState extends State<BasicWidgetPage>{
   void dispose() {
     LogUtils.showPrint('BasicWidgetState---dispose');
     super.dispose();
+    if(timerUtils!=null){
+      timerUtils.cancel();
+    }
   }
 
 

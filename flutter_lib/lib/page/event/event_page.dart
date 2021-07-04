@@ -1,7 +1,7 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:flutter_lib/page/event/bus/event_bus_page.dart';
+import 'package:flutter_lib/page/event/event_bus_page.dart';
 import 'package:flutter_lib/page/event/pointer_event_page.dart';
 import 'package:flutter_lib/page/event/gesture_detector_page.dart';
 import 'package:flutter_lib/page/event/provider/provider_state_page.dart';

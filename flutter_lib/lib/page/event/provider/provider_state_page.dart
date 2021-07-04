@@ -27,6 +27,34 @@ class ProviderStateState extends State<ProviderStatePage>{
     return Scaffold(
       body: Stack(
         children: [
+          MaterialButton(
+              color: Colors.pinkAccent,
+              child: Text("切换无模式"),
+              onPressed: () {
+                BusinessPatternService _patternService = serviceLocator<BusinessPatternService>();
+                _patternService.noneBusinessPattern();
+              }),
+          MaterialButton(
+              color: Colors.pinkAccent,
+              child: Text("切换正常模式"),
+              onPressed: () {
+                BusinessPatternService _patternService = serviceLocator<BusinessPatternService>();
+                _patternService.normalBusinessPattern();
+              }),
+          MaterialButton(
+              color: Colors.pinkAccent,
+              child: Text("切换小屏模式"),
+              onPressed: () {
+                BusinessPatternService _patternService = serviceLocator<BusinessPatternService>();
+                _patternService.smallBusinessPattern();
+              }),
+          MaterialButton(
+              color: Colors.pinkAccent,
+              child: Text("切换全屏模式"),
+              onPressed: () {
+                BusinessPatternService _patternService = serviceLocator<BusinessPatternService>();
+                _patternService.overviewBusinessPattern();
+              }),
           Consumer<BusinessPattern>(builder: (context, businessModel, child) {
             switch (businessModel.currentState) {
               case BusinessPatternState.none:
