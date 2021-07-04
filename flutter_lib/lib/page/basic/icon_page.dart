@@ -18,10 +18,12 @@ class IconPage extends StatelessWidget {
             Icon(Icons.accessible,color: Colors.green,),
             Icon(Icons.error,color: Colors.green,),
             Icon(Icons.fingerprint,color: Colors.green,),
+            Icon(Icons.add_call,color: Colors.green,size: 50,),
 
             new Text("使用自定义字体图标"),
             Icon(MyIcons.book,color: Colors.purple,),
             Icon(MyIcons.wechat,color: Colors.green,),
+
           ],
         ));
   }
