@@ -15,4 +15,10 @@ class BusinessPattern extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  @override
+  void notifyListeners() {
+    super.notifyListeners();
+  }
+
 }

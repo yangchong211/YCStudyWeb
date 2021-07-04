@@ -6,7 +6,6 @@ import 'package:flutter_lib/widget/custom_raised_button.dart';
 import 'package:flutter_lib/widget/skeleton_animation_widget.dart';
 import 'package:flutter_lib/page/basic/icon_page.dart';
 import 'package:flutter_lib/page/basic/image_page.dart';
-import 'package:flutter_lib/page/basic/indicator_progress_page.dart';
 import 'package:flutter_lib/page/basic/switch_page.dart';
 import 'package:flutter_lib/page/basic/text_page.dart';
 import 'package:flutter_lib/page/basic/text_field_page.dart';
@@ -75,6 +74,31 @@ class BasicSkeletonPage extends SkeletonAnimationComponent{
   @override
   int skeletonAnimationWidgetNum() {
     return 8;
+  }
+
+}
+
+class IndicatorProgressPage extends StatefulWidget {
+
+  @override
+  State<StatefulWidget> createState() {
+    return new IndicatorProgressState();
+  }
+
+}
+
+class IndicatorProgressState extends State<IndicatorProgressPage>{
+
+  @override
+  Widget build(BuildContext context) {
+    return new Scaffold(
+        appBar: new AppBar(title: new Text("进度指示器")),
+        body: ListView(
+          children: <Widget>[
+            new Text("两种进度指示器：LinearProgressIndicator和CircularProgressIndicator"),
+
+          ],
+        ));
   }
 
 }

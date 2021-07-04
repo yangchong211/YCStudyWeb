@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_lib/page/basic/basic_skeleton_page.dart';
 import 'package:flutter_lib/page/basic/icon_page.dart';
 import 'package:flutter_lib/page/basic/image_page.dart';
-import 'package:flutter_lib/page/basic/indicator_progress_page.dart';
 import 'package:flutter_lib/page/basic/licycle_app_page.dart';
 import 'package:flutter_lib/page/basic/states_widget_page.dart';
 import 'package:flutter_lib/page/basic/switch_page.dart';
@@ -92,7 +91,6 @@ class BasicWidgetState extends State<BasicWidgetPage>{
             CustomRaisedButton(new IconPage(), "Icon组件"),
             CustomRaisedButton(new ButtonPage(), "Button控件"),
             CustomRaisedButton(new SwitchPage(), "单选开关和复选框控件"),
-            CustomRaisedButton(new IndicatorProgressPage(), "进度指示器"),
           ],
         ),
       ),
