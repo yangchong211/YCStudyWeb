@@ -44,7 +44,6 @@ class ScreenUtil {
     _statusBarHeight = mediaQuery.padding.top;
     //底部安全区距离 dp
     _bottomBarHeight = mediaQuery.padding.bottom;
-    //字体的缩放比例
     _textScaleFactor = mediaQuery.textScaleFactor;
   }
 
@@ -57,22 +56,22 @@ class ScreenUtil {
   static double get pixelRatio => _pixelRatio;
 
   ///当前设备宽度 dp
-  static int get screenWidthDp => _screenWidth.toInt();
+  static double get screenWidthDp => _screenWidth;
 
   ///当前设备高度 dp
-  static int get screenHeightDp => _screenHeight.toInt();
+  static double get screenHeightDp => _screenHeight;
 
   ///当前设备宽度 px = dp * 密度
-  static int get screenWidth => (_screenWidth * _pixelRatio).toInt();
+  static double get screenWidth => _screenWidth * _pixelRatio;
 
   ///当前设备高度 px
-  static int get screenHeight => (_screenHeight * _pixelRatio).toInt();
+  static double get screenHeight => _screenHeight * _pixelRatio;
 
   ///状态栏高度 dp 刘海屏会更高
-  static int get statusBarHeight => _statusBarHeight.toInt();
+  static double get statusBarHeight => _statusBarHeight;
 
   ///底部安全区距离 dp
-  static int get bottomBarHeight => _bottomBarHeight.toInt();
+  static double get bottomBarHeight => _bottomBarHeight;
 
   ///实际的dp与设计稿px的比例
   get scaleWidth => _screenWidth / instance.width;
@@ -91,9 +90,8 @@ class ScreenUtil {
 
   ///字体大小适配方法
   ///@param fontSize 传入设计稿上字体的px ,
-  ///@param allowFontScaling 控制字体是否要根据系统的“字体大小”辅助选项来进行缩放。
-  ///@param allowFontScaling Specifies whether fonts should scale to respect
-  ///Text Size accessibility settings. The default is false.
+  ///@param allowFontScaling 控制字体是否要根据系统的“字体大小”辅助选项来进行缩放。默认值为false。
+  ///@param allowFontScaling Specifies whether fonts should scale to respect Text Size accessibility settings. The default is false.
   setSp(double fontSize) => allowFontScaling
       ? setWidth(fontSize)
       : setWidth(fontSize) / _textScaleFactor;
