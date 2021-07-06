@@ -34,6 +34,11 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/map_marker_b.png
+    - assets/images/image1.jpg
+    - assets/images/image2.jpg
+    - assets/images/image3.jpg
+    - assets/images/image4.jpg
+    - assets/images/image5.png
   module:
     androidPackage: com.example.flutter_lib
     iosBundleIdentifier: com.example.flutterLib

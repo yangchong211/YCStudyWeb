@@ -7,6 +7,7 @@ import 'package:flutter_lib/page/layout/center_page.dart';
 import 'package:flutter_lib/page/layout/colunm_page.dart';
 import 'package:flutter_lib/page/layout/flex_page.dart';
 import 'package:flutter_lib/page/layout/flow_warp_page.dart';
+import 'package:flutter_lib/page/layout/grid_tile_page.dart';
 import 'package:flutter_lib/page/layout/opacity_page.dart';
 import 'package:flutter_lib/page/layout/row_page.dart';
 import 'package:flutter_lib/page/layout/position_page.dart';
@@ -42,6 +43,7 @@ class LayoutWidgetState extends State<LayoutWidgetPage>{
             CustomRaisedButton(new PositionPage(), "对齐与相对定位-Position"),
             CustomRaisedButton(new CenterLayoutPage(), "中心布局-Center"),
             CustomRaisedButton(new OpacityPage(), "调节透明度-Opacity"),
+            CustomRaisedButton(new GridTileState(), "item丰富布局-GridTile"),
           ],
         ),
       ),

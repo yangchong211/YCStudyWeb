@@ -24,33 +24,28 @@ class PositionState extends State<PositionPage>{
       appBar: new AppBar(
         title: new Text("Position"),
       ),
-      body: new Center(
-        child: new Column(
-          children: [
-            new Text('这个是Position页面1'),
-            new Positioned(
-              right: 10,
-              bottom: 100,
-              width: screenWidth,
-              child: Container(
-                child: Row(
-                  children: [
-                    LeftComponent(),
-                    RightComponent(),
-                  ],
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                ),
+      body: new Column(
+        children: [
+          new Text('Position，可以随意摆放一个组件，有点像绝对布局'),
+          new Positioned(
+            right: 10,
+            bottom: 100,
+            width: screenWidth,
+            child: Container(
+              child: Row(
+                children: [
+                  LeftComponent(),
+                  RightComponent(),
+                ],
+                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
               ),
             ),
-
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
-
-
 
 }
 
