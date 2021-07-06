@@ -14,6 +14,7 @@ import 'package:flutter_lib/page/channel/platform_page.dart';
 import 'package:flutter_lib/page/scroll/scroll_page.dart';
 import 'package:flutter_lib/page/storage/storage_page.dart';
 import 'package:flutter_lib/page/use/common_use_page.dart';
+import 'package:flutter_lib/page/utils/utils_page.dart';
 import 'package:flutter_lib/page/vessel/vessel_page.dart';
 import 'package:flutter_lib/utils/log_utils.dart';
 import 'package:flutter_lib/widget/custom_raised_button.dart';
@@ -100,6 +101,7 @@ class HomePageState extends State<HomePage>{
               CustomRaisedButton(new NetWorkPage(), "简单网络请求"),
               CustomRaisedButton(new StoragePage(), "数据库操作"),
               CustomRaisedButton(new NavigatorPage(), "路由页面跳转"),
+              CustomRaisedButton(new UtilsWidgetPage(), "工具类测试demo案例"),
             ],
           ),
         ),

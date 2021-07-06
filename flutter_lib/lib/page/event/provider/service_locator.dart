@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_lib/page/event/provider/business_state_service.dart';
 import 'package:flutter_lib/page/event/provider/business_state_service_impl.dart';
-import 'package:flutter_lib/page/event/provider/get_it.dart';
+import 'package:flutter_lib/utils/getIt/get_it.dart';
 
 GetIt serviceLocator = GetIt.instance;
 
@@ -44,6 +44,7 @@ class _ServiceLocator extends State<ServiceLocator> {
   @override
   void dispose() {
     super.dispose();
+    //解绑操作
     serviceLocator.resetLazySingleton<BusinessPatternService>();
   }
 
