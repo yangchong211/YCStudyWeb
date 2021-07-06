@@ -151,7 +151,9 @@ public class HomeActivity extends AppCompatActivity {
     private void test(){
         int heightPixels = getHeightPixels(this);
         int widthPixels = getWidthPixels(this);
-        tvInfo.setText("宽："+widthPixels + " 高："+heightPixels);
+        int height = px2dip(this,heightPixels);
+        int width = px2dip(this,widthPixels);
+        tvInfo.setText("宽："+widthPixels + " 高："+heightPixels +" 单位dp：" + "宽："+width + " 高："+height);
     }
 
     public static int getWidthPixels(Context context) {
@@ -174,6 +176,15 @@ public class HomeActivity extends AppCompatActivity {
         }
         windowManager.getDefaultDisplay().getMetrics(metrics);
         return metrics.heightPixels;
+    }
+
+
+    /**
+     * 根据手机的分辨率从 px(像素) 的单位 转成为 dp
+     */
+    public static int px2dip(Context context, float pxValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (pxValue / scale + 0.5f);
     }
 
 }
