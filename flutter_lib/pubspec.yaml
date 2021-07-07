@@ -16,6 +16,9 @@ dependencies:
   provider: 4.0.0
   # 添加sharedPreference依赖
   shared_preferences: ^0.5.0
+  # json解析
+  json_serializable: ^3.0.0
+  build_runner: ^1.6.1
   # 添加文件依赖
   path_provider: ^0.5.0
   #添加Sqflite依赖
