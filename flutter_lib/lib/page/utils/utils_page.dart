@@ -4,6 +4,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_lib/page/utils/data_page.dart';
 import 'package:flutter_lib/page/utils/json_utils_page.dart';
+import 'package:flutter_lib/page/utils/log_utils_page.dart';
 import 'package:flutter_lib/page/vessel/padding_page.dart';
 import 'package:flutter_lib/page/utils/get_it_page.dart';
 import 'package:flutter_lib/widget/custom_raised_button.dart';
@@ -31,6 +32,7 @@ class UtilsWidgetState extends State<UtilsWidgetPage>{
             CustomRaisedButton(new GetItPage(), "ServiceLocator案例"),
             CustomRaisedButton(new JsonUtilsPage(), "JsonUtils工具类"),
             CustomRaisedButton(new DatePage(), "DateUtils工具类"),
+            CustomRaisedButton(new LogUtilsPage(), "LogUtils工具类"),
           ],
         ),
       ),

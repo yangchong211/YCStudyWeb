@@ -2,6 +2,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_lib/utils/log/log_utils.dart';
 import 'package:flutter_lib/utils/screen/screen_utils.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -23,6 +24,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
+    LogUtils.init(tag: "yc",isDebug: true,maxLen: 128);
     //延时500毫秒执行
     Future.delayed(const Duration(milliseconds: 2500), () {
       set(context);
