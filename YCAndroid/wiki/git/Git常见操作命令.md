@@ -13,6 +13,14 @@
 - 20.git帮助help分析
 
 
+### 00.专有名次说明
+- 专有名次说明【结合图来看】
+    - Workspace：工作区
+    - Index / Stage：暂存区
+    - Repository：仓库区（或本地仓库）
+    - Remote：远程仓库
+
+
 
 
 ### 01.git环境配置说明
@@ -21,8 +29,16 @@
 - 3.验证是否成功，输入命令行。输出git版本表示git安装成功。
     - git --version
 - 4.在本地git中添加你得git账户和邮箱，用于每次提交时记日志(log）
-    - git config --global user.name "你的注册用户名"
-    - git config --global user.emall "你的注册邮箱"
+    - 注册用户名和邮箱
+    ```
+    git config --global user.name "你的注册用户名"
+    git config --global user.emall "你的注册邮箱"
+    ```
+    - 获取注册用户名和邮箱
+    ```
+    git config --global user.name
+    git config --global user.email
+    ```
 - 5.生成SSH key
     - 在终端输入命令：ssh-keygen -t rsa -C 你的注册邮箱。
     - 注意：这里要改成你自己的邮箱
@@ -114,13 +130,10 @@
     > $ git fetch [remote]
 - 取回远程仓库的变化，并与本地分支合并
     > $ git pull [remote] [branch]
-- 添加文件到暂存区
+- 添加文件到暂存区。文件的相对路径
     > $ git add [file1] [file2] ... //添加文件名
-    > 
     > $ git add [dir]  //添加目录
-    > 
     > $ git add . //添加当前目录的所有文件(不包括删除文件)
-    > 
     > $ git add -A //(-A : --all的缩写)添加当前目录的所有文件
 - 提交暂存区到仓库区
     > $ git commit -m [message]
@@ -134,15 +147,15 @@
 
 
 ### 06.分支操作
+- 查看本地所有的分支
+    > git branch
 - 查看远程仓库信息
     > $ git remote -v
 - 列出所有本地分支和远程分支
     > $ git branch -a
 - 新建一个分支，并切换到该分支
     > $ git checkout -b [branch]
-    > 相当于
     > $ git branch [branch-name] //新建一个分支，但依然停留在当前分支
-    > 
     > $ git checkout [branch-name] //切换到指定分支，并更新工作区；如果是远程分支将自动与远程关联本地分支
 - 新建一个分支，指向指定 commit
     > $ git branch [branch] [commit]
@@ -223,7 +236,7 @@
 
 
 
-#### 9.1 撤销
+#### 9.3 撤销
 - 恢复暂存区的指定文件到工作区
     > $ git checkout [file]
 - 恢复某个 commit 的指定文件到暂存区和工作区
@@ -243,6 +256,21 @@
 - 新建一个 commit，用来撤销指定 commit
 - 后者的所有变化都将被前者抵消，并且应用到当前分支
     > $ git revert [commit]
+- reset命令有3种方式：
+    ```
+    git reset –mixed：此为默认方式，不带任何参数的git reset，即时这种方式，它回退到某个版本，只保留源码，回退commit和index信息
+    git reset –soft：回退到某个版本，只回退了commit的信息，不会恢复到index file一级。如果还要提交，直接commit即可
+    git reset –hard：彻底回退到某个版本，本地的源码也会变为上一个版本的内容
+    ```
+- 具体怎么操作
+    ```
+    1、 将本地的状态回退到和远程一样
+    git reset --hard origin/master
+    2、将暂存区里面的修改清空 , 回退到上一次提交的记录
+    git reset --hard
+    3、将本地的状态回退到 某个版本
+    git reset --hard 5230bb6
+    ```
 
 
 
