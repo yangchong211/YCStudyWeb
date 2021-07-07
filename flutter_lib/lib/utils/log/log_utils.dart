@@ -55,7 +55,9 @@ class LogUtils {
 
   static void _printLog(String tag, String stag, Object object) {
     String da = object?.toString() ?? 'null';
-    tag = tag ?? _tagValue;
+    if(tag == null || tag.isEmpty){
+      tag = _tagValue;
+    }
     if (da.length <= _maxLen) {
       print('$tag$stag $da');
       return;

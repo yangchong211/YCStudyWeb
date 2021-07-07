@@ -40,10 +40,26 @@ class LogUtilsState extends State<LogUtilsPage>{
             new Divider(),
             RaisedButton(
               onPressed: () {
-                LogUtils.e("---------onPressed-",tag: "yangchong");
+                LogUtils.e("---------onPressed----error",tag: "yangchong");
               },
               color: const Color(0xffff0000),
               child: new Text('打印e日志，并带有tag'),
+            ),
+            new Divider(),
+            RaisedButton(
+              onPressed: () {
+                LogUtils.i("---------onPressed----info");
+              },
+              color: const Color(0xffff0000),
+              child: new Text('打印i日志，并带有tag'),
+            ),
+            new Divider(),
+            RaisedButton(
+              onPressed: () {
+                LogUtils.v("---------onPressed----v",tag: "xiaoyang");
+              },
+              color: const Color(0xffff0000),
+              child: new Text('打印v日志，并带有tag'),
             ),
           ],
         ));
