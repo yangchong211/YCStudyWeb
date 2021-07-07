@@ -60,7 +60,7 @@ class JsonUtilsState extends State<JsonUtilsPage>{
                 List<City> cityList = JsonUtils.getObjList(listStr, (v) => City.fromJson(v));
                 setState(() {
                   setState(() {
-                    title1 = "City对象列表："+cityList.length.toString();
+                    title2 = "City对象列表："+cityList.length.toString();
                   });
                 });
               },
