@@ -3,4 +3,8 @@ include ':app'
 apply from: file('settings-flutter.gradle')
 include ':flutter_lib'
 project(':flutter_lib').projectDir = new File('../flutter_lib')
+include ':flutter_uni'
+project(':flutter_uni').projectDir = new File('../flutter_uni')
+include ':flutter_channel'
+project(':flutter_channel').projectDir = new File('../flutter_channel')
 include ':FlutterContainer'

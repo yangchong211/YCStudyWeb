@@ -24,10 +24,6 @@ dependencies:
   #添加Sqflite依赖
   sqflite: ^1.0.0
   cupertino_icons: ^0.1.2
-  #依赖本地flutter_uni项目
-  flutter_uni:
-    path: ../flutter_uni
-
 
 dev_dependencies:
   flutter_test:
