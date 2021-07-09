@@ -1,18 +1,18 @@
 import 'dart:io';
 import 'dart:math';
 
+import 'package:flutter_channel/constant/constants.dart';
 import 'package:get_it/get_it.dart';
 import 'package:flutter_channel/cli/params.dart';
 import 'package:flutter_channel/ast/ast.dart';
-import 'package:flutter_channel/generator/common.dart';
-import 'package:flutter_channel/generator/register/model.dart';
+import 'package:flutter_channel/generator/model_register.dart';
 import 'package:flutter_channel/generator/tools.dart';
-import 'package:flutter_channel/model/models.dart';
+import 'package:flutter_channel/model/input_file.dart';
 import 'package:flutter_channel/utils/log.dart';
 
 const Map<String, String> javaTypeMapper = <String, String>{
   'bool': 'boolean',
-  'int': 'int',
+  'int': 'long',
   'String': 'String',
   'double': 'double',
   'Uint8List': 'byte[]',
@@ -24,7 +24,7 @@ const Map<String, String> javaTypeMapper = <String, String>{
 };
 
 const Map<String, String> javaGenericBoxing = {
-  'int': 'Integer',
+  'int': 'Long',
   'long': 'Long',
   'double': 'Double',
   'boolean': 'Boolean',
@@ -35,7 +35,7 @@ const Map<String, String> javaGenericBoxing = {
 const Map<String, String> dartToJavaReturnMap = {
   'void': 'void',
   'bool': 'boolean',
-  'int': 'int',
+  'int': 'long',
   'String': 'String',
   'double': 'double',
 };
@@ -154,7 +154,7 @@ void javaGenerateModel(Model kClass, StringSink sink, UniAPIOptions options) {
 
   final indent = Indent(sink);
 
-  indent.writeln(javaComment(generatedCodeWarning));
+  indent.writeln(javaComment(Constants.generatedCodeWarning));
   indent.writeNewline();
 
   if (kClass.inputFile.parts.isEmpty) {
@@ -175,7 +175,7 @@ void javaGenerateModel(Model kClass, StringSink sink, UniAPIOptions options) {
 
   indent.writeNewline();
 
-  indent.writeln(javaComment(generatedClassWarning));
+  indent.writeln(javaComment(Constants.generatedClassWarning));
   indent.write('public class ${kClass.name} extends UniModel ');
   indent.scoped('{', '}', () {
     for (var field in kClass.fields) {
@@ -213,7 +213,11 @@ void javaGenerateModel(Model kClass, StringSink sink, UniAPIOptions options) {
     indent.scoped('{', '}', () {
       indent.writeln('${kClass.name} result = new ${kClass.name}();');
       for (var field in kClass.fields) {
-        if (field.type == 'List') {
+        if (field.type == 'int') {
+          indent.writeln(
+              'result.${field.name} = map.containsKey("${field.name}") && map.get("${field.name}") != null ? ((Number) map.get("${field.name}")).longValue() : 0;'
+          );
+        } else if (field.type == 'List') {
           indent.writeln(
               'result.${field.name} = map.containsKey("${field.name}") && map.get("${field.name}") != null ? map((List<Map>) map.get("${field.name}"), o -> ${field.generics[0]}.fromMap(o)) : new ArrayList<>();'
           );
@@ -242,7 +246,7 @@ void javaGenerateEnum(Model kClass, StringSink sink, UniAPIOptions options) {
 
   final indent = Indent(sink);
 
-  indent.writeln(javaComment(generatedCodeWarning));
+  indent.writeln(javaComment(Constants.generatedCodeWarning));
   indent.writeNewline();
 
   indent.writeln(package(options.javaPackageName + '.' + kClass.inputFile.javaPackagePostfix()));
@@ -273,7 +277,7 @@ void javaGenerateUniNativeModule(Module kClass, StringSink sink, InputFile file,
 
   final indent = Indent(sink);
 
-  indent.writeln(javaComment(generatedCodeWarning));
+  indent.writeln(javaComment(Constants.generatedCodeWarning));
   indent.writeNewline();
 
   indent.writeln(package(options.javaPackageName + '.' + file.javaPackagePostfix()));
@@ -292,7 +296,7 @@ void javaGenerateUniNativeModule(Module kClass, StringSink sink, InputFile file,
 
   indent.writeNewline();
 
-  indent.writeln(javaComment(generatedClassWarning));
+  indent.writeln(javaComment(Constants.generatedClassWarning));
   indent.write('public interface ${kClass.name} ');
   indent.scoped('{', '}', () {
     var hasAsync = false;
@@ -336,7 +340,7 @@ public static class On${upperFirst(method.name)}${upperFirst(param.name)} {
       Map<String, Object> message = new HashMap<>();
       message.put("callbackName", callbackName);
       message.put("data", $encodeDeclaration);
-      new BasicMessageChannel<>(messenger, "com.didi.rlab.flutter_channel.AudioManager.callback_channel", StandardMessageCodec.INSTANCE).send(message);
+      new BasicMessageChannel<>(messenger, "com.yc.channel.flutter_channel.AudioManager.callback_channel", StandardMessageCodec.INSTANCE).send(message);
     }
 }
 """);
@@ -344,7 +348,7 @@ public static class On${upperFirst(method.name)}${upperFirst(param.name)} {
       }
     }
 
-    indent.writeln(javaComment(generatedInterfaceWarning));
+    indent.writeln(javaComment(Constants.generatedInterfaceWarning));
     for (var method in kClass.methods) {
       if (method.name == kClass.name) {
         continue;
@@ -378,7 +382,7 @@ void javaGenerateUniNativeModuleRegister(Module kClass, StringSink sink, InputFi
 
   final indent = Indent(sink);
 
-  indent.writeln(javaComment(generatedCodeWarning));
+  indent.writeln(javaComment(Constants.generatedCodeWarning));
   indent.writeNewline();
 
   indent.writeln(package(options.javaPackageName + '.' + file.javaPackagePostfix()));
@@ -402,7 +406,7 @@ void javaGenerateUniNativeModuleRegister(Module kClass, StringSink sink, InputFi
 
   indent.writeNewline();
 
-  indent.writeln(javaComment(generatedClassWarning));
+  indent.writeln(javaComment(Constants.generatedClassWarning));
   indent.write('public class ${kClass.name}Register ');
   indent.scoped('{', '}', ()
   {
@@ -455,6 +459,9 @@ void javaGenerateUniNativeModuleRegister(Module kClass, StringSink sink, InputFi
                   } else if (GetIt.I.get<ModelRegister>().contains(param.type)) {
                     var decoded = '${param.type}${param.javaDecodedFuncName(param.isEnum, param.isEnum ? '(Integer) params.get("${param.name}")' : '(Map) params.get("${param.name}")')}';
                     indent.writeln('${param.type} ${param.name} = params.containsKey("${param.name}") ? $decoded : null;');
+                  } else if (param.type == 'int') {
+                    indent.writeln(
+                      '${boxing(param.type, generics: param.generics)} ${param.name} =  params.containsKey("${param.name}") ? ((Number) params.get("${param.name}")).longValue() : 0;');
                   } else {
                     indent.writeln(
                         '${boxing(param.type, generics: param.generics)} ${param.name} = params.containsKey("${param.name}") ? (${boxing(param.type, generics: param.generics)}) params.get("${param.name}") : ${dartTypeNullToJavaDefaultValue(param.type)};');
@@ -518,7 +525,7 @@ void javaGenerateUniFlutterModule(Module kClass, StringSink sink, InputFile file
 
   final indent = Indent(sink);
 
-  indent.writeln(javaComment(generatedCodeWarning));
+  indent.writeln(javaComment(Constants.generatedCodeWarning));
   indent.writeNewline();
 
   indent.writeln(package(options.javaPackageName + '.' + file.javaPackagePostfix()));
@@ -591,6 +598,8 @@ void javaGenerateUniFlutterModule(Module kClass, StringSink sink, InputFile file
         indent.scoped('{', '});', () {
           if (method.returnValue.isVoid()) {
             indent.writeln('callback.result(null);');
+          } else if (method.returnValue.type == 'int') {
+            indent.writeln('callback.result(((Number) reply).longValue());');
           } else {
             if (GetIt.I.get<ModelRegister>().contains(method.returnValue.type)) {
               indent.writeln('callback.result(${method.returnValue.type}${method.returnValue.javaDecodedFuncName(method.returnValue.isEnum, method.returnValue.isEnum ? '(Integer) reply' : '(Map) reply')});');
@@ -611,7 +620,7 @@ void javaGenerateUniAPI(StringSink sink, File file, UniAPIOptions options) {
 
   final indent = Indent(sink);
 
-  indent.writeln(javaComment(generatedCodeWarning));
+  indent.writeln(javaComment(Constants.generatedCodeWarning));
   indent.writeNewline();
 
   indent.writeln(package(options.javaPackageName));
@@ -625,7 +634,12 @@ public class UniAPI {
     public static Map<String, Object> moduleMap = new HashMap<>();
 
     public static void registerModule(Object module) {
-        moduleMap.put(module.getClass().getName(), module);
+        Class[] interfaces = module.getClass().getInterfaces();
+        if (interfaces.length == 0) {
+            moduleMap.put(module.getClass().getName(), module);
+        } else {
+            moduleMap.put(module.getClass().getInterfaces()[0].getName(), module);
+        }
     }
 
     public static<T> T get(Class<T> aClass) {

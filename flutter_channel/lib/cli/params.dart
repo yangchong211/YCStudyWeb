@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:args/args.dart';
-import 'package:flutter_channel/model/models.dart';
+import 'package:flutter_channel/model/input_file.dart';
 import 'package:flutter_channel/utils/file.dart';
 
 class UniAPIOptions {
@@ -70,4 +70,10 @@ Future<List<InputFile>> parseInputFiles(
         absolutePath: file.path,
         relativePath: posixRelative(file.path, from: tempDir));
   }).toList();
+}
+
+Future<List<FileSystemEntity>> getDirsUnderPath(String projectPath) async {
+  var files = await dirContents(Directory(projectPath), recursive: true);
+  files = files.where((file) => FileSystemEntity.isDirectorySync(file.path)).toList();
+  return files;
 }

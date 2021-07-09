@@ -1,8 +1,8 @@
-
 import 'dart:convert';
 import 'dart:io';
-import 'package:flutter_channel/generator/common.dart';
-import 'package:flutter_channel/mirrors/mirrors.dart';
+import 'dart:mirrors';
+
+import 'package:flutter_channel/constant/constants.dart';
 
 import '../ast/ast.dart';
 
@@ -139,7 +139,7 @@ class Indent {
 
 /// Create the generated channel name for a [func] on a [api].
 String makeChannelName(Module module, Method func) {
-  return '$channelPrefix.${module.name}.${func.name}';
+  return Constants.channelPrefix+'.${module.name}.${func.name}';
 }
 
 /// Represents the mapping of a Dart datatype to a Host datatype.

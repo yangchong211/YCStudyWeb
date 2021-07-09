@@ -6,6 +6,7 @@ import 'package:flutter_channel/cli/params.dart';
 import 'package:flutter_channel/runtime/dart/UniCallback.dart';
 import 'package:flutter_channel/runtime/dart/UniModel.dart';
 import 'package:flutter_channel/runtime/dart/caches.dart';
+import 'package:flutter_channel/runtime/dart/uni_api.dart';
 import 'package:flutter_channel/runtime/java/UniModel.dart';
 import 'package:flutter_channel/utils/file.dart';
 import 'package:flutter_channel/utils/log.dart';
@@ -35,6 +36,9 @@ void copyPreCreatedFiles(UniAPIOptions options) {
   createAndWrite(
       path.join(options.dartOutput, 'uniapi', 'Model.dart'),
       dartUniModelContent);
+  createAndWrite(
+      path.join(options.dartOutput, 'uniapi', 'flutter_channel.dart'),
+      dartUniApiContent);
 }
 
 /// 命令行的执行入口

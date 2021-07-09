@@ -1,8 +1,8 @@
+import 'dart:mirrors';
 
 import 'package:flutter_channel/api/api.dart';
 import 'package:flutter_channel/ast/ast.dart';
-import 'package:flutter_channel/mirrors/mirrors.dart';
-import 'package:flutter_channel/model/models.dart';
+import 'package:flutter_channel/model/input_file.dart';
 
 
 Model parseModel(ClassMirror classMirror, InputFile inputFile) {
@@ -67,13 +67,13 @@ Module parseModule(ClassMirror classMirror) {
         parameters: parameters,
         ignoreError: ignoreError,
         returnGenerics: returnGenerics,
-        isAsync: isAsync
+        isAsync: isAsync,
       ));
     }
   }
 
   return Module(
     name: MirrorSystem.getName(classMirror.simpleName),
-    methods: methods
+    methods: methods,
   );
 }

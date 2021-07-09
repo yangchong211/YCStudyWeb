@@ -1,9 +1,9 @@
+import 'package:flutter_channel/constant/constants.dart';
 import 'package:get_it/get_it.dart';
 import '../cli/params.dart';
-import '../model/models.dart';
+import '../model/input_file.dart';
 import '../ast/ast.dart';
-import 'common.dart';
-import 'register/model.dart';
+import 'model_register.dart';
 import 'tools.dart';
 
 // enum 类型标记
@@ -179,9 +179,7 @@ void objcGenerateDeclaration(final className, final suffix, Indent indent) {
   indent.writeln('//  ${className}.${suffix}');
   indent.writeln('//  uniAPI');
   indent.writeln('//  ');
-  indent.writeln('//  $generatedCodeWarning');
-  indent.writeln('//  ');
-  indent.writeln('//  Copyright © 2021 The Rlab Authors. All rights reserved.');
+  indent.writeln('//  $Constants.generatedCodeWarning');
   indent.writeln('//  ');
   indent.writeNewline();
 }
@@ -572,7 +570,7 @@ void objcGenerateCallbackClassImplementation(Module kClass,Indent indent) {
           indent.inc();
           indent.writeln('[FlutterBasicMessageChannel');
           indent.inc();
-          indent.writeln('messageChannelWithName:@"com.didi.rlab.uni_api.AudioManager.callback_channel"');
+          indent.writeln('messageChannelWithName:@"com.yc.channel.uni_api.AudioManager.callback_channel"');
           indent.writeln('binaryMessenger:self.binaryMessenger];');
           indent.dec();
           indent.dec();
@@ -693,7 +691,7 @@ static NSDictionary<NSString*, id>* wrapResult(NSDictionary *result, FlutterErro
         indent.inc();
         indent.writeln('[FlutterBasicMessageChannel');
         indent.inc();
-        indent.writeln('messageChannelWithName:@"com.didi.rlab.uni_api.${className}.${method.name}"');
+        indent.writeln('messageChannelWithName:@"com.yc.channel.uni_api.${className}.${method.name}"');
         indent.writeln('binaryMessenger:binaryMessenger];');
         indent.dec();
         indent.dec();
@@ -883,7 +881,7 @@ void objcGenerateUniFlutterSource(Module kClass, StringSink sink, InputFile file
       indent.inc();
       indent.writeln('[FlutterBasicMessageChannel');
       indent.inc();
-      indent.writeln('messageChannelWithName:@"com.didi.rlab.uni_api.${className}.${method.name}"');
+      indent.writeln('messageChannelWithName:@"com.yc.channel.uni_api.${className}.${method.name}"');
       indent.writeln('binaryMessenger:[[self instance] binaryMessenger]];');
       indent.dec();
       indent.dec();

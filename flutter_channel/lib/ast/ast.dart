@@ -1,17 +1,18 @@
+import 'dart:mirrors';
 
-import 'package:flutter_channel/mirrors/mirrors.dart';
-import 'package:flutter_channel/model/models.dart';
+import 'package:flutter_channel/model/input_file.dart';
 
-/// Enum that represents where an [Api] is located, on the host or Flutter.
+
 enum ApiLocation {
-  /// The API is for calling functions defined on the host.
+  /// API用于调用在主机上定义的函数
   host,
-
-  /// The API is for calling functions defined in Flutter.
+  /// 该API用于调用Flutter中定义的函数
   flutter,
 }
 
-class Node {}
+class Node {
+
+}
 
 /// 方法参数
 class Parameter extends Node with Serializable {
@@ -50,6 +51,7 @@ class Module extends Node {
   Module({
     this.name,
     this.methods,
+    this.inputFile
   });
 
   /// The name of the API.
@@ -57,6 +59,8 @@ class Module extends Node {
 
   /// List of methods inside the API.
   List<Method> methods;
+
+  InputFile inputFile;
 
   @override
   String toString() {

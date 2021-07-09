@@ -14,7 +14,7 @@ class UniCallbackManager {
 
   UniCallbackManager._internal() {
     _channel = BasicMessageChannel<Object>(
-        'com.didi.rlab.uni_api.AudioManager.callback_channel',
+        'com.yc.channel.uni_api.AudioManager.callback_channel',
         StandardMessageCodec()
     );
     _channel.setMessageHandler((event) {

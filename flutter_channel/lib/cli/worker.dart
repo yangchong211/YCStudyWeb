@@ -1,17 +1,17 @@
 import 'dart:io';
+import 'dart:mirrors';
 
-import 'package:flutter_channel/mirrors/mirrors.dart';
 import 'package:get_it/get_it.dart';
 import 'package:flutter_channel/api/api.dart';
 import 'package:flutter_channel/cli/params.dart';
-import 'package:flutter_channel/cli/worker_function/clean_outdated.dart';
+import 'package:flutter_channel/cli/clean_file.dart';
 import 'package:flutter_channel/ast/ast.dart';
 import 'package:flutter_channel/generator/dart.dart';
 import 'package:flutter_channel/generator/java.dart';
 import 'package:flutter_channel/generator/objc.dart';
 import 'package:flutter_channel/generator/parse.dart';
-import 'package:flutter_channel/generator/register/model.dart';
-import 'package:flutter_channel/model/models.dart';
+import 'package:flutter_channel/generator/model_register.dart';
+import 'package:flutter_channel/model/input_file.dart';
 import 'package:flutter_channel/utils/log.dart';
 
 bool isUniModel(ClassMirror classMirror) {
@@ -129,11 +129,19 @@ Future<int> isolateRun(List<String> args) async {
 
   // uniNativeModules AST 解析
   final uniNativeModuleASTs =
-  uniNativeModules.map((e) => parseModule(e)).toList();
+  uniNativeModules.map((e) {
+    final module = parseModule(e);
+    module.inputFile = findInputFileFromModule(files, module);
+    return module;
+  }).toList();
   log('uniNativeModuleASTs', value: uniNativeModuleASTs);
 
   // uniFlutterModules AST 解析
-  final uniFlutterModuleAst = uniFlutterModules.map((e) => parseModule(e)).toList();
+  final uniFlutterModuleAst = uniFlutterModules.map((e) {
+    final module = parseModule(e);
+    module.inputFile = findInputFileFromModule(files, module);
+    return module;
+  }).toList();
 
   /// 清理过时的接口文件
   await cleanOutdatedUniApiFiles(

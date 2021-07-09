@@ -1,14 +1,14 @@
+import 'package:flutter_channel/constant/constants.dart';
 import 'package:get_it/get_it.dart';
 import 'package:path/path.dart';
 import 'package:flutter_channel/cli/params.dart';
-import 'package:flutter_channel/generator/register/model.dart';
+import 'package:flutter_channel/generator/model_register.dart';
 import 'package:flutter_channel/generator/tools.dart';
-import 'package:flutter_channel/model/models.dart';
+import 'package:flutter_channel/model/input_file.dart';
 import 'package:flutter_channel/runtime/dart/UniCallbackManager.dart';
 import 'package:flutter_channel/utils/log.dart';
 
 import '../ast/ast.dart';
-import 'common.dart';
 
 const Map<String, dynamic> baseNumTypeDefaultValueMap = <String, dynamic>{
   'bool': false,
@@ -61,13 +61,13 @@ String addGenericTypes(String dataType, List<String> generics) {
 }
 
 String channelName(Module module, Method method) {
-  return '$channelPrefix.${module.name}.${method.name}';
+  return Constants.channelPrefix+'.${module.name}.${method.name}';
 }
 
 void dartGenerateModel(Model kClass, StringSink sink) {
   log('dartGenerateModel', value: kClass);
   final indent = Indent(sink);
-  indent.writeln(dartComment(generatedCodeWarning));
+  indent.writeln(dartComment(Constants.generatedCodeWarning));
   indent.writeNewline();
 
   final fieldTypes = <String>[];
@@ -122,7 +122,8 @@ void dartGenerateModel(Model kClass, StringSink sink) {
     indent.scoped('{', '}', () {
       indent.writeln('if (message == null) return null;');
       indent.writeln(
-          'final Map<String, dynamic> map = message as Map<String, dynamic>;');
+        'final Map<dynamic, dynamic> rawMap = message as Map<dynamic, dynamic>;');
+      indent.writeln('final Map<String, dynamic> map = Map.from(rawMap);');
 
       indent.writeln('return ${kClass.name}()');
 
@@ -174,7 +175,7 @@ void dartGenerateModel(Model kClass, StringSink sink) {
 void dartGenerateEnum(Model kClass, StringSink sink) {
   log('dartGenerateEnum', value: kClass);
   final indent = Indent(sink);
-  indent.writeln(dartComment(generatedCodeWarning));
+  indent.writeln(dartComment(Constants.generatedCodeWarning));
   indent.writeNewline();
 
   final enumEntries = kClass.fields.where((element) => element.type == kClass.name);
@@ -195,7 +196,7 @@ void dartGenerateUniNativeModule(Module kClass, StringSink sink, InputFile file,
   log('dartGenerateUniNativeModule', value: kClass);
 
   final indent = Indent(sink);
-  indent.writeln(dartComment(generatedCodeWarning));
+  indent.writeln(dartComment(Constants.generatedCodeWarning));
   indent.writeNewline();
 
   indent.writeln('import \'dart:async\';');
@@ -203,6 +204,8 @@ void dartGenerateUniNativeModule(Module kClass, StringSink sink, InputFile file,
   indent.writeln('import \'${relative(options.dartOutput + '/uniapi/UniCallback.dart', from: dirname(file.absolutePath.replaceFirst('interface', 'lib')))}\';');
   indent.writeln('import \'${relative(options.dartOutput + '/uniapi/UniCallbackManager.dart', from: dirname(file.absolutePath.replaceFirst('interface', 'lib')))}\';');
   indent.writeln('import \'${relative(options.dartOutput + '/uniapi/caches.dart', from: dirname(file.absolutePath.replaceFirst('interface', 'lib')))}\';');
+  indent.writeln('import \'package:flutter/foundation.dart\';');
+  indent.writeln('import \'${relative(options.dartOutput + '/uniapi/flutter_channel.dart', from: dirname(file.absolutePath.replaceFirst('interface', 'lib')))}\';');
   indent.writeln('');
 
   // generate dart model import
@@ -307,18 +310,28 @@ void dartGenerateUniNativeModule(Module kClass, StringSink sink, InputFile file,
         indent.format("""
 final Map<Object, Object> replyMap = \n\t\tawait channel.send($sendArgument) as Map<Object, Object>;
 if (replyMap == null) {
+  UniApi.trackError('Unable to establish connection on channel ${method.name}.');
+if (!kReleaseMode) {
 \tthrow PlatformException(
 \t\tcode: 'channel-error',
 \t\tmessage: 'Unable to establish connection on channel.',
 \t\tdetails: null,
 \t);
+}
 } else if (replyMap['error'] != null) {
 \tfinal Map<Object, Object> error = (replyMap['${Keys.result}']  as Map<Object, Object>);
+  String errorMsg = '';
+  if (error.containsKey('${Keys.errorCode}')) errorMsg += '[' + error['${Keys.errorCode}']?.toString() ?? '' + ']';
+  if (error.containsKey('${Keys.errorMessage}')) errorMsg += '[' + error['${Keys.errorCode}']?.toString() ?? ''+ ']';
+  if (error.containsKey('${Keys.errorDetails}')) errorMsg += '[' + error['${Keys.errorDetails}']?.toString() ?? ''+ ']';
+  UniApi.trackError('${method.name}: ' + errorMsg);
+if (!kReleaseMode) {
 \tthrow PlatformException(
 \t\tcode: error['${Keys.errorCode}'] as String,
 \t\tmessage: error['${Keys.errorMessage}'] as String,
 \t\tdetails: error['${Keys.errorDetails}'],
 \t);
+}
 } else {
 \t$returnStatement
 }""");
@@ -396,7 +409,7 @@ void dartGenerateUniFlutterModule(Module kClass, StringSink sink, InputFile file
   log('dartGenerateUniFlutterModule', value: kClass);
 
   final indent = Indent(sink);
-  indent.writeln(dartComment(generatedCodeWarning));
+  indent.writeln(dartComment(Constants.generatedCodeWarning));
 
   indent.writeln('import \'package:flutter/services.dart\';');
 

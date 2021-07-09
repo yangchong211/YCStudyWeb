@@ -13,6 +13,8 @@ include ':flutter_utils'
 project(':flutter_utils').projectDir = new File('../flutter_utils')
 include ':flutter_tool'
 project(':flutter_tool').projectDir = new File('../flutter_tool')
+include ':flutter_interface'
+project(':flutter_interface').projectDir = new File('../flutter_interface')
 
 
 //Android
