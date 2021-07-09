@@ -18,7 +18,10 @@
             <option value="$PROJECT_DIR$/../flutter_channel" />
             <option value="$PROJECT_DIR$/../flutter_lib" />
             <option value="$PROJECT_DIR$/../flutter_lib/.android/Flutter" />
+            <option value="$PROJECT_DIR$/../flutter_tool" />
             <option value="$PROJECT_DIR$/../flutter_uni" />
+            <option value="$PROJECT_DIR$/../flutter_utils" />
+            <option value="$PROJECT_DIR$/../flutter_utils/android" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

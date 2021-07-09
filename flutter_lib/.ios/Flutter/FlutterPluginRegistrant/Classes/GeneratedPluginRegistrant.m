@@ -22,12 +22,19 @@
 @import sqflite;
 #endif
 
+#if __has_include(<yc_flutter_utils/YcFlutterUtilsPlugin.h>)
+#import <yc_flutter_utils/YcFlutterUtilsPlugin.h>
+#else
+@import yc_flutter_utils;
+#endif
+
 @implementation GeneratedPluginRegistrant
 
 + (void)registerWithRegistry:(NSObject<FlutterPluginRegistry>*)registry {
   [FLTPathProviderPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTPathProviderPlugin"]];
   [FLTSharedPreferencesPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTSharedPreferencesPlugin"]];
   [SqflitePlugin registerWithRegistrar:[registry registrarForPlugin:@"SqflitePlugin"]];
+  [YcFlutterUtilsPlugin registerWithRegistrar:[registry registrarForPlugin:@"YcFlutterUtilsPlugin"]];
 }
 
 @end

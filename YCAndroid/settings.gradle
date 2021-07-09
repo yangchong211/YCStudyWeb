@@ -1,10 +1,19 @@
 include ':app'
 
 apply from: file('settings-flutter.gradle')
+
+//flutter
 include ':flutter_lib'
 project(':flutter_lib').projectDir = new File('../flutter_lib')
 include ':flutter_uni'
 project(':flutter_uni').projectDir = new File('../flutter_uni')
 include ':flutter_channel'
 project(':flutter_channel').projectDir = new File('../flutter_channel')
+include ':flutter_utils'
+project(':flutter_utils').projectDir = new File('../flutter_utils')
+include ':flutter_tool'
+project(':flutter_tool').projectDir = new File('../flutter_tool')
+
+
+//Android
 include ':FlutterContainer'
