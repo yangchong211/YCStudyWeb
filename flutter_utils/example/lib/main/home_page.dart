@@ -1,8 +1,8 @@
 
 import 'package:flutter/material.dart';
-import 'package:yc_flutter_utils/log/logger_plugin.dart';
-import 'package:yc_flutter_utils_example/logger_test.dart';
+import 'package:yc_flutter_utils_example/utils/data_utils_page.dart';
 import 'package:yc_flutter_utils_example/utils/get_it_page.dart';
+import 'package:yc_flutter_utils_example/utils/log_utils_page.dart';
 import 'package:yc_flutter_utils_example/widget/custom_raised_button.dart';
 //StatelessWidget表示组件，一切都是widget，可以理解为组件
 //有状态的组件（Stateful widget）
@@ -23,29 +23,24 @@ class HomePage extends StatefulWidget{
 
 class HomePageState extends State<HomePage>{
 
-  static LoggerPlugin _logger = LoggerPlugin("HomePage");
-  
+
   @override
   void initState() {
     super.initState();
-    _logger.info('initState');
   }
 
   @override
   void didChangeDependencies() {
-    _logger.info('didChangeDependencies');
     super.didChangeDependencies();
   }
 
   @override
   void deactivate() {
-    _logger.info('deactivate');
     super.deactivate();
   }
 
   @override
   void dispose() {
-    _logger.info('dispose');
     super.dispose();
   }
 
@@ -73,8 +68,10 @@ class HomePageState extends State<HomePage>{
         body: new Center(
           child: new ListView(
             children: <Widget>[
-              CustomRaisedButton(new LoggerTest(), "日志工具类测试"),
               CustomRaisedButton(new GetItPage(), "serviceLocator测试"),
+              CustomRaisedButton(new LogUtilsPage(), "LogUtils 日志工具类"),
+              CustomRaisedButton(new DatePage(), "DateUtils 日期工具类"),
+              CustomRaisedButton(new LogUtilsPage(), "JsonUtils Json工具类"),
             ],
           ),
         ),

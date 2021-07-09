@@ -1,7 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_lib/router/router_helper.dart';
-import 'package:flutter_lib/utils/screen/screen_utils.dart';
 
 void main() => runApp(new MyApp());
 

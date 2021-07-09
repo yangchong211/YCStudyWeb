@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_lib/router/app_navigator.dart';
 
 //定义自带路由跳转button
 // ignore: must_be_immutable
@@ -20,9 +19,8 @@ class CustomRaisedButton extends StatelessWidget {
         //第一种写法
         //Navigator.push(context, new MaterialPageRoute(builder: (context) => _pageNavigator));
         //第二张路由写法
-        // Navigator.of(context)
-        //     .push(new MaterialPageRoute(builder: (context) => _pageNavigator));
-        AppNavigator.push(context, _pageNavigator);
+        Navigator.of(context)
+            .push(new MaterialPageRoute(builder: (context) => _pageNavigator));
       },
       child: Text(
         _btnTitle,

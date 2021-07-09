@@ -1,7 +1,6 @@
 
 
 
-
 import 'package:yc_flutter_utils/bus/event_bus.dart';
 
 typedef void EventCallback(arg);

@@ -40,8 +40,10 @@ class ScreenUtil {
     _screenWidth = mediaQuery.size.width;
     //当前设备高度 dp
     _screenHeight = mediaQuery.size.height;
+    //状态栏高度 dp
     _statusBarHeight = mediaQuery.padding.top;
-    _bottomBarHeight = _mediaQueryData.padding.bottom;
+    //底部安全区距离 dp
+    _bottomBarHeight = mediaQuery.padding.bottom;
     _textScaleFactor = mediaQuery.textScaleFactor;
   }
 

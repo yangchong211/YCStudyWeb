@@ -51,8 +51,6 @@
         <activity android:name=".channel.EventChannelActivity2"/>
         <activity android:name=".channel.BasicChannelActivity2"/>
         <activity android:name=".channel.MethodResultActivity"/>
-        <activity android:name=".flutter.FlutterDemoActivity"/>
-
 
     </application>
 

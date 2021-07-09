@@ -1,5 +1,7 @@
-import 'package:decimal/decimal.dart';
 
+
+
+import 'package:yc_flutter_utils/num/decimal.dart';
 
 /// Num Util.
 class NumUtils {

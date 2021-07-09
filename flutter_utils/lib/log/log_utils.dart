@@ -20,25 +20,44 @@ class LogUtils {
     _maxLen = maxLen;
   }
 
+  ///打印debug日志
   static void d(Object object, {String tag}) {
     if (_debugMode) {
       log('$tag d | ${object?.toString()}');
     }
   }
 
+  ///打印error日志
   static void e(Object object, {String tag}) {
     _printLog(tag, ' e ', object);
   }
 
+  ///打印
   static void v(Object object, {String tag}) {
     if (_debugMode) {
       _printLog(tag, ' v ', object);
     }
   }
 
+  ///打印info日志
+  static void i(Object object, {String tag}) {
+    if (_debugMode) {
+      _printLog(tag, ' i ', object);
+    }
+  }
+
+  ///打印ware警告日志
+  static void w(Object object, {String tag}) {
+    if (_debugMode) {
+      _printLog(tag, ' w ', object);
+    }
+  }
+
   static void _printLog(String tag, String stag, Object object) {
     String da = object?.toString() ?? 'null';
-    tag = tag ?? _tagValue;
+    if(tag == null || tag.isEmpty){
+      tag = _tagValue;
+    }
     if (da.length <= _maxLen) {
       print('$tag$stag $da');
       return;

@@ -1,7 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:yc_flutter_tool/res/color/yc_colors.dart';
+import 'package:yc_flutter_tool/utils/log_utils.dart';
+class TextPage extends StatefulWidget{
+  @override
+  State<StatefulWidget> createState() {
+    return new TextPageState();
+  }
 
-class TextPage extends StatelessWidget{
+}
+
+
+class TextPageState extends State<TextPage>{
+
+  @toDo("这个定义的变量", "注意初始化")
+  String text1 = "初始化值";
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -91,10 +104,50 @@ class TextPage extends StatelessWidget{
                       color: Colors.redAccent,
                       decoration: TextDecoration.underline,
                       decorationStyle: TextDecorationStyle.dotted)),
+              new RaisedButton(
+                  onPressed: () {
+                    getText(context);
+                  },
+                  child: new Text("获取屏幕的宽高属性")
+              ),
+              new Text( "这个是文本"+text1),
             ],
           ),
         ));
   }
 
+  void getText(BuildContext context){
+    LogUtils.log("-getText-"+"------");
+    var screenWidth = MediaQuery.of(context).size.height;
+    TextPainter painter = _calculateTextHeight(context, "这个是文本", 24,  screenWidth, 10);
+    var height = painter.height;
+    var width = painter.width;
+    setState(() {
+      text1 = "宽："+width.toString() + " 高："+height.toString();
+    });
+    LogUtils.log("-getText-"+"宽："+width.toString() + " 高："+height.toString());
+  }
 
+  TextPainter _calculateTextHeight(BuildContext context, String value,
+      double fontSize, double maxWidth, int maxLines) {
+    TextPainter painter = TextPainter(
+        locale: Localizations.localeOf(context, nullOk: true),
+        maxLines: maxLines,
+        textDirection: TextDirection.ltr,
+        text: TextSpan(
+            text: value,
+            style: TextStyle(
+              fontSize: fontSize,
+              fontWeight: FontWeight.w600,
+            )));
+    painter.layout(maxWidth: maxWidth);
+    return painter;
+  }
+}
+
+/// 自定义注解
+class toDo {
+  final String who;
+  final String what;
+  const toDo(this.who, this.what);
 }
