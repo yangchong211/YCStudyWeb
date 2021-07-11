@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:yc_flutter_utils/log/log_utils.dart';
 import 'package:yc_flutter_utils_example/utils/data_utils_page.dart';
 import 'package:yc_flutter_utils_example/utils/file_utils_page.dart';
 import 'package:yc_flutter_utils_example/utils/get_it_page.dart';
@@ -28,6 +29,7 @@ class HomePageState extends State<HomePage>{
   @override
   void initState() {
     super.initState();
+    LogUtils.init(isDebug: true);
   }
 
   @override

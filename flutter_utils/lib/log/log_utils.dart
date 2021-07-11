@@ -23,7 +23,7 @@ class LogUtils {
   ///打印debug日志
   static void d(Object object, {String tag}) {
     if (_debugMode) {
-      log('$tag d | ${object?.toString()}');
+      _printLog(tag,' d ', object);
     }
   }
 
