@@ -4,58 +4,30 @@ import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 
-class FileStorage extends StatefulWidget {
+import 'package:yc_flutter_utils/file/file_utils.dart';
+
+class FileStoragePage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => StorageState();
 }
 
-class StorageState extends State<FileStorage> {
+class StorageState extends State<FileStoragePage> {
   var _textFieldController = new TextEditingController();
   var _storageString = '';
+  var _storageString2 = '';
 
-  /**
-   * todo 学习下 https://blog.csdn.net/niceyoo/article/details/93048998
-   * 利用文件存储数据
-   */
   saveString() async {
-    final file = await getFile('file.text');
-    //写入字符串
-    file.writeAsString(_textFieldController.value.text.toString());
-    // var string = _textFieldController.value.text.toString();
-    // FileCache.saveString(string);
+    var string = _textFieldController.value.text.toString();
+    FileUtils.saveHeatString(string, 'file.text');
   }
 
-  /**
-   * 获取存在文件中的数据
-   */
   Future getString() async {
-    // final file = await getFile('file.text');
-    // var filePath  = file.path;
-    // setState(() {
-    //   file.readAsString().then((String value) {
-    //     _storageString = value +'\n文件存储路径：'+filePath;
-    //   });
-    // });
     print("获取存在文件中的数据-----");
-    var string = await FileCache.getStringNew();
+    var string = await FileUtils.getCacheString("file.text");
     print("获取存在文件中的数据"+string.toString());
     setState(() {
       _storageString = string;
     });
-  }
-
-  /**
-   * 初始化文件路径
-   */
-  Future<File> getFile(String fileName) async {
-    //获取应用文件目录类似于Ios的NSDocumentDirectory和Android上的 AppData目录
-    final fileDirectory = await getApplicationDocumentsDirectory();
-
-    //获取存储路径
-    final filePath = fileDirectory.path;
-
-    //或者file对象（操作文件记得导入import 'dart:io'）
-    return new File(filePath + "/"+fileName);
   }
 
   @override
@@ -67,7 +39,7 @@ class StorageState extends State<FileStorage> {
       body: new Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Text("文件存储", textAlign: TextAlign.center),
+          Text("文件存储字符串", textAlign: TextAlign.center),
           TextField(
             controller: _textFieldController,
           ),
@@ -81,10 +53,10 @@ class StorageState extends State<FileStorage> {
             child: new Text("获取"),
             color: Colors.deepOrange,
           ),
-          Text("文件存储，存储model", textAlign: TextAlign.center),
-          TextField(
-            controller: _textFieldController,
-          ),
+          Text('从文件存储中获取的值为  $_storageString'),
+          new Divider(height: 1,),
+
+          Text("文件存储model", textAlign: TextAlign.center),
           MaterialButton(
             onPressed: saveStringModel,
             child: new Text("存储model"),
@@ -100,7 +72,7 @@ class StorageState extends State<FileStorage> {
             child: new Text("清除model文件"),
             color: Colors.deepOrange,
           ),
-          Text('从文件存储中获取的值为  $_storageString'),
+          Text('从文件存储中获取的值为  $_storageString2'),
         ],
       ),
     );
@@ -122,48 +94,27 @@ class StorageState extends State<FileStorage> {
   void getStringModel() async {
     print("获取存在文件中的bean数据-----");
     var model = await FileCache.getHeatString();
-    print("获取存在文件中的bean数据-----"+model.version + "--"+model.focusCenter.length.toString());
+    if(model==null){
+      setState(() {
+        _storageString2 = "获取为null";
+      });
+    } else {
+      print("获取存在文件中的bean数据-----"+model.version + "--"+model.focusCenter.length.toString());
+      setState(() {
+        _storageString2 = model.version + "--"+model.focusCenter.length.toString();
+      });
+    }
   }
 
   void clearModel() async{
     //获取文件
-    FileCache.clearHeat();
+    FileUtils.clearFileData("hot.json");
   }
 
 }
 
 class FileCache{
 
-  //利用文件存储数据
-  static saveString(String str) async {
-    final file = await getFile('file.json');
-    //写入字符串
-    file.writeAsString(str);
-  }
-
-  ///使用async、await，返回是一个Future对象
-  //获取存在文件中的数据
-  static Future<String> getString() async {
-    final file = await getFile('file.json');
-    /*var _storageString;
-    file.readAsString().then((String value) {
-      _storageString = value; //+'\n文件存储路径：'+filePath;
-      return _storageString;
-    });*/
-    String contents = await file.readAsString();
-    return contents;
-  }
-
-  static Future<String> getStringNew() async {
-    final file = await getFile('file.json');
-    /*var _storageString;
-    file.readAsString().then((String value) {
-      _storageString = value; //+'\n文件存储路径：'+filePath;
-      return _storageString;
-    });*/
-    String contents = await file.readAsString();
-    return contents;
-  }
 
   //初始化文件路径
   static Future<File> getFile(String fileName) async {
@@ -180,38 +131,22 @@ class FileCache{
     if(model==null){
       return;
     }
-    //获取文件
-    var file = await getFile("hot.json");
-    print("saveHeatString---file--"+file.path);
     //将model转化成json字符串
     Map<String, dynamic> user = model.encode();
     var encode = json.encode(user);
-    //写入字符串
-    file.writeAsString(encode);
+    FileUtils.saveHeatString(encode, "hot.json");
   }
 
 
   static Future<MapHeatModel> getHeatString() async {
     //获取文件
-    final file = await getFile("hot.json");
-    print("getHeatString---file--"+file.path);
-    //var filePath  = file.path;
-    //从文件读取数据
-    // file.readAsString().then((String value) {
-    //   Map map = json.decode(value);
-    //   MapHeatModel model = MapHeatModel.decode(map);
-    // });
-    String value = await file.readAsString();
-    Map map = json.decode(value);
+    var cacheString = await FileUtils.getCacheString("hot.json");
+    if(cacheString==null || cacheString.length==0){
+      return null;
+    }
+    Map map = json.decode(cacheString);
     MapHeatModel model = MapHeatModel.decode(map);
     return model;
-  }
-
-  static clearHeat() async{
-    //获取文件
-    final file = await getFile("hot.json");
-    //file.delete();
-    file.writeAsStringSync("");
   }
 
 }

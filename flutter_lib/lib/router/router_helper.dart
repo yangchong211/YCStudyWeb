@@ -9,6 +9,7 @@ import 'package:flutter_lib/about_me_page.dart';
 import 'package:flutter_lib/channel/basic_channel_page.dart';
 import 'package:flutter_lib/channel/event_channel_page.dart';
 import 'package:flutter_lib/channel/method_channel_page.dart';
+import 'package:flutter_lib/file_storage.dart';
 import 'package:flutter_lib/main_home_page.dart';
 
 class Router {
@@ -51,6 +52,7 @@ class Router {
       // //flutter demo
       //   return new MainApp();
       default:
+        return FileStorage();
         return  MyHomePage(title: '没有匹配到哈，查看route是否一致1');
     }
   }

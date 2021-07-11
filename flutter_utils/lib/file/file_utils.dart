@@ -5,7 +5,7 @@ import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 import 'package:yc_flutter_utils/log/log_utils.dart';
 
-class FileCacheUtils{
+class FileUtils{
 
   ///初始化文件路径
   static Future<File> _getFile(String fileName) async {
@@ -24,20 +24,39 @@ class FileCacheUtils{
     }
     //获取文件
     var file = await _getFile(fileName);
-    LogUtils.i("file-----"+file.path,tag: "FileCacheUtils");
+    LogUtils.i("saveHeatString---file-----"+file.path,tag: "FileCacheUtils");
     //写入字符串
     file.writeAsString(model);
   }
 
   ///获取存在文件中的数据
+  ///使用async、await，返回是一个Future对象
   static Future<String> getCacheString(String fileName) async {
     //获取文件
     final file = await _getFile(fileName);
-    LogUtils.i("file-----"+file.path,tag: "FileCacheUtils");
+    LogUtils.i("getCacheString---file-----"+file.path,tag: "FileCacheUtils");
     //从文件读取数据
     String value = await file.readAsString();
     return value;
   }
 
+
+  ///清除缓存数据
+  static clearFileData(String fileName) async{
+    //获取文件
+    final file = await _getFile(fileName);
+    file.writeAsStringSync("");
+    //file.delete();
+    LogUtils.i("clearFileData---file-----"+file.path,tag: "FileCacheUtils");
+  }
+
+  ///清除缓存数据
+  static deleteFileData(String fileName) async{
+    //获取文件
+    final file = await _getFile(fileName);
+    //file.writeAsStringSync("");
+    file.delete();
+    LogUtils.i("deleteFileData---file-----"+file.path,tag: "FileCacheUtils");
+  }
 
 }

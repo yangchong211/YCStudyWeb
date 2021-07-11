@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:yc_flutter_utils_example/utils/data_utils_page.dart';
+import 'package:yc_flutter_utils_example/utils/file_utils_page.dart';
 import 'package:yc_flutter_utils_example/utils/get_it_page.dart';
 import 'package:yc_flutter_utils_example/utils/log_utils_page.dart';
 import 'package:yc_flutter_utils_example/widget/custom_raised_button.dart';
@@ -72,6 +73,7 @@ class HomePageState extends State<HomePage>{
               CustomRaisedButton(new LogUtilsPage(), "LogUtils 日志工具类"),
               CustomRaisedButton(new DatePage(), "DateUtils 日期工具类"),
               CustomRaisedButton(new LogUtilsPage(), "JsonUtils Json工具类"),
+              CustomRaisedButton(new FileStoragePage(), "FileUtils 文件工具类"),
             ],
           ),
         ),
