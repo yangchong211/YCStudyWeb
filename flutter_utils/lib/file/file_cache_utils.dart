@@ -3,6 +3,7 @@
 import 'dart:io';
 
 import 'package:path_provider/path_provider.dart';
+import 'package:yc_flutter_utils/log/log_utils.dart';
 
 class FileCacheUtils{
 
@@ -17,20 +18,22 @@ class FileCacheUtils{
   }
 
   ///利用文件存储数据
-  saveHeatString(String model , String fileName) async {
+  static saveHeatString(String model , String fileName) async {
     if(model==null){
       return;
     }
     //获取文件
     var file = await _getFile(fileName);
+    LogUtils.i("file-----"+file.path,tag: "FileCacheUtils");
     //写入字符串
     file.writeAsString(model);
   }
 
   ///获取存在文件中的数据
-  Future<String> getCacheString(String fileName) async {
+  static Future<String> getCacheString(String fileName) async {
     //获取文件
     final file = await _getFile(fileName);
+    LogUtils.i("file-----"+file.path,tag: "FileCacheUtils");
     //从文件读取数据
     String value = await file.readAsString();
     return value;

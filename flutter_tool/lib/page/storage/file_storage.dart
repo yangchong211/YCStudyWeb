@@ -95,6 +95,11 @@ class StorageState extends State<FileStorage> {
             child: new Text("获取model"),
             color: Colors.deepOrange,
           ),
+          MaterialButton(
+            onPressed: clearModel,
+            child: new Text("清除model文件"),
+            color: Colors.deepOrange,
+          ),
           Text('从文件存储中获取的值为  $_storageString'),
         ],
       ),
@@ -120,13 +125,18 @@ class StorageState extends State<FileStorage> {
     print("获取存在文件中的bean数据-----"+model.version + "--"+model.focusCenter.length.toString());
   }
 
+  void clearModel() async{
+    //获取文件
+    FileCache.clearHeat();
+  }
+
 }
 
 class FileCache{
 
   //利用文件存储数据
   static saveString(String str) async {
-    final file = await getFile('file.text');
+    final file = await getFile('file.json');
     //写入字符串
     file.writeAsString(str);
   }
@@ -134,7 +144,7 @@ class FileCache{
   ///使用async、await，返回是一个Future对象
   //获取存在文件中的数据
   static Future<String> getString() async {
-    final file = await getFile('file.text');
+    final file = await getFile('file.json');
     /*var _storageString;
     file.readAsString().then((String value) {
       _storageString = value; //+'\n文件存储路径：'+filePath;
@@ -145,7 +155,7 @@ class FileCache{
   }
 
   static Future<String> getStringNew() async {
-    final file = await getFile('file.text');
+    final file = await getFile('file.json');
     /*var _storageString;
     file.readAsString().then((String value) {
       _storageString = value; //+'\n文件存储路径：'+filePath;
@@ -171,7 +181,8 @@ class FileCache{
       return;
     }
     //获取文件
-    var file = await getFile("hot.text");
+    var file = await getFile("hot.json");
+    print("saveHeatString---file--"+file.path);
     //将model转化成json字符串
     Map<String, dynamic> user = model.encode();
     var encode = json.encode(user);
@@ -182,7 +193,8 @@ class FileCache{
 
   static Future<MapHeatModel> getHeatString() async {
     //获取文件
-    final file = await getFile("hot.text");
+    final file = await getFile("hot.json");
+    print("getHeatString---file--"+file.path);
     //var filePath  = file.path;
     //从文件读取数据
     // file.readAsString().then((String value) {
@@ -195,6 +207,11 @@ class FileCache{
     return model;
   }
 
+  static clearHeat() async{
+    //获取文件
+    final file = await getFile("hot.json");
+    file.delete();
+  }
 
 }
 
