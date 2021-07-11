@@ -8,7 +8,7 @@ import 'package:flutter_channel/runtime/dart/UniModel.dart';
 import 'package:flutter_channel/runtime/dart/caches.dart';
 import 'package:flutter_channel/runtime/dart/uni_api.dart';
 import 'package:flutter_channel/runtime/java/UniModel.dart';
-import 'package:flutter_channel/utils/file.dart';
+import 'package:flutter_channel/utils/file_utils.dart';
 import 'package:flutter_channel/utils/log.dart';
 
 import 'package:path/path.dart' as path;
@@ -49,11 +49,11 @@ Future<void> cli(List<String> args) async {
   // 将一些预埋文件拷贝到工程目录
   copyPreCreatedFiles(options);
 
-  String projectPath = options.projectPath;
+  var projectPath = options.projectPath;
 
 
   // 生成代码并通过 Isolate 执行
-  final Directory tempDir = createTempDir();
+  final tempDir = UniFileUtils.createTempDir();
 
   var inputFiles = await parseInputFiles(projectPath, tempDir.path);
   log('inputFiles', value: inputFiles.join('\n'));
@@ -77,7 +77,7 @@ void main(List<String> args, SendPort sendPort) async {
   final receivePort = ReceivePort();
 
   args.add('--temp_dir=${tempDir.path}');
-  Isolate.spawnUri(Uri.file(tempFile.path), args, receivePort.sendPort);
+  await Isolate.spawnUri(Uri.file(tempFile.path), args, receivePort.sendPort);
 
   final completer = Completer<int>();
 
