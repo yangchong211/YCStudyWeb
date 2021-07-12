@@ -1,8 +1,3 @@
-//
-//  RNacho.h
-//  Pods
-//
-//
 
 #import <Foundation/Foundation.h>
 #import <Flutter/Flutter.h>
@@ -11,7 +6,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface RNacho : NSObject
+@interface InterFlutter : NSObject
 
 /// RNacho内部资源初始化
 /// @param engine Flutter引擎

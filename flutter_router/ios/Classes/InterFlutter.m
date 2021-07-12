@@ -1,13 +1,8 @@
-//
-//  RNacho.m
-//  Pods
-//
-//
 
 #import "RNacho.h"
 #import "RNachoConstants.h"
 
-@interface RNacho()
+@interface InterFlutter()
 
 @property (nonatomic, strong) id<RNachoRouter>delegate;
 @property (nonatomic, strong) FlutterMethodChannel *rnachoChannel;
