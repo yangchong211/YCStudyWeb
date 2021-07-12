@@ -4,6 +4,12 @@ import 'dart:ui';
 ///颜色工具类
 class ColorUtils{
 
+  ///Android中的颜色值通常遵循RGB/ARGB标准
+  ///使用时通常以“ # ”字符开头的8位16进制表示
+  ///其中ARGB 依次代表透明度（Alpha）、红色(Red)、绿色(Green)、蓝色(Blue)
+  ///RGB/ARGB(A表示透明度)
+  ///RGB       #RGB888
+  ///ARGB      #00RGB888
   ///字符串转换成color
   static Color hexToColor(String color, {Color defaultColor}) {
     if (color == null ||

@@ -7,6 +7,11 @@ import 'package:yc_flutter_utils/log/log_utils.dart';
 
 class FileUtils{
 
+  //FileSystemException: Cannot open file, path =
+  //'/data/user/0/com.didi.global.rider/app_flutter/map_hot.json'
+  //(OS Error: No such file or directory, errno = 2)
+  //解决办法：发生此错误的原因可能是该文件可能尚不存在。所以你应该在打开文件之前检查文件是否存在。
+
   ///初始化文件路径
   static Future<File> _getFile(String fileName) async {
     //用于放置用户生成的数据或不能有应用程序重新创建的数据 用户不可见(IOS和安卓通用)
@@ -36,8 +41,11 @@ class FileUtils{
     final file = await _getFile(fileName);
     LogUtils.i("getCacheString---file-----"+file.path,tag: "FileCacheUtils");
     //从文件读取数据
-    String value = await file.readAsString();
-    return value;
+    if(file.existsSync()){
+      String value = await file.readAsString();
+      return value;
+    }
+    return null;
   }
 
 
