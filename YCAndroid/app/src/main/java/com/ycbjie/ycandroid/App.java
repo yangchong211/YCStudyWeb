@@ -10,6 +10,11 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        //GeneratedPluginRegistrant.registerWith(new FlutterEngine(this));
+        initFlutter();
+    }
+
+    private void initFlutter() {
+        FlutterEngine engine = new FlutterEngine(this);
+        GeneratedPluginRegistrant.registerWith(engine);
     }
 }
