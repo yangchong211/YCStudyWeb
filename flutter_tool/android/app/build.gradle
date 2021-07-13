@@ -22,7 +22,7 @@ if (flutterVersionName == null) {
 }
 
 //是否作为依赖
-boolean isAarLibrary = true
+boolean isAarLibrary = false
 
 
 if (isAarLibrary) {
