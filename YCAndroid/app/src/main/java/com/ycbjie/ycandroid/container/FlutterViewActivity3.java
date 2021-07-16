@@ -27,7 +27,7 @@ public class FlutterViewActivity3 extends FlutterEngineActivity {
 
     public static void start(Context context){
         Intent intent = new Intent(context,FlutterViewActivity3.class);
-        intent.putExtra(FlutterCommons.BUNDLE_KEY_PATH,"yc");
+        intent.putExtra(FlutterCommons.BUNDLE_KEY_PATH,"method_channel");
         intent.putExtra(FlutterCommons.BUNDLE_KEY_PARAMS,"杨充");
         context.startActivity(intent);
     }

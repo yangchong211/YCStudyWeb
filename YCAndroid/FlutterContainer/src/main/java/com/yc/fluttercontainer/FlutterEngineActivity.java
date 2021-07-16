@@ -191,6 +191,7 @@ public abstract class FlutterEngineActivity extends FlutterBaseActivity {
     @Nullable
     @Override
     public SplashScreen provideSplashScreen() {
+        //创建自定义flutter启动屏view
         return new FlutterSplashView();
     }
 

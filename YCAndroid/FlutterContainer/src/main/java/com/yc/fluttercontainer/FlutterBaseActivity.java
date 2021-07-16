@@ -99,7 +99,7 @@ public class FlutterBaseActivity extends FlutterActivity {
     }
 
     /**
-     *
+     * 子类重写该方法，可以设置自定义flutter启动屏view
      * @return                              SplashScreen
      */
     @Nullable
