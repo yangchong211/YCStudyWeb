@@ -55,10 +55,7 @@ public class FlutterContainerActivity extends AppCompatActivity implements View.
                 startActivity(new Intent(FlutterContainerActivity.this, FlutterViewActivity2.class));
                 break;
             case R.id.tv_6:
-                Intent intent = new Intent(this,FlutterViewActivity3.class);
-                intent.putExtra(FlutterCommons.BUNDLE_KEY_PATH,"yc");
-                intent.putExtra(FlutterCommons.BUNDLE_KEY_PARAMS,"杨充");
-                startActivity(intent);
+                FlutterViewActivity3.start(FlutterContainerActivity.this);
                 break;
             default:
                 break;

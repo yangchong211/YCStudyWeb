@@ -1,10 +1,8 @@
 package com.yc.fluttercontainer;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
@@ -15,21 +13,22 @@ import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import java.util.HashMap;
 import java.util.Map;
-import io.flutter.embedding.android.FlutterActivity;
+
 import io.flutter.embedding.android.FlutterView;
 import io.flutter.embedding.engine.FlutterEngine;
 import io.flutter.embedding.engine.dart.DartExecutor;
-import io.flutter.embedding.engine.plugins.FlutterPlugin;
-import io.flutter.embedding.engine.plugins.PluginRegistry;
 import io.flutter.embedding.engine.renderer.FlutterUiDisplayListener;
 import io.flutter.embedding.engine.renderer.RenderSurface;
 import io.flutter.embedding.engine.systemchannels.NavigationChannel;
 import io.flutter.plugin.common.BinaryMessenger;
+import io.flutter.plugin.common.MethodCall;
+import io.flutter.plugin.common.MethodChannel;
 
 
-public class FlutterEngineActivity extends FlutterActivity {
+public abstract class FlutterEngineActivity extends FlutterBaseActivity {
 
     private LinearLayout root;
     private FrameLayout layoutContainer;
@@ -37,6 +36,8 @@ public class FlutterEngineActivity extends FlutterActivity {
     private FrameLayout mFlutterContainer;
     private FlutterView mFlutterView;
     private RenderSurface mRenderSurface;
+    private BinaryMessenger binaryMessenger;
+    private NavigationChannel navigationChannel;
     private String mPageId;
     private Map<String, Object> params;
 
@@ -44,11 +45,13 @@ public class FlutterEngineActivity extends FlutterActivity {
             new FlutterUiDisplayListener() {
         @Override
         public void onFlutterUiDisplayed() {
+            //当flutter ui展示出来的时候，会回调这个方法
             FlutterEngineActivity.this.onFlutterUiDisplayed();
         }
 
         @Override
         public void onFlutterUiNoLongerDisplayed() {
+            //
             FlutterEngineActivity.this.onFlutterUiNoLongerDisplayed();
         }
     };
@@ -65,33 +68,53 @@ public class FlutterEngineActivity extends FlutterActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.flutter_container);
         initIntentArgs();
-        addFlutterView();
+        addFlutterEngine();
         initView();
         attachToFlutterEngine();
     }
 
-    private void addFlutterView() {
+    /**
+     * 创建FlutterEngine，
+     */
+    private void addFlutterEngine() {
         flutterEngine = new FlutterEngine(this);
-        //BinaryMessenger binaryMessenger = flutterEngine.getDartExecutor().getBinaryMessenger();
-        NavigationChannel navigationChannel = flutterEngine.getNavigationChannel();
+        binaryMessenger = flutterEngine.getDartExecutor().getBinaryMessenger();
+        //获取路由跳转channel通信
+        navigationChannel = flutterEngine.getNavigationChannel();
         StringBuffer sb = new StringBuffer();
         if (params!=null){
             String path = (String) params.get("initial_route");
             sb.append(path);
+            //String routerParams = "?{\"name\":\"杨充\"}";
+            //sb.append(routerParams);
         }
         //String route = "yc?{\"name\":\"杨充\"}";
         navigationChannel.setInitialRoute(sb.toString());
+        navigationChannel.setMethodCallHandler(new MethodChannel.MethodCallHandler() {
+            @Override
+            public void onMethodCall(@NonNull MethodCall methodCall,
+                                     @NonNull MethodChannel.Result result) {
+                onMethodCallListener(methodCall,result);
+            }
+        });
         //navigationChannel.setInitialRoute("yc?{\"name\":\"杨充\"}");
         flutterEngine.getDartExecutor().executeDartEntrypoint(
                 DartExecutor.DartEntrypoint.createDefault()
         );
     }
 
+    /**
+     * 初始化view
+     */
     private void initView() {
         root = findViewById(R.id.root);
         layoutContainer = findViewById(R.id.layout_container);
         root.setBackgroundColor(Color.WHITE);
-        layoutContainer.addView(onInflateFlutterLayout(layoutContainer));
+        //创建FlutterView然后添加到布局中
+        //创建FlutterView然后添加到布局中
+        //创建FlutterView然后添加到布局中
+        View view = onInflateFlutterLayout(layoutContainer);
+        layoutContainer.addView(view);
     }
 
     /**
@@ -102,6 +125,33 @@ public class FlutterEngineActivity extends FlutterActivity {
      */
     public View onInflateFlutterLayout(FrameLayout container) {
         return createFlutterView(container.getContext());
+    }
+
+    /**
+     * 监听flutter跳转NA路由的操作
+     * @param methodCall                            methodCall
+     * @param result                                result
+     */
+    public abstract void onMethodCallListener(MethodCall methodCall,
+                                              MethodChannel.Result result);
+
+    /**
+     * 根据路由地址打开页面
+     * @param route                                 路由地址
+     */
+    public void pushRoute(String route){
+        if (navigationChannel!=null){
+            navigationChannel.pushRoute(route);
+        }
+    }
+
+    /**
+     * 根据路由地址pop页面
+     */
+    public void popRoute(){
+        if (navigationChannel!=null){
+            navigationChannel.popRoute();
+        }
     }
 
     public View createFlutterView(Context context) {
@@ -130,17 +180,8 @@ public class FlutterEngineActivity extends FlutterActivity {
     }
 
     @Override
-    public void configureFlutterEngine(@NonNull FlutterEngine flutterEngine) {
-        super.configureFlutterEngine(flutterEngine);
-    }
-
-    @Override
-    public void cleanUpFlutterEngine(@NonNull FlutterEngine flutterEngine) {
-        super.cleanUpFlutterEngine(flutterEngine);
-    }
-
-    @Override
     public boolean shouldAttachEngineToActivity() {
+        //
         return super.shouldAttachEngineToActivity();
     }
 
@@ -148,41 +189,12 @@ public class FlutterEngineActivity extends FlutterActivity {
     public void onFlutterUiDisplayed() {
         super.onFlutterUiDisplayed();
         root.setBackgroundColor(Color.TRANSPARENT);
-        // Notifies Android that we're fully drawn so that performance metrics can be collected by
-        // Flutter performance tests.
-        // This was supported in KitKat (API 19), but has a bug around requiring
-        // permissions. See https://github.com/flutter/flutter/issues/46172
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getActivity().reportFullyDrawn();
-        }
     }
 
     @Override
     public void onFlutterUiNoLongerDisplayed() {
         //
         super.onFlutterUiNoLongerDisplayed();
-    }
-
-    public void addFlutterPlugin(FlutterEngine engine, FlutterPlugin plugin) {
-        if (engine == null) {
-            return;
-        }
-        PluginRegistry registry = engine.getPlugins();
-        if (registry.has(plugin.getClass())) {
-            return;
-        }
-        registry.add(plugin);
-    }
-
-    public void removeFlutterPlugin(FlutterEngine engine, Class<? extends FlutterPlugin> pluginClass) {
-        if (engine == null) {
-            return;
-        }
-        PluginRegistry registry = engine.getPlugins();
-        if (!registry.has(pluginClass)) {
-            return;
-        }
-        registry.remove(pluginClass);
     }
 
     /**
@@ -267,6 +279,9 @@ public class FlutterEngineActivity extends FlutterActivity {
         super.onDestroy();
         mFlutterView.removeOnFirstFrameRenderedListener(flutterUiDisplayListener);
         FlutterContainerRegistry.removeContainer(mPageId);
+        if (flutterEngine != null) {
+            flutterEngine.destroy();
+        }
         // 在 engine 销毁前先把 FlutterView 拿下来，否则先销毁引擎再拿下视图
         // 会导致 FlutterTextureView 在脱离视图树的回调中再触发一次销毁，而这次销毁中会存在 NPE 问题
         mFlutterContainer.removeAllViews();
