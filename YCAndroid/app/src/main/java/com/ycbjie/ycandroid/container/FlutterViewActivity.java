@@ -1,8 +1,12 @@
 package com.ycbjie.ycandroid.container;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,16 +25,31 @@ import io.flutter.plugin.common.BinaryMessenger;
 public class FlutterViewActivity extends AppCompatActivity {
 
     private FrameLayout rlFlutter;
+    private TextView tvOpen;
     private FlutterView flutterView;
     private FlutterEngine flutterEngine;
     private BinaryMessenger binaryMessenger;
+    private NavigationChannel navigationChannel;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flutter_view);
         rlFlutter = findViewById(R.id.rl_flutter);
+        tvOpen = findViewById(R.id.tv_open);
+
         addFlutterView();
+        tvOpen.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("VisibleForTests")
+            @Override
+            public void onClick(View v) {
+                if (flutterView!=null && flutterView.isAttachedToFlutterEngine()){
+                    Toast.makeText(FlutterViewActivity.this,
+                            "跳转",Toast.LENGTH_LONG).show();
+                    navigationChannel.pushRoute("yc");
+                }
+            }
+        });
     }
 
     /**
@@ -63,8 +82,10 @@ public class FlutterViewActivity extends AppCompatActivity {
     private void addFlutterView() {
         flutterEngine = new FlutterEngine(this);
         binaryMessenger = flutterEngine.getDartExecutor().getBinaryMessenger();
-        NavigationChannel navigationChannel = flutterEngine.getNavigationChannel();
+        //获取路由channel通信对象
+        navigationChannel = flutterEngine.getNavigationChannel();
         String route = "yc?{\"name\":\"杨充\"}";
+        //设置初始化路由
         navigationChannel.setInitialRoute(route);
         flutterEngine.getDartExecutor().executeDartEntrypoint(
                 DartExecutor.DartEntrypoint.createDefault()

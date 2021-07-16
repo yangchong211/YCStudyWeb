@@ -1,5 +1,6 @@
 package com.yc.fluttercontainer;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -157,18 +158,24 @@ public abstract class FlutterEngineActivity extends FlutterBaseActivity {
      * 根据路由地址打开页面
      * @param route                                 路由地址
      */
+    @SuppressLint("VisibleForTests")
     public void pushRoute(String route){
         if (navigationChannel!=null){
-            navigationChannel.pushRoute(route);
+            if (mFlutterView!=null && mFlutterView.isAttachedToFlutterEngine()){
+                navigationChannel.pushRoute(route);
+            }
         }
     }
 
     /**
      * 根据路由地址pop页面
      */
+    @SuppressLint("VisibleForTests")
     public void popRoute(){
         if (navigationChannel!=null){
-            navigationChannel.popRoute();
+            if (mFlutterView!=null && mFlutterView.isAttachedToFlutterEngine()){
+                navigationChannel.popRoute();
+            }
         }
     }
 
