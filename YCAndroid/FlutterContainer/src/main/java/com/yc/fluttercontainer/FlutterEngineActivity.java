@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -13,11 +12,9 @@ import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
+import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
-
-
 import io.flutter.embedding.android.SplashScreen;
 import io.flutter.embedding.engine.FlutterEngine;
 import io.flutter.embedding.engine.dart.DartExecutor;
@@ -41,7 +38,6 @@ import io.flutter.plugin.common.MethodChannel;
 public abstract class FlutterEngineActivity extends FlutterBaseActivity {
 
     private static final String TAG = "FlutterEngineActivity";
-
     private LinearLayout root;
     private FrameLayout layoutContainer;
     private FlutterEngine flutterEngine;
@@ -91,15 +87,27 @@ public abstract class FlutterEngineActivity extends FlutterBaseActivity {
         binaryMessenger = flutterEngine.getDartExecutor().getBinaryMessenger();
         //获取路由跳转channel通信
         navigationChannel = flutterEngine.getNavigationChannel();
+        //处理NA给flutter传递参数的问题
         StringBuffer sb = new StringBuffer();
         if (params!=null){
             String path = (String) params.get("initial_route");
+            FlutterLoggerUtils.log(TAG,"path：" + path);
             sb.append(path);
-            //String routerParams = "?{\"name\":\"杨充\"}";
-            //sb.append(routerParams);
+            sb.append("?");
+            //遍历
+            params.remove("initial_route");
+            if (params.size()>0){
+                JSONObject json = new JSONObject(params);
+                String routerParams = json.toString();
+                //String routerParams = "?{\"name\":\"杨充\"}";
+                sb.append(routerParams);
+                FlutterLoggerUtils.log(TAG,"routerParams：" + routerParams);
+            }
+            //String route = "yc?{\"name\":\"杨充\"}";
+            String route = sb.toString();
+            FlutterLoggerUtils.log(TAG,"route：" + route);
+            navigationChannel.setInitialRoute(route);
         }
-        //String route = "yc?{\"name\":\"杨充\"}";
-        navigationChannel.setInitialRoute(sb.toString());
         navigationChannel.setMethodCallHandler(new MethodChannel.MethodCallHandler() {
             @Override
             public void onMethodCall(@NonNull MethodCall methodCall,
@@ -213,7 +221,8 @@ public abstract class FlutterEngineActivity extends FlutterBaseActivity {
             if (bundle.containsKey(FlutterCommons.BUNDLE_KEY_PARAMS)) {
                 Bundle bundleParams = bundle.getBundle(FlutterCommons.BUNDLE_KEY_PARAMS);
                 if (bundleParams != null) {
-                    params.putAll(transformBundleParameters(bundleParams));
+                    Map<String, Object> parameters = transformBundleParameters(bundleParams);
+                    params.putAll(parameters);
                 }
             }
             // 传混合路由跳转路径

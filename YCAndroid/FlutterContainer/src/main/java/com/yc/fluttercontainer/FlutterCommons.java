@@ -10,7 +10,9 @@ package com.yc.fluttercontainer;
  * </pre>
  */
 public class FlutterCommons {
+    //过滤标签
     public static final String FLUTTER = "flutter";
+    //路由的地址
     public static final String BUNDLE_KEY_PATH = "path";
     public static final String BUNDLE_KEY_PARAMS = "params";
 }
