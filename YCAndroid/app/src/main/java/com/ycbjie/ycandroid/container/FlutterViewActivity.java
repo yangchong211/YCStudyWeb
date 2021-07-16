@@ -1,6 +1,7 @@
 package com.ycbjie.ycandroid.container;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,16 +9,25 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.ycbjie.ycandroid.R;
+import com.ycbjie.ycandroid.router.RouterToNaAboutActivity;
+import com.ycbjie.ycandroid.router.RouterToNaMeActivity;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import io.flutter.Log;
 import io.flutter.embedding.android.FlutterView;
 import io.flutter.embedding.engine.FlutterEngine;
 import io.flutter.embedding.engine.dart.DartExecutor;
 import io.flutter.embedding.engine.systemchannels.NavigationChannel;
 import io.flutter.plugin.common.BinaryMessenger;
+import io.flutter.plugin.common.MethodCall;
+import io.flutter.plugin.common.MethodChannel;
 
 /**
  * @author yc
@@ -84,9 +94,42 @@ public class FlutterViewActivity extends AppCompatActivity {
         binaryMessenger = flutterEngine.getDartExecutor().getBinaryMessenger();
         //获取路由channel通信对象
         navigationChannel = flutterEngine.getNavigationChannel();
-        String route = "yc?{\"name\":\"杨充\"}";
+        String route = "router_channel?{\"name\":\"杨充\"}";
         //设置初始化路由
         navigationChannel.setInitialRoute(route);
+        navigationChannel.setMethodCallHandler(new MethodChannel.MethodCallHandler() {
+            @Override
+            public void onMethodCall(@NonNull MethodCall methodCall, @NonNull MethodChannel.Result result) {
+                String method = methodCall.method;
+                Log.i("onMethodCall","---"+method);
+                if ("android".equals(method)) {
+                    //接收来自flutter的指令
+                    //解析参数
+                    String router = methodCall.argument("router");
+                    Object text = methodCall.argument("flutter");
+                    if (router==null || router.length()==0){
+                        Toast.makeText(FlutterViewActivity.this,
+                                "路由地址不能为空",Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                    if (router.equals("main/me")) {
+                        //带参数跳转到指定Activity
+                        Intent intent = new Intent(
+                                FlutterViewActivity.this,
+                                RouterToNaMeActivity.class);
+                        intent.putExtra("yc", (String) text);
+                        startActivity(intent);
+                    } else if (router.equals("main/about")){
+                        Intent intent = new Intent(
+                                FlutterViewActivity.this, RouterToNaAboutActivity.class);
+                        intent.putStringArrayListExtra("yc", (ArrayList<String>) text);
+                        startActivity(intent);
+                    }
+                    //返回给flutter的参数
+                    result.success("Na成功");
+                }
+            }
+        });
         flutterEngine.getDartExecutor().executeDartEntrypoint(
                 DartExecutor.DartEntrypoint.createDefault()
         );

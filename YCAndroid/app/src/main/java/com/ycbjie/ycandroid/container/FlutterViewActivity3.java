@@ -17,6 +17,7 @@ import com.ycbjie.ycandroid.router.RouterToNaMeActivity;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.flutter.Log;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 
@@ -46,43 +47,30 @@ public class FlutterViewActivity3 extends FlutterEngineActivity {
 
     @Override
     public void onMethodCallListener(MethodCall methodCall, MethodChannel.Result result) {
-        if ("android".equals(methodCall.method)) {
+        String method = methodCall.method;
+        Log.i("onMethodCall","---"+method);
+        if ("android".equals(method)) {
             //接收来自flutter的指令
             //解析参数
             String router = methodCall.argument("router");
             Object text = methodCall.argument("flutter");
-            if (router != null) {
-                switch (router){
-                    case "main/me":
-                        //带参数跳转到指定Activity
-                        if (text instanceof String){
-                            //带参数跳转到指定Activity
-                            Intent intent = new Intent(
-                                    FlutterViewActivity3.this,
-                                    RouterToNaMeActivity.class);
-                            intent.putExtra("yc", (String) text);
-                            startActivity(intent);
-                        }
-                        break;
-                    case "main/about":
-                        if (text instanceof List){
-                            Intent intent = new Intent(
-                                    FlutterViewActivity3.this, RouterToNaAboutActivity.class);
-                            intent.putStringArrayListExtra("yc", (ArrayList<String>) text);
-                            startActivity(intent);
-                        }
-                        break;
-                    default:
-                        break;
-                }
-            } else {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(FlutterViewActivity3.this,
-                                "传递路由不能为null",Toast.LENGTH_LONG).show();
-                    }
-                });
+            if (router==null || router.length()==0){
+                Toast.makeText(FlutterViewActivity3.this,
+                        "路由地址不能为空",Toast.LENGTH_LONG).show();
+                return;
+            }
+            if (router.equals("main/me")) {
+                //带参数跳转到指定Activity
+                Intent intent = new Intent(
+                        FlutterViewActivity3.this,
+                        RouterToNaMeActivity.class);
+                intent.putExtra("yc", (String) text);
+                startActivity(intent);
+            } else if (router.equals("main/about")){
+                Intent intent = new Intent(
+                        FlutterViewActivity3.this, RouterToNaAboutActivity.class);
+                intent.putStringArrayListExtra("yc", (ArrayList<String>) text);
+                startActivity(intent);
             }
             //返回给flutter的参数
             result.success("Na成功");

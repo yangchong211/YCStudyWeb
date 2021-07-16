@@ -19,7 +19,8 @@ class _RouterChannelState extends State<RouterChannelPage> {
   //获取到插件与原生的交互通道
   //原生跳转使用到NavigationChannel通信，注意看该类源码代码
   //一定要匹配上name
-  static const method = const MethodChannel('flutter/navigation');
+  //这个频道名称是不能改的，必须设置为"flutter/navigation"。因为flutterEngine的NavigationChanel的构造方法是这么写的
+  static const method1 = const MethodChannel('flutter/navigation',JSONMethodCodec());
 
   var _methodResult1 = "";
   var _methodResult2 = "";
@@ -28,7 +29,7 @@ class _RouterChannelState extends State<RouterChannelPage> {
   void initState() {
     super.initState();
     //接受na端传递过来的方法，并做出响应逻辑处理
-    method.setMethodCallHandler(nativeCallHandler);
+    method1.setMethodCallHandler(nativeCallHandler);
   }
 
   // 注册方法，等待被原生通过invokeMethod唤起
@@ -48,7 +49,10 @@ class _RouterChannelState extends State<RouterChannelPage> {
   }
 
   Future<Null> _jumpToNative() async {
-    String result = await method.invokeMethod('android');
+    Map<String, String> map = new Map();
+    //这个是原生页面的路由地址，一定要传递
+    map["router"] = "main/me";
+    String result = await method1.invokeMethod('android',map);
     print(result);
     setState(() {
       _methodResult1 = result;
@@ -62,7 +66,7 @@ class _RouterChannelState extends State<RouterChannelPage> {
     map["router"] = "main/me";
     map["flutter"] = "这是一条来自flutter的参数";
     //Map<String, String> map = { "flutter": "这是一条来自flutter的参数" };
-    String result = await method.invokeMethod('android', map);
+    String result = await method1.invokeMethod('android', map);
     print(result);
     setState(() {
       _methodResult2 = result;
@@ -78,18 +82,11 @@ class _RouterChannelState extends State<RouterChannelPage> {
     //这个是原生页面的路由地址，一定要传递
     map["router"] = "main/about";
     map["flutter"] = list;
-    String result = await method.invokeMethod('android', map);
+    String result = await method1.invokeMethod('android', map);
     print(result);
     setState(() {
       _methodResult3 = result+"--";
     });
-  }
-
-  Future<Null> _jumpToNativeWithParams3() async {
-    // 返回给上一页的数据
-    Map<String, dynamic> map = {'message': '我从Flutter页面回来了'};
-    String result = await method.invokeMethod('goBackWithResult', map);
-    print(result);
   }
 
   @override
@@ -107,7 +104,7 @@ class _RouterChannelState extends State<RouterChannelPage> {
                 padding: const EdgeInsets.only(left: 10.0, top: 10.0, right: 10.0),
                 child: new RaisedButton(
                     textColor: Colors.black,
-                    child: new Text('跳转到原生逗比界面，回调结果：$_methodResult1'),
+                    child: new Text('MethodChannel跳转原生逗比界面，回调结果：$_methodResult1'),
                     onPressed: () {
                       _jumpToNative();
                     }),
@@ -117,7 +114,7 @@ class _RouterChannelState extends State<RouterChannelPage> {
                     left: 10.0, top: 10.0, right: 10.0),
                 child: new RaisedButton(
                     textColor: Colors.black,
-                    child: new Text('跳转到原生界面(带参数Str)，回调结果：$_methodResult2'),
+                    child: new Text('MethodChannel跳转原生界面(带参数String)，回调结果：$_methodResult2'),
                     onPressed: () {
                       _jumpToNativeWithParams1();
                     }),
@@ -127,19 +124,9 @@ class _RouterChannelState extends State<RouterChannelPage> {
                     left: 10.0, top: 10.0, right: 10.0),
                 child: new RaisedButton(
                     textColor: Colors.black,
-                    child: new Text('跳转到原生界面(带参数List)，回调结果：$_methodResult3'),
+                    child: new Text('MethodChannel跳转到原生界面(带参数List)，回调结果：$_methodResult3'),
                     onPressed: () {
                       _jumpToNativeWithParams2();
-                    }),
-              ),
-              new Padding(
-                padding: const EdgeInsets.only(
-                    left: 10.0, top: 10.0, right: 10.0),
-                child: new RaisedButton(
-                    textColor: Colors.black,
-                    child: new Text('返回上一界面，并携带数据'),
-                    onPressed: () {
-                      _jumpToNativeWithParams3();
                     }),
               ),
               new Padding(
