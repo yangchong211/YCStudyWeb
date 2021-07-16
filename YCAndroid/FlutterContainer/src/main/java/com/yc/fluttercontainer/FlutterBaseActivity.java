@@ -62,7 +62,9 @@ public class FlutterBaseActivity extends FlutterActivity {
         // This was supported in KitKat (API 19), but has a bug around requiring
         // permissions. See https://github.com/flutter/flutter/issues/46172
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            //向系统报告您的应用程序现在已经完全绘制，纯粹是为了诊断目的(调用它不会影响活动的可见行为)。
             getActivity().reportFullyDrawn();
+            FlutterLoggerUtils.log(TAG,"reportFullyDrawn");
         }
     }
 
@@ -75,7 +77,8 @@ public class FlutterBaseActivity extends FlutterActivity {
     @Override
     public boolean shouldRestoreAndSaveState() {
         boolean shouldRestoreAndSaveState = super.shouldRestoreAndSaveState();
-        FlutterLoggerUtils.log(TAG,"shouldRestoreAndSaveState:"+shouldRestoreAndSaveState);
+        FlutterLoggerUtils.log(TAG,"shouldRestoreAndSaveState:"
+                +shouldRestoreAndSaveState);
         return shouldRestoreAndSaveState;
     }
 
@@ -94,7 +97,8 @@ public class FlutterBaseActivity extends FlutterActivity {
     @Override
     public boolean shouldAttachEngineToActivity() {
         boolean shouldAttachEngineToActivity = super.shouldAttachEngineToActivity();
-        FlutterLoggerUtils.log(TAG,"shouldAttachEngineToActivity:"+shouldAttachEngineToActivity);
+        FlutterLoggerUtils.log(TAG,"shouldAttachEngineToActivity:"
+                +shouldAttachEngineToActivity);
         return shouldAttachEngineToActivity;
     }
 
@@ -147,7 +151,10 @@ public class FlutterBaseActivity extends FlutterActivity {
     @NonNull
     @Override
     public String getDartEntrypointFunctionName() {
-        return super.getDartEntrypointFunctionName();
+        String dartEntrypointFunctionName = super.getDartEntrypointFunctionName();
+        FlutterLoggerUtils.log(TAG,"dartEntrypointFunctionName:"
+                +dartEntrypointFunctionName);
+        return dartEntrypointFunctionName;
     }
 
     @Nullable

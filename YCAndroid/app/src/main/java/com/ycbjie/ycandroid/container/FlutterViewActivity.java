@@ -21,6 +21,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.flutter.Log;
+import io.flutter.embedding.android.FlutterSurfaceView;
+import io.flutter.embedding.android.FlutterTextureView;
 import io.flutter.embedding.android.FlutterView;
 import io.flutter.embedding.engine.FlutterEngine;
 import io.flutter.embedding.engine.dart.DartExecutor;
@@ -89,6 +91,12 @@ public class FlutterViewActivity extends AppCompatActivity {
         flutterEngine.getLifecycleChannel().appIsPaused();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        flutterEngine.getLifecycleChannel().appIsDetached();
+    }
+
     private void addFlutterView() {
         flutterEngine = new FlutterEngine(this);
         binaryMessenger = flutterEngine.getDartExecutor().getBinaryMessenger();
@@ -137,7 +145,8 @@ public class FlutterViewActivity extends AppCompatActivity {
         // 这里的FlutterView位于io.flutter.embedding.android包中
         // 和此前我们所创建的FlutterView（位于io.flutter.view包中）是不一样的。
         // 通过查看FlutterView的源码可以发现它继承自FrameLayout，因此像一个普通的View那样添加就可以了。
-        flutterView = new FlutterView(this);
+        // flutterView = new FlutterView(this);
+        flutterView = new FlutterView(this,(FlutterTextureView)(new FlutterTextureView(this)));
         FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT);

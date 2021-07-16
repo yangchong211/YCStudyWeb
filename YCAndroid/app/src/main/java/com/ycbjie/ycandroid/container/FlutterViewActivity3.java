@@ -76,11 +76,4 @@ public class FlutterViewActivity3 extends FlutterEngineActivity {
             result.success("Na成功");
         }
     }
-
-    private void test(){
-        FlutterEngineActivity container = FlutterContainerRegistry.getContainer("hahah");
-        if (container != null) {
-            container.finish();
-        }
-    }
 }

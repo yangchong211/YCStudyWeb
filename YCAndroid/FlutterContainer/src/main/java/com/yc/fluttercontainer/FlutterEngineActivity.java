@@ -193,6 +193,10 @@ public abstract class FlutterEngineActivity extends FlutterBaseActivity {
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT);
         mFlutterContainer.addView(mFlutterView, lp);
+        // 关键代码，将Flutter页面显示到FlutterView中
+        // 这个方法的作用就是将Flutter编写的UI页面显示到FlutterView中
+        // flutterEngine的类型为FlutterEngine，字面意思就是Flutter引擎
+        // 它负责在Android端执行Dart代码，将Flutter编写的UI显示到FlutterView/FlutterActivity/FlutterFragment中。
         mFlutterView.attachToFlutterEngine(flutterEngine);
         return mFlutterContainer;
     }
