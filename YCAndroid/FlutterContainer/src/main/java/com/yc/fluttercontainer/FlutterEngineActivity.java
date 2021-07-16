@@ -264,11 +264,6 @@ public abstract class FlutterEngineActivity extends FlutterBaseActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        if (mRenderSurface != null && mRenderSurface.getAttachedRenderer() != null) {
-            // 不能单独用 mRenderSurface attachToRenderer 和 detachRenderer
-            // 这只是把 Surface 释放掉了，会导致 destroy mFlutterView 释放不掉，最终导致泄漏 Activity
-            mFlutterView.detachFromFlutterEngine();
-        }
         flutterEngine.getLifecycleChannel().appIsInactive();
     }
 
@@ -283,13 +278,26 @@ public abstract class FlutterEngineActivity extends FlutterBaseActivity {
         super.onDestroy();
         mFlutterView.removeOnFirstFrameRenderedListener(flutterUiDisplayListener);
         FlutterContainerRegistry.removeContainer(mPageId);
-        if (flutterEngine != null) {
-            flutterEngine.destroy();
-        }
         // 在 engine 销毁前先把 FlutterView 拿下来，否则先销毁引擎再拿下视图
         // 会导致 FlutterTextureView 在脱离视图树的回调中再触发一次销毁，而这次销毁中会存在 NPE 问题
         mFlutterContainer.removeAllViews();
         mFlutterView.removeAllViews();
+        if (mRenderSurface != null && mRenderSurface.getAttachedRenderer() != null) {
+            // 不能单独用 mRenderSurface attachToRenderer 和 detachRenderer
+            // 这只是把 Surface 释放掉了，会导致 destroy mFlutterView 释放不掉，最终导致泄漏 Activity
+            mFlutterView.detachFromFlutterEngine();
+        }
+        // 注意需要先移除view，然后再销毁flutterEngine。
+        // 如果把flutterEngine销毁放到removeAllViews之前，则会出现异常：
+        // Cannot execute operation because FlutterJNI is not attached to native.
+        if (flutterEngine != null) {
+            // 修复 MouseCursorChannel 的内存泄漏
+            flutterEngine.getMouseCursorChannel().setMethodHandler(null);
+            // detached 操作
+            flutterEngine.getLifecycleChannel().appIsDetached();
+            // 销毁
+            flutterEngine.destroy();
+        }
         if (mRenderSurface != null) {
             // 打断内存泄漏
             ((FixFlutterTextureView) mRenderSurface).setSurfaceTextureListener(null);
