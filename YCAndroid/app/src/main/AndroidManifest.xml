@@ -25,9 +25,8 @@
         </activity>
 
 
-        <activity android:name=".router.RouterToNaActivity"/>
-        <activity android:name=".router.RouterToFlutterActivity"/>
-        <activity android:name=".router.SecondActivity"/>
+        <activity android:name=".router.RouterToNaMeActivity"/>
+        <activity android:name=".router.RouterToNaAboutActivity"/>
 
 
         <activity android:name=".container.FlutterContainerActivity"/>

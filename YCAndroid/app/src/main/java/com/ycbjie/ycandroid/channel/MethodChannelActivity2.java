@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -13,18 +12,15 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.ycbjie.ycandroid.R;
-import com.ycbjie.ycandroid.router.RouterToFlutterActivity;
-import com.ycbjie.ycandroid.router.RouterToNaActivity;
-import com.ycbjie.ycandroid.router.SecondActivity;
+import com.ycbjie.ycandroid.router.RouterToNaAboutActivity;
+import com.ycbjie.ycandroid.router.RouterToNaMeActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import io.flutter.embedding.android.FlutterFragment;
-import io.flutter.embedding.android.FlutterView;
 import io.flutter.embedding.engine.FlutterEngine;
-import io.flutter.embedding.engine.dart.DartExecutor;
 import io.flutter.plugin.common.BinaryMessenger;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
@@ -163,11 +159,11 @@ public class MethodChannelActivity2 extends AppCompatActivity implements View.On
                     Object text = methodCall.argument("flutter");
                     if (text instanceof String){
                         //带参数跳转到指定Activity
-                        Intent intent = new Intent(MethodChannelActivity2.this, RouterToFlutterActivity.class);
+                        Intent intent = new Intent(MethodChannelActivity2.this, RouterToNaMeActivity.class);
                         intent.putExtra("yc", (String) text);
                         startActivity(intent);
                     }else if (text instanceof List){
-                        Intent intent = new Intent(MethodChannelActivity2.this, SecondActivity.class);
+                        Intent intent = new Intent(MethodChannelActivity2.this, RouterToNaAboutActivity.class);
                         intent.putStringArrayListExtra("yc", (ArrayList<String>) text);
                         startActivity(intent);
                     }

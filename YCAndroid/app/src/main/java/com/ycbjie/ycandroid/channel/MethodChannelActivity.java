@@ -18,10 +18,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.ycbjie.ycandroid.router.RouterToNaActivity;
-import com.ycbjie.ycandroid.router.RouterToFlutterActivity;
 import com.ycbjie.ycandroid.R;
-import com.ycbjie.ycandroid.router.SecondActivity;
+import com.ycbjie.ycandroid.router.RouterToNaAboutActivity;
+import com.ycbjie.ycandroid.router.RouterToNaMeActivity;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -35,8 +34,6 @@ import io.flutter.embedding.android.FlutterView;
 import io.flutter.embedding.engine.FlutterEngine;
 import io.flutter.embedding.engine.dart.DartExecutor;
 import io.flutter.embedding.engine.loader.FlutterLoader;
-import io.flutter.embedding.engine.plugins.FlutterPlugin;
-import io.flutter.embedding.engine.plugins.PluginRegistry;
 import io.flutter.plugin.common.BinaryMessenger;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
@@ -196,11 +193,11 @@ public class MethodChannelActivity extends AppCompatActivity implements View.OnC
                     Object text = methodCall.argument("flutter");
                     if (text instanceof String){
                         //带参数跳转到指定Activity
-                        Intent intent = new Intent(MethodChannelActivity.this, RouterToFlutterActivity.class);
+                        Intent intent = new Intent(MethodChannelActivity.this, RouterToNaMeActivity.class);
                         intent.putExtra("yc", (String) text);
                         startActivity(intent);
                     }else if (text instanceof List){
-                        Intent intent = new Intent(MethodChannelActivity.this, SecondActivity.class);
+                        Intent intent = new Intent(MethodChannelActivity.this, RouterToNaAboutActivity.class);
                         intent.putStringArrayListExtra("yc", (ArrayList<String>) text);
                         startActivity(intent);
                     }

@@ -40,6 +40,8 @@ import io.flutter.plugin.common.MethodChannel;
  */
 public abstract class FlutterEngineActivity extends FlutterBaseActivity {
 
+    private static final String TAG = "FlutterEngineActivity";
+
     private LinearLayout root;
     private FrameLayout layoutContainer;
     private FlutterEngine flutterEngine;
@@ -215,8 +217,8 @@ public abstract class FlutterEngineActivity extends FlutterBaseActivity {
             }
             // 传混合路由跳转路径
             params.put("initial_route", path);
-            Log.d("flutter", "传入的路由地址：" + path);
-            Log.d("flutter", "prams: " + params.toString());
+            FlutterLoggerUtils.log(TAG,"传入的路由地址：" + path);
+            FlutterLoggerUtils.log(TAG, "prams: " + params.toString());
         }
     }
 

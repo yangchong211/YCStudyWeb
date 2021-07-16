@@ -5,16 +5,14 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.yc.fluttercontainer.FlutterCommons;
 import com.yc.fluttercontainer.FlutterContainerRegistry;
 import com.yc.fluttercontainer.FlutterEngineActivity;
 import com.ycbjie.ycandroid.R;
-import com.ycbjie.ycandroid.channel.MethodChannelActivity;
-import com.ycbjie.ycandroid.router.RouterToFlutterActivity;
-import com.ycbjie.ycandroid.router.SecondActivity;
+import com.ycbjie.ycandroid.router.RouterToNaAboutActivity;
+import com.ycbjie.ycandroid.router.RouterToNaMeActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,18 +51,24 @@ public class FlutterViewActivity3 extends FlutterEngineActivity {
             Object text = methodCall.argument("flutter");
             if (router != null) {
                 switch (router){
-                    case "yc1":
+                    case "main/me":
                         //带参数跳转到指定Activity
-                        Intent intent1 = new Intent(
-                                FlutterViewActivity3.this, RouterToFlutterActivity.class);
-                        intent1.putExtra("yc", (String) text);
-                        startActivity(intent1);
+                        if (text instanceof String){
+                            //带参数跳转到指定Activity
+                            Intent intent = new Intent(
+                                    FlutterViewActivity3.this,
+                                    RouterToNaMeActivity.class);
+                            intent.putExtra("yc", (String) text);
+                            startActivity(intent);
+                        }
                         break;
-                    case "list":
-                        Intent intent2 = new Intent(
-                                FlutterViewActivity3.this, SecondActivity.class);
-                        intent2.putStringArrayListExtra("yc", (ArrayList<String>) text);
-                        startActivity(intent2);
+                    case "main/about":
+                        if (text instanceof List){
+                            Intent intent = new Intent(
+                                    FlutterViewActivity3.this, RouterToNaAboutActivity.class);
+                            intent.putStringArrayListExtra("yc", (ArrayList<String>) text);
+                            startActivity(intent);
+                        }
                         break;
                     default:
                         break;
