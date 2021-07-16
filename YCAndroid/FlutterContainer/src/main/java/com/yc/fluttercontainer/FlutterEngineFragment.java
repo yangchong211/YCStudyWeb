@@ -14,6 +14,15 @@ import androidx.annotation.Nullable;
 
 import io.flutter.embedding.android.FlutterFragment;
 
+/**
+ * <pre>
+ *     @author yangchong
+ *     blog  : https://github.com/yangchong211
+ *     time  : 2018/11/9
+ *     desc  : 自定义FlutterFragment
+ *     revise:
+ * </pre>
+ */
 public class FlutterEngineFragment extends FlutterFragment {
 
     private LinearLayout root;

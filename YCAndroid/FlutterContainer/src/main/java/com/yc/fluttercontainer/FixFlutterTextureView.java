@@ -9,6 +9,15 @@ import androidx.annotation.Nullable;
 import io.flutter.embedding.android.FlutterTextureView;
 import io.flutter.embedding.engine.renderer.FlutterRenderer;
 
+/**
+ * <pre>
+ *     @author yangchong
+ *     blog  : https://github.com/yangchong211
+ *     time  : 2018/11/9
+ *     desc  : 自定义FlutterTextureView
+ *     revise:
+ * </pre>
+ */
 public class FixFlutterTextureView extends FlutterTextureView {
 
     public FixFlutterTextureView(@NonNull Context context) {

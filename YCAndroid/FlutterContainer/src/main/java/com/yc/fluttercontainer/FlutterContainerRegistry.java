@@ -4,7 +4,15 @@ import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Map;
 
-
+/**
+ * <pre>
+ *     @author yangchong
+ *     blog  : https://github.com/yangchong211
+ *     time  : 2018/11/9
+ *     desc  : 容器注册类
+ *     revise:
+ * </pre>
+ */
 public class FlutterContainerRegistry {
 
     private static final Map<String, WeakReference<FlutterEngineActivity>>

@@ -17,7 +17,8 @@ import androidx.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 
-import io.flutter.embedding.android.FlutterView;
+
+import io.flutter.embedding.android.SplashScreen;
 import io.flutter.embedding.engine.FlutterEngine;
 import io.flutter.embedding.engine.dart.DartExecutor;
 import io.flutter.embedding.engine.renderer.FlutterUiDisplayListener;
@@ -28,13 +29,22 @@ import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 
 
+/**
+ * <pre>
+ *     @author yangchong
+ *     blog  : https://github.com/yangchong211
+ *     time  : 2018/11/9
+ *     desc  : 基类
+ *     revise:
+ * </pre>
+ */
 public abstract class FlutterEngineActivity extends FlutterBaseActivity {
 
     private LinearLayout root;
     private FrameLayout layoutContainer;
     private FlutterEngine flutterEngine;
     private FrameLayout mFlutterContainer;
-    private FlutterView mFlutterView;
+    private FixFlutterView mFlutterView;
     private RenderSurface mRenderSurface;
     private BinaryMessenger binaryMessenger;
     private NavigationChannel navigationChannel;
@@ -51,7 +61,6 @@ public abstract class FlutterEngineActivity extends FlutterBaseActivity {
 
         @Override
         public void onFlutterUiNoLongerDisplayed() {
-            //
             FlutterEngineActivity.this.onFlutterUiNoLongerDisplayed();
         }
     };
@@ -70,7 +79,6 @@ public abstract class FlutterEngineActivity extends FlutterBaseActivity {
         initIntentArgs();
         addFlutterEngine();
         initView();
-        attachToFlutterEngine();
     }
 
     /**
@@ -162,27 +170,14 @@ public abstract class FlutterEngineActivity extends FlutterBaseActivity {
         // 这里的FlutterView位于io.flutter.embedding.android包中
         // 和此前我们所创建的FlutterView（位于io.flutter.view包中）是不一样的。
         // 通过查看FlutterView的源码可以发现它继承自FrameLayout，因此像一个普通的View那样添加就可以了。
-        mFlutterView = new FlutterView(this, flutterTextureView);
+        mFlutterView = new FixFlutterView(this, flutterTextureView);
         mFlutterView.addOnFirstFrameRenderedListener(flutterUiDisplayListener);
         FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT);
         mFlutterContainer.addView(mFlutterView, lp);
-        return mFlutterContainer;
-    }
-
-    private void attachToFlutterEngine() {
-        // 关键代码，将Flutter页面显示到FlutterView中
-        // 这个方法的作用就是将Flutter编写的UI页面显示到FlutterView中
-        // flutterEngine的类型为FlutterEngine，字面意思就是Flutter引擎
-        // 它负责在Android端执行Dart代码，将Flutter编写的UI显示到FlutterView/FlutterActivity/FlutterFragment中。
         mFlutterView.attachToFlutterEngine(flutterEngine);
-    }
-
-    @Override
-    public boolean shouldAttachEngineToActivity() {
-        //
-        return super.shouldAttachEngineToActivity();
+        return mFlutterContainer;
     }
 
     @Override
@@ -191,10 +186,10 @@ public abstract class FlutterEngineActivity extends FlutterBaseActivity {
         root.setBackgroundColor(Color.TRANSPARENT);
     }
 
+    @Nullable
     @Override
-    public void onFlutterUiNoLongerDisplayed() {
-        //
-        super.onFlutterUiNoLongerDisplayed();
+    public SplashScreen provideSplashScreen() {
+        return new FlutterSplashView();
     }
 
     /**
@@ -223,20 +218,6 @@ public abstract class FlutterEngineActivity extends FlutterBaseActivity {
             Log.d("flutter", "传入的路由地址：" + path);
             Log.d("flutter", "prams: " + params.toString());
         }
-    }
-
-    public Map<String, Object> transformBundleParameters(Bundle bundle) {
-        HashMap<String, Object> ret = new HashMap<String, Object>();
-        if (bundle != null) {
-            for (String key : bundle.keySet()) {
-                // 排除掉不兼容的类型
-                if (bundle.get(key) instanceof Bundle) {
-                    continue;
-                }
-                ret.put(key, bundle.get(key));
-            }
-        }
-        return ret;
     }
 
     @Override
