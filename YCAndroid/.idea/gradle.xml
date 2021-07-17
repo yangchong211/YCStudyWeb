@@ -15,11 +15,8 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/FlutterContainer" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/../flutter_channel" />
-            <option value="$PROJECT_DIR$/../flutter_interface" />
             <option value="$PROJECT_DIR$/../flutter_lib" />
             <option value="$PROJECT_DIR$/../flutter_lib/.android/Flutter" />
-            <option value="$PROJECT_DIR$/../flutter_router" />
             <option value="$PROJECT_DIR$/../flutter_tool" />
             <option value="$PROJECT_DIR$/../flutter_uni" />
             <option value="$PROJECT_DIR$/../flutter_utils" />
