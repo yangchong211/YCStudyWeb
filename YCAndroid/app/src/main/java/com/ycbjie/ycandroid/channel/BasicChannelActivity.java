@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -151,7 +152,7 @@ public class BasicChannelActivity extends AppCompatActivity implements View.OnCl
         //接收消息
         nativeChannel.setMessageHandler(new BasicMessageChannel.MessageHandler() {
             @Override
-            public void onMessage(Object message, BasicMessageChannel.Reply reply) {
+            public void onMessage(Object message, @NonNull BasicMessageChannel.Reply reply) {
                 // 接收消息并处理
                 if (message instanceof String){
                     String str = (String) message;

@@ -24,6 +24,7 @@
             <option value="$PROJECT_DIR$/../flutter_uni" />
             <option value="$PROJECT_DIR$/../flutter_utils" />
             <option value="$PROJECT_DIR$/../flutter_utils/android" />
+            <option value="$PROJECT_DIR$/../flutter_wanandroid" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

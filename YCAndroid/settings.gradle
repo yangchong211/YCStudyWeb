@@ -17,6 +17,8 @@ include ':flutter_interface'
 project(':flutter_interface').projectDir = new File('../flutter_interface')
 include ':flutter_router'
 project(':flutter_router').projectDir = new File('../flutter_router')
+include ':flutter_wanandroid'
+project(':flutter_wanandroid').projectDir = new File('../flutter_wanandroid')
 
 
 //Android
