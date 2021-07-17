@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -14,14 +13,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.ycbjie.ycandroid.R;
-import com.ycbjie.ycandroid.router.RouterToFlutterActivity;
+import com.ycbjie.ycandroid.router.RouterToNaMeActivity;
 
 import java.util.HashMap;
 
 import io.flutter.embedding.android.FlutterFragment;
-import io.flutter.embedding.android.FlutterView;
 import io.flutter.embedding.engine.FlutterEngine;
-import io.flutter.embedding.engine.dart.DartExecutor;
 import io.flutter.plugin.common.BasicMessageChannel;
 import io.flutter.plugin.common.BinaryMessenger;
 import io.flutter.plugin.common.StringCodec;
@@ -141,7 +138,7 @@ public class BasicChannelActivity2 extends AppCompatActivity implements View.OnC
             public void onMessage(String s, @NonNull BasicMessageChannel.Reply<String> reply) {
                 Log.e("BasicMessageChannel",s);
                 Log.e("BasicMessageChannel",reply.toString());
-                Intent intent = new Intent(BasicChannelActivity2.this, RouterToFlutterActivity.class);
+                Intent intent = new Intent(BasicChannelActivity2.this, RouterToNaMeActivity.class);
                 intent.putExtra("yc", s);
                 startActivity(intent);
                 reply.reply("Na收到指令");

@@ -7,6 +7,8 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.yc.fluttercontainer.FlutterCommons;
 import com.ycbjie.ycandroid.R;
 
 import io.flutter.embedding.android.FlutterActivity;
@@ -25,11 +27,13 @@ public class FlutterContainerActivity extends AppCompatActivity implements View.
         TextView tv3 = findViewById(R.id.tv_3);
         TextView tv4 = findViewById(R.id.tv_4);
         TextView tv5 = findViewById(R.id.tv_5);
+        TextView tv6 = findViewById(R.id.tv_6);
         tv1.setOnClickListener(this);
         tv2.setOnClickListener(this);
         tv3.setOnClickListener(this);
         tv4.setOnClickListener(this);
         tv5.setOnClickListener(this);
+        tv6.setOnClickListener(this);
     }
 
     @Override
@@ -49,6 +53,9 @@ public class FlutterContainerActivity extends AppCompatActivity implements View.
                 break;
             case R.id.tv_5:
                 startActivity(new Intent(FlutterContainerActivity.this, FlutterViewActivity2.class));
+                break;
+            case R.id.tv_6:
+                FlutterViewActivity3.start(FlutterContainerActivity.this);
                 break;
             default:
                 break;

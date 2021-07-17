@@ -16,6 +16,17 @@
         android:gravity="center"
         android:text="使用FlutterView引入flutter" />
 
+    <TextView
+        android:id="@+id/tv_open"
+        android:layout_marginTop="10dp"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:background="@color/colorAccent"
+        android:gravity="center"
+        android:text="点击跳转flutter的关于页面" />
+
     <FrameLayout
         android:id="@+id/rl_flutter"
         android:layout_marginTop="10dp"

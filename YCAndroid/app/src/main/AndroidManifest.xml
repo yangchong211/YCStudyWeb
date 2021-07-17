@@ -25,9 +25,8 @@
         </activity>
 
 
-        <activity android:name=".router.RouterToNaActivity"/>
-        <activity android:name=".router.RouterToFlutterActivity"/>
-        <activity android:name=".router.SecondActivity"/>
+        <activity android:name=".router.RouterToNaMeActivity"/>
+        <activity android:name=".router.RouterToNaAboutActivity"/>
 
 
         <activity android:name=".container.FlutterContainerActivity"/>
@@ -35,6 +34,7 @@
         <activity android:name=".container.FlutterFragmentActivity"/>
         <activity android:name=".container.FlutterFragmentCachedActivity"/>
         <activity android:name=".container.FlutterViewActivity2"/>
+        <activity android:name=".container.FlutterViewActivity3"/>
         <activity
             android:name="io.flutter.embedding.android.FlutterActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
@@ -51,8 +51,6 @@
         <activity android:name=".channel.EventChannelActivity2"/>
         <activity android:name=".channel.BasicChannelActivity2"/>
         <activity android:name=".channel.MethodResultActivity"/>
-        <activity android:name=".flutter.FlutterDemoActivity"/>
-
 
     </application>
 

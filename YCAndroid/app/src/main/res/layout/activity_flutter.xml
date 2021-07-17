@@ -63,4 +63,16 @@
         android:text="5.测试多层fragment引入flutter" />
 
 
+    <TextView
+        android:id="@+id/tv_6"
+        android:layout_marginTop="10dp"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:background="@color/colorAccent"
+        android:gravity="left"
+        android:text="6.使用封装容器引入flutter" />
+
+
 </LinearLayout>

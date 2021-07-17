@@ -20,14 +20,17 @@ dependencies:
   json_serializable: ^3.0.0
   build_runner: ^1.6.1
   # 添加文件依赖
-  path_provider: ^0.5.0
+  path_provider: ^1.6.9
   #添加Sqflite依赖
   sqflite: ^1.0.0
   cupertino_icons: ^0.1.2
   #依赖本地flutter_uni项目
   flutter_uni:
     path: ../flutter_uni
-
+  flutter_channel:
+    path: ../flutter_channel
+  yc_flutter_utils:
+    path: ../flutter_utils
 
 dev_dependencies:
   flutter_test:

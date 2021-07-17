@@ -70,3 +70,4 @@
     - final _factories = new Map<Type, _ServiceFactory<dynamic>>();
     - 所以获取服务的性能是 O(1)。
 
+https://blog.csdn.net/win7583362/article/details/106849312

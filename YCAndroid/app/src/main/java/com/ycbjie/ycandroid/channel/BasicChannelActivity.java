@@ -8,10 +8,13 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import com.ycbjie.ycandroid.router.RouterToFlutterActivity;
+
 import com.ycbjie.ycandroid.R;
+import com.ycbjie.ycandroid.router.RouterToNaMeActivity;
+
 import java.util.HashMap;
 
 import io.flutter.embedding.android.FlutterView;
@@ -149,11 +152,11 @@ public class BasicChannelActivity extends AppCompatActivity implements View.OnCl
         //接收消息
         nativeChannel.setMessageHandler(new BasicMessageChannel.MessageHandler() {
             @Override
-            public void onMessage(Object message, BasicMessageChannel.Reply reply) {
+            public void onMessage(Object message, @NonNull BasicMessageChannel.Reply reply) {
                 // 接收消息并处理
                 if (message instanceof String){
                     String str = (String) message;
-                    Intent intent = new Intent(BasicChannelActivity.this, RouterToFlutterActivity.class);
+                    Intent intent = new Intent(BasicChannelActivity.this, RouterToNaMeActivity.class);
                     intent.putExtra("yc", str);
                     startActivity(intent);
                     reply.reply("Na收到指令");

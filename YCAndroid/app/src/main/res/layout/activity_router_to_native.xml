@@ -6,6 +6,7 @@
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/tv_title"
         android:layout_marginTop="10dp"
         android:padding="10dp"
         android:layout_width="match_parent"
@@ -13,7 +14,18 @@
         android:layout_centerHorizontal="true"
         android:background="@color/colorAccent"
         android:gravity="center"
-        android:text="使用FlutterView引入flutter" />
+        android:text="" />
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_marginTop="10dp"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:background="@color/colorAccent"
+        android:gravity="center"
+        android:text="" />
 
     <FrameLayout
         android:id="@+id/rl_flutter"
