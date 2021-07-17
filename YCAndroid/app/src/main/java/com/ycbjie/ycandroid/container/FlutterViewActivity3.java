@@ -46,6 +46,11 @@ public class FlutterViewActivity3 extends FlutterEngineActivity {
     }
 
     @Override
+    public int getSurfaceType() {
+        return super.getSurfaceType();
+    }
+
+    @Override
     public void onMethodCallListener(MethodCall methodCall, MethodChannel.Result result) {
         String method = methodCall.method;
         Log.i("onMethodCall","---"+method);

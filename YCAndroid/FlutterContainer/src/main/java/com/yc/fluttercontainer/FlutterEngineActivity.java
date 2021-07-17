@@ -155,6 +155,15 @@ public abstract class FlutterEngineActivity extends FlutterBaseActivity {
                                               MethodChannel.Result result);
 
     /**
+     * 获取Surface的类型，默认是FlutterTextureView，子类可以自己实现切换
+     * @return                                      类型
+     */
+    public @FlutterCommons.SurfaceType int getSurfaceType(){
+        //这里使用注解限制类型，必须传入SurfaceType的类型
+        return FlutterCommons.TEXTURE_VIEW;
+    }
+
+    /**
      * 根据路由地址打开页面
      * @param route                                 路由地址
      */
@@ -181,13 +190,21 @@ public abstract class FlutterEngineActivity extends FlutterBaseActivity {
 
     public View createFlutterView(Context context) {
         mFlutterContainer = new FrameLayout(context);
-        FixFlutterTextureView flutterTextureView = new FixFlutterTextureView(this);
-        mRenderSurface = flutterTextureView;
         // 通过FlutterView引入Flutter编写的页面
         // 这里的FlutterView位于io.flutter.embedding.android包中
         // 和此前我们所创建的FlutterView（位于io.flutter.view包中）是不一样的。
         // 通过查看FlutterView的源码可以发现它继承自FrameLayout，因此像一个普通的View那样添加就可以了。
-        mFlutterView = new FixFlutterView(this, flutterTextureView);
+        if (getSurfaceType()==FlutterCommons.TEXTURE_VIEW){
+            //使用TextureView
+            FixFlutterTextureView flutterTextureView = new FixFlutterTextureView(this);
+            mRenderSurface = flutterTextureView;
+            mFlutterView = new FixFlutterView(this, flutterTextureView);
+        } else {
+            //使用SurfaceView
+            FixFlutterSurfaceView flutterSurfaceView = new FixFlutterSurfaceView(this);
+            mRenderSurface = flutterSurfaceView;
+            mFlutterView = new FixFlutterView(this, flutterSurfaceView);
+        }
         mFlutterView.addOnFirstFrameRenderedListener(flutterUiDisplayListener);
         FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
@@ -256,8 +273,8 @@ public abstract class FlutterEngineActivity extends FlutterBaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        // flutterEngine.getLifecycleChannel()获取到的是一个LifecycleChannel对象，类比于MethodChannel，
-        // 作用大概就是将Flutter和原生端的生命周期相互联系起来。
+        // flutterEngine.getLifecycleChannel()获取到的是一个LifecycleChannel对象
+        // 类比于MethodChannel，作用大概就是将Flutter和原生端的生命周期相互联系起来。
         flutterEngine.getLifecycleChannel().appIsResumed();
     }
 
