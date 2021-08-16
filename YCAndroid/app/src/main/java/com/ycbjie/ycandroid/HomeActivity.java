@@ -106,6 +106,7 @@ public class HomeActivity extends AppCompatActivity {
         flutterEngine.getLifecycleChannel().appIsPaused();
     }
 
+
     private void initListener() {
         tvContainer.setOnClickListener(new View.OnClickListener() {
             @Override
