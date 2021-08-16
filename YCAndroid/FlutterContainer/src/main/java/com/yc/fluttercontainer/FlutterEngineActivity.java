@@ -36,17 +36,16 @@ import io.flutter.plugin.common.MethodChannel;
  *     revise:
  * </pre>
  */
-public abstract class FlutterEngineActivity extends FlutterBaseActivity {
+public class FlutterEngineActivity extends FlutterBaseActivity {
 
     private static final String TAG = "FlutterEngineActivity";
     private LinearLayout root;
     private FrameLayout layoutContainer;
-    private FlutterEngine flutterEngine;
     private FrameLayout mFlutterContainer;
     private FixFlutterView mFlutterView;
     private RenderSurface mRenderSurface;
-    private BinaryMessenger binaryMessenger;
     private NavigationChannel navigationChannel;
+    private FlutterEngine flutterEngine;
     private String mPageId;
     private Map<String, Object> params;
 
@@ -84,8 +83,7 @@ public abstract class FlutterEngineActivity extends FlutterBaseActivity {
      * 创建FlutterEngine，
      */
     private void addFlutterEngine() {
-        flutterEngine = new FlutterEngine(this);
-        binaryMessenger = flutterEngine.getDartExecutor().getBinaryMessenger();
+        flutterEngine = RouterManager.getInstance().getEngine();
         //获取路由跳转channel通信
         navigationChannel = flutterEngine.getNavigationChannel();
         //处理NA给flutter传递参数的问题
@@ -151,8 +149,10 @@ public abstract class FlutterEngineActivity extends FlutterBaseActivity {
      * @param methodCall                            methodCall
      * @param result                                result
      */
-    public abstract void onMethodCallListener(MethodCall methodCall,
-                                              MethodChannel.Result result);
+    public void onMethodCallListener(MethodCall methodCall,
+                                              MethodChannel.Result result){
+
+    };
 
     /**
      * 获取Surface的类型，默认是FlutterTextureView，子类可以自己实现切换

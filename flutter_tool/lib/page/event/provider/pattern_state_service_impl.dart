@@ -8,8 +8,15 @@ class BusinessPatternServiceImpl extends BusinessPatternService {
   final BuildContext context;
   BusinessPatternServiceImpl(this.context);
 
+  // BusinessPattern _getBusinessPatternState(BuildContext context) {
+  //   return Provider.of<BusinessPattern>(context);
+  // }
+
+  PatternState get currentPatternState =>
+      _getBusinessPatternState(context).currentState;
+
   BusinessPattern _getBusinessPatternState(BuildContext context) {
-    return Provider.of<BusinessPattern>(context);
+    return Provider.of<BusinessPattern>(context, listen: false);
   }
 
   @override

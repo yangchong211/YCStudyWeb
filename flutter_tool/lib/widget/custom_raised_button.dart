@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:yc_flutter_tool/router/app_navigator.dart';
+import 'package:yc_flutter_utils/router/animation_type.dart';
+import 'package:yc_flutter_utils/router/navigator_utils.dart';
 
 //定义自带路由跳转button
 // ignore: must_be_immutable
@@ -17,12 +18,8 @@ class CustomRaisedButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return RaisedButton(
       onPressed: () {
-        //第一种写法
-        //Navigator.push(context, new MaterialPageRoute(builder: (context) => _pageNavigator));
-        //第二张路由写法
-        // Navigator.of(context)
-        //     .push(new MaterialPageRoute(builder: (context) => _pageNavigator));
-        AppNavigator.push(context, _pageNavigator);
+        // NavigatorUtils.push(context, _pageNavigator);
+        NavigatorUtils.pushAnimationType(context, _pageNavigator, AnimationType.SlideRL);
       },
       child: Text(
         _btnTitle,

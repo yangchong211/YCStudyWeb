@@ -1,8 +1,10 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:yc_flutter_tool/page/custom/custom_combination_widget.dart';
+import 'package:yc_flutter_tool/page/custom/custom_paint_widget.dart';
+import 'package:yc_flutter_tool/page/custom/custom_render_widget.dart';
 import 'package:yc_flutter_tool/widget/custom_raised_button.dart';
-import 'package:yc_flutter_tool/widget/timer_count_down_widget.dart';
 
 class CustomWidgetPage extends StatefulWidget{
 
@@ -24,7 +26,9 @@ class CustomWidgetState extends State<CustomWidgetPage>{
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          CustomRaisedButton(new TimerCountDownWidget(), "验证码倒计时Widget"),
+          CustomRaisedButton(new CustomCombinationWidget(), "组合现有组件"),
+          CustomRaisedButton(new CustomPaintWidget(), "自定义自绘组件"),
+          CustomRaisedButton(new CustomRenderWidget(), "实现RenderObject组件"),
         ],
       ),
     );

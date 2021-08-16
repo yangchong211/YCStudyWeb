@@ -9,16 +9,21 @@ import android.graphics.Point;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+
 import com.ycbjie.ycandroid.channel.ChannelActivity;
 import com.ycbjie.ycandroid.container.FlutterContainerActivity;
+import com.ycbjie.ycandroid.container.FlutterViewActivity4;
+
 import io.flutter.embedding.engine.FlutterEngine;
 import io.flutter.embedding.engine.dart.DartExecutor;
 import io.flutter.plugin.common.BinaryMessenger;
@@ -35,6 +40,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private TextView tvContainer;
     private TextView tvChannel;
+    private TextView tvTool;
     private TextView tvInfo;
     private FrameLayout frameLayout;
     private FlutterView flutterView;
@@ -72,6 +78,7 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         tvContainer = findViewById(R.id.tv_container);
         tvChannel = findViewById(R.id.tv_channel);
+        tvTool = findViewById(R.id.tv_tool);
         frameLayout = findViewById(R.id.rl_flutter);
         tvInfo = findViewById(R.id.tv_info);
 
@@ -112,6 +119,12 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(new Intent(HomeActivity.this, ChannelActivity.class));
             }
         });
+        tvTool.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(HomeActivity.this, FlutterViewActivity4.class));
+            }
+        });
     }
 
     private void addFlutterView() {
@@ -134,6 +147,38 @@ public class HomeActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
     }
+
+    /**
+     * 是当某个按键被按下是触发。所以也有人在点击返回键的时候去执行该方法来做判断
+     */
+//    private long time;
+//    @Override
+//    public boolean onKeyDown(int keyCode, KeyEvent event) {
+//        if (keyCode == KeyEvent.KEYCODE_BACK) {
+//            //双击返回桌面
+//            if ((System.currentTimeMillis() - time > 2000)) {
+//                time = System.currentTimeMillis();
+//                //Toast.makeText(this,"再按一次回到桌面",Toast.LENGTH_LONG).show();
+//            } else {
+//                //finish();
+//                //可将activity 退到后台，注意不是finish()退出。
+//                //判断Activity是否是task根
+//                //使用moveTaskToBack是为了让app退出时，不闪屏，退出柔和一些
+//                if (this.isTaskRoot()){
+//                    //参数为false——代表只有当前activity是task根，指应用启动的第一个activity时，才有效;
+//                    moveTaskToBack(false);
+//                } else {
+//                    //参数为true——则忽略这个限制，任何activity都可以有效。
+//                    //使用此方法，便不会执行Activity的onDestroy()方法
+//                    moveTaskToBack(true);
+//                }
+//            }
+//            return true;
+//        }
+//        return super.onKeyDown(keyCode, event);
+//    }
+
+
 
     @SuppressLint("SetTextI18n")
     private void test(){
@@ -174,5 +219,7 @@ public class HomeActivity extends AppCompatActivity {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (pxValue / scale + 0.5f);
     }
+
+
 
 }

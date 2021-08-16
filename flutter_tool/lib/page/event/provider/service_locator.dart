@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:yc_flutter_tool/page/event/provider/get_it.dart';
 import 'package:yc_flutter_tool/page/event/provider/pattern_state_service.dart';
 import 'package:yc_flutter_tool/page/event/provider/pattern_state_service_impl.dart';
+import 'package:yc_flutter_utils/locator/get_it.dart';
 
 GetIt serviceLocator = GetIt.instance;
 
@@ -15,19 +15,28 @@ class ServiceLocator extends StatefulWidget {
 
 class _ServiceLocator extends State<ServiceLocator> {
 
+  Future _fetchContextFuture;
+
   @override
   void initState() {
     super.initState();
+    _fetchContextFuture = fetchContext();
   }
 
-  Future fetchContext(BuildContext context) async {
+  Future fetchContext() async {
+    setupServiceLocator(context);
+  }
+
+  Future fetchBuildContext(BuildContext context) async {
     setupServiceLocator(context);
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: fetchContext(context),
+        future: _fetchContextFuture,
+        // future: fetchContext(),
+        // future: fetchBuildContext(context),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             return widget.child;
@@ -45,7 +54,9 @@ class _ServiceLocator extends State<ServiceLocator> {
 
   void setupServiceLocator(BuildContext context) {
     //注册模式状态管理service
-    serviceLocator.registerLazySingleton<BusinessPatternService>(
-        () => BusinessPatternServiceImpl(context));
+    if (!serviceLocator.isRegistered<BusinessPatternService>()) {
+      serviceLocator.registerLazySingleton<BusinessPatternService>(
+              () => BusinessPatternServiceImpl(context));
+    }
   }
 }

@@ -3,16 +3,25 @@ include ':app'
 apply from: file('settings-flutter.gradle')
 
 //flutter
-include ':flutter_lib'
-project(':flutter_lib').projectDir = new File('../flutter_lib')
-include ':flutter_uni'
-project(':flutter_uni').projectDir = new File('../flutter_uni')
-include ':flutter_utils'
-project(':flutter_utils').projectDir = new File('../flutter_utils')
+//Flutter Application
+//标准的Flutter App工程，包含标准的Dart层与Native平台层
 include ':flutter_tool'
 project(':flutter_tool').projectDir = new File('../flutter_tool')
-include ':flutter_wanandroid'
-project(':flutter_wanandroid').projectDir = new File('../flutter_wanandroid')
+
+
+//Flutter Module
+//Flutter组件工程，仅包含Dart层实现，Native平台层子工程为通过Flutter自动生成的隐藏工程
+include ':flutter_lib'
+project(':flutter_lib').projectDir = new File('../flutter_lib')
+
+
+
+//Flutter Plugin
+//Flutter平台插件工程，包含Dart层与Native平台层的实现
+//希望Flutter跟原生交互的代码可以一次开发，多处使用，类似于库文件一样，可以给其他项目或者其他开发着使用
+include ':flutter_utils'
+project(':flutter_utils').projectDir = new File('../flutter_utils')
+
 
 
 //Android
