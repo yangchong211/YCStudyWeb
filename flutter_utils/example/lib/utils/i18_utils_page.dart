@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:yc_flutter_utils/date/date_utils.dart';
 import 'package:yc_flutter_utils/i18/template_time.dart';
-import 'package:yc_flutter_utils/i18/extension.dart';
 
 
 class I18Page extends StatefulWidget {
@@ -40,12 +39,6 @@ class _PageState extends State<I18Page> {
           child: new Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              new Text(
-                "获取国际化，文本内容:" + context.getString("name"),
-              ),
-              new Text(
-                "获取国际化，文本内容2:" + context.getString("work"),
-              ),
               new Text(
                 "获取国际化，时间格式 :" +time1,
                 style: new TextStyle(

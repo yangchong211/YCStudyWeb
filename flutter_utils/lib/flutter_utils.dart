@@ -20,7 +20,6 @@ export 'package:yc_flutter_utils/extens/transform_utils.dart';
 export 'package:yc_flutter_utils/extens/validator_utils.dart';
 export 'package:yc_flutter_utils/file/file_utils.dart';
 export 'package:yc_flutter_utils/file/storage_utils.dart';
-export 'package:yc_flutter_utils/i18/extension.dart';
 export 'package:yc_flutter_utils/i18/localizations.dart';
 export 'package:yc_flutter_utils/i18/template_time.dart';
 export 'package:yc_flutter_utils/image/image_utils.dart';

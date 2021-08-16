@@ -7,6 +7,7 @@ import 'package:flutter_lib/channel/event_channel_page.dart';
 import 'package:flutter_lib/channel/method_channel_page.dart';
 import 'package:flutter_lib/channel/router_channel_page.dart';
 import 'package:flutter_lib/main_home_page.dart';
+import 'package:yc_flutter_tool/main.dart';
 
 /// `main()`函数中，它是Dart应用程序的起点
 void main() => runApp(new MyApp());
@@ -69,6 +70,9 @@ class MyApp extends StatelessWidget {
       case 'router_channel':
       //混合路由跳转
         return RouterChannelPage(title: '匹配到，测试NA和Flutter相互跳转');
+      case 'router_tool':
+      //混合路由跳转
+        return MainApp();
     // case 'app':
     // //flutter demo
     //   return new MainApp();

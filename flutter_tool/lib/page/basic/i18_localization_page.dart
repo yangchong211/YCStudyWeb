@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:yc_flutter_tool/res/color/yc_colors.dart';
 import 'package:yc_flutter_utils/flutter_utils.dart';
-import 'package:yc_flutter_utils/i18/extension.dart';
 import 'package:yc_flutter_utils/i18/template_time.dart';
 
 class LocalizationsPage extends StatefulWidget{

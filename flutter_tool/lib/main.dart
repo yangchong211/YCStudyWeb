@@ -29,11 +29,6 @@ import 'package:yc_flutter_utils/except/handle_exception.dart';
 //main函数使用了(=>)符号, 这是Dart中单行函数或方法的简写。
 //void main() => runApp(MainDart());
 void main() {
-
-  //await Global.init();
-  Future(() async {
-    await Global.init();
-  });
   //应用入口
   hookCrash(() {
     runApp(MainApp());
@@ -41,7 +36,6 @@ void main() {
 }
 
 class MainApp extends StatelessWidget{
-
 
   //在构建页面时，会调用组件的build方法
   //widget的主要工作是提供一个build()方法来描述如何构建UI界面
@@ -60,34 +54,10 @@ class MainApp extends StatelessWidget{
       theme: new ThemeData(
         primarySwatch: Colors.blue,
       ),
-      // 本地化的代理类
-      localizationsDelegates: [
-        const AppLocalizationsDelegate(),
-        // 本地化的代理类
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      //支持的语言
-      supportedLocales: AppLocalizations.supportedLocales,
       //localeListResolutionCallback: _localeListResolutionCallback,
       home: new HomePage(title: 'Flutter进阶之旅'),
     );
   }
-
-  ///通过`localeResolutionCallback`或`localeListResolutionCallback`回调来监听locale改变的事件
-  Locale _localeListResolutionCallback(List<Locale> locales,
-      Iterable<Locale> supportedLocales) {
-    // 判断当前locale是否为英语系国家，如果是直接返回Locale('en', 'US')
-    if(locales!=null){
-      for(int i=0 ; i<locales.length ; i++){
-        var myLocale = locales[i];
-        LogUtils.d("myLocale-$i--${myLocale.countryCode}----${myLocale.languageCode}");
-      }
-    }
-    return Locale('en', 'US');
-  }
-
 
 }
 
@@ -193,46 +163,3 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
 
 
-
-class Global {
-
-  // 网络缓存对象
-  // 可选的主题列表
-  // 是否为release版
-  static bool get isRelease => bool.fromEnvironment("dart.vm.product");
-
-  //初始化全局信息，会在APP启动时执行
-  static Future init() async {
-
-    // 如果没有缓存策略，设置默认缓存策略
-
-    //初始化网络请求相关配置
-
-
-    AppLocalizations.supportedLocales = [
-      const Locale('en', 'US'),
-      const Locale('pt', 'BR'),
-      const Locale('ja', 'JP'),
-      const Locale('zh', 'CN'),
-    ];
-
-
-    //区分格式化时间
-    TemplateTime.dateFormat2 = {
-      "en_US": "MM-dd-yyyy",
-      "pt_BR": "dd-MM-yyyy",
-      "ja_JP": "yyyy/MM/dd",
-      "zh_CN": "yyyy年MM月dd日",
-    };
-    //比如：zh_CN，表示中国
-    //languageCode就是：zh
-    //countryCode就是：CN
-    //Locale myLocale = Localizations.localeOf(context);
-    LocalizationTime.locale = new Locale("zh","CN");
-
-    //初始化
-    WidgetsFlutterBinding.ensureInitialized();
-
-  }
-
-}
