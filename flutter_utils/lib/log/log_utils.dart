@@ -1,12 +1,11 @@
-import 'dart:developer';
 
 
 /// 这个使用flutter日志打印
 class LogUtils {
 
-  static const String _defTag = 'common_utils';
+  static const String _defTag = 'FlutterLogUtils';
   //是否是debug模式,true: log v 不输出.
-  static bool _debugMode = false;
+  static bool _debugMode = true;
   static int _maxLen = 128;
   static String _tagValue = _defTag;
 
@@ -32,7 +31,7 @@ class LogUtils {
     _printLog(tag, ' e ', object);
   }
 
-  ///打印
+  ///打印v日志
   static void v(Object object, {String tag}) {
     if (_debugMode) {
       _printLog(tag, ' v ', object);

@@ -1,6 +1,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:yc_flutter_utils/date/data_formats.dart';
 import 'package:yc_flutter_utils/date/date_utils.dart';
 
 class DatePage extends StatefulWidget {
@@ -14,32 +15,15 @@ class DatePage extends StatefulWidget {
 }
 
 class _DatePageState extends State<DatePage> {
-  String _dateFormat = DateFormats.full;
-
-  bool isZH = true;
-
-  String _checkResult = "";
-
-  void inputCheck(String format) {
-    setState(() {
-      _checkResult = "Now:    " +
-          DateUtils.formatDateMs(DateTime.now().millisecondsSinceEpoch,
-              format: format) +
-          "\n" +
-          DateUtils.getWeekday(DateTime.now()) +
-          "   " +
-          DateUtils.getWeekday(DateTime.now(), languageCode: 'zh');
-    });
-  }
 
   @override
   void initState() {
     super.initState();
-    inputCheck(isZH ? DateFormats.zh_full : DateFormats.full);
   }
 
   @override
   Widget build(BuildContext context) {
+    DateTime dateTime = new DateTime.now();
     return Scaffold(
       appBar: new AppBar(
         title: new Text("DateUtils工具类"),
@@ -47,261 +31,26 @@ class _DatePageState extends State<DatePage> {
       ),
       body: new Column(
         children: <Widget>[
-          new Card(
-            elevation: 4.0,
-            margin: const EdgeInsets.all(10.0),
-            child: new Column(
-              children: <Widget>[
-                new Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    new Padding(
-                      padding: const EdgeInsets.only(
-                          top: 16.0, left: 5.0, right: 5.0),
-                      child: new Column(
-                        children: <Widget>[
-                          new Text("Is ZH",
-                              style: new TextStyle(
-                                  fontSize: 12.0, color: Colors.grey[700])),
-                          new Checkbox(
-                              value: (isZH == true),
-                              activeColor: Colors.red,
-                              onChanged: (value) {
-                                setState(() {
-                                  isZH = value;
-                                });
-                              })
-                        ],
-                      ),
-                    ),
-                    new Padding(
-                      padding: const EdgeInsets.only(
-                          top: 16.0, left: 5.0, right: 5.0),
-                      child: new Column(
-                        children: <Widget>[
-                          new Text("DEFAULT",
-                              style: new TextStyle(
-                                  fontSize: 12.0, color: Colors.grey[700])),
-                          new Checkbox(
-                              value: (_dateFormat == DateFormats.full),
-                              onChanged: (value) {
-                                if (value) {
-                                  setState(() {
-                                    _dateFormat = DateFormats.full;
-                                    inputCheck(isZH
-                                        ? DateFormats.zh_full
-                                        : _dateFormat);
-                                  });
-                                }
-                              })
-                        ],
-                      ),
-                    ),
-                    new Padding(
-                      padding: const EdgeInsets.only(
-                          top: 16.0, left: 5.0, right: 5.0),
-                      child: new Column(
-                        children: <Widget>[
-                          new Text("NORMAL",
-                              style: new TextStyle(
-                                  fontSize: 12.0, color: Colors.grey[700])),
-                          new Checkbox(
-                              value: (_dateFormat == DateFormats.full),
-                              onChanged: (value) {
-                                if (value) {
-                                  setState(() {
-                                    _dateFormat = DateFormats.full;
-                                    inputCheck(
-                                        isZH ? DateFormats.full : _dateFormat);
-                                  });
-                                }
-                              })
-                        ],
-                      ),
-                    ),
-                    new Padding(
-                      padding: const EdgeInsets.only(
-                          top: 16.0, left: 5.0, right: 5.0),
-                      child: new Column(
-                        children: <Widget>[
-                          new Text("Y_M_D_H_M",
-                              style: new TextStyle(
-                                  fontSize: 12.0, color: Colors.grey[700])),
-                          new Checkbox(
-                              value: (_dateFormat == DateFormats.y_mo_d_h_m),
-                              onChanged: (value) {
-                                if (value) {
-                                  setState(() {
-                                    _dateFormat = DateFormats.y_mo_d_h_m;
-                                    inputCheck(isZH
-                                        ? DateFormats.zh_y_mo_d_h_m
-                                        : _dateFormat);
-                                  });
-                                }
-                              })
-                        ],
-                      ),
-                    ),
-                    new Padding(
-                      padding: const EdgeInsets.only(
-                          top: 16.0, left: 5.0, right: 5.0),
-                      child: new Column(
-                        children: <Widget>[
-                          new Text("Y_M_D",
-                              style: new TextStyle(
-                                  fontSize: 12.0, color: Colors.grey[700])),
-                          new Checkbox(
-                              value: (_dateFormat == DateFormats.y_mo_d),
-                              onChanged: (value) {
-                                if (value) {
-                                  setState(() {
-                                    _dateFormat = DateFormats.y_mo_d;
-                                    inputCheck(isZH
-                                        ? DateFormats.zh_y_mo_d
-                                        : _dateFormat);
-                                  });
-                                }
-                              })
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                new Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    new Padding(
-                      padding: const EdgeInsets.only(
-                          top: 16.0, left: 5.0, right: 5.0),
-                      child: new Column(
-                        children: <Widget>[
-                          new Text("Y_M",
-                              style: new TextStyle(
-                                  fontSize: 12.0, color: Colors.grey[700])),
-                          new Checkbox(
-                              value: (_dateFormat == DateFormats.y_mo),
-                              onChanged: (value) {
-                                if (value) {
-                                  setState(() {
-                                    _dateFormat = DateFormats.y_mo;
-                                    inputCheck(isZH
-                                        ? DateFormats.zh_y_mo
-                                        : _dateFormat);
-                                  });
-                                }
-                              })
-                        ],
-                      ),
-                    ),
-                    new Padding(
-                      padding: const EdgeInsets.only(
-                          top: 16.0, left: 5.0, right: 5.0),
-                      child: new Column(
-                        children: <Widget>[
-                          new Text("M_D",
-                              style: new TextStyle(
-                                  fontSize: 12.0, color: Colors.grey[700])),
-                          new Checkbox(
-                              value: (_dateFormat == DateFormats.mo_d),
-                              onChanged: (value) {
-                                if (value) {
-                                  setState(() {
-                                    _dateFormat = DateFormats.mo_d;
-                                    inputCheck(isZH
-                                        ? DateFormats.zh_mo_d
-                                        : _dateFormat);
-                                  });
-                                }
-                              })
-                        ],
-                      ),
-                    ),
-                    new Padding(
-                      padding: const EdgeInsets.only(
-                          top: 16.0, left: 5.0, right: 5.0),
-                      child: new Column(
-                        children: <Widget>[
-                          new Text("M_D_H_M",
-                              style: new TextStyle(
-                                  fontSize: 12.0, color: Colors.grey[700])),
-                          new Checkbox(
-                              value: (_dateFormat == DateFormats.mo_d_h_m),
-                              onChanged: (value) {
-                                if (value) {
-                                  setState(() {
-                                    _dateFormat = DateFormats.mo_d_h_m;
-                                    inputCheck(isZH
-                                        ? DateFormats.zh_mo_d_h_m
-                                        : _dateFormat);
-                                  });
-                                }
-                              })
-                        ],
-                      ),
-                    ),
-                    new Padding(
-                      padding: const EdgeInsets.only(
-                          top: 16.0, left: 5.0, right: 5.0),
-                      child: new Column(
-                        children: <Widget>[
-                          new Text("H_M_S",
-                              style: new TextStyle(
-                                  fontSize: 12.0, color: Colors.grey[700])),
-                          new Checkbox(
-                              value: (_dateFormat == DateFormats.h_m_s),
-                              onChanged: (value) {
-                                if (value) {
-                                  setState(() {
-                                    _dateFormat = DateFormats.h_m_s;
-                                    inputCheck(isZH
-                                        ? DateFormats.zh_h_m_s
-                                        : _dateFormat);
-                                  });
-                                }
-                              })
-                        ],
-                      ),
-                    ),
-                    new Padding(
-                      padding: const EdgeInsets.only(
-                          top: 16.0, left: 5.0, right: 5.0),
-                      child: new Column(
-                        children: <Widget>[
-                          new Text("H_M",
-                              style: new TextStyle(
-                                  fontSize: 12.0, color: Colors.grey[700])),
-                          new Checkbox(
-                              value: (_dateFormat == DateFormats.h_m),
-                              onChanged: (value) {
-                                if (value) {
-                                  setState(() {
-                                    _dateFormat = DateFormats.h_m;
-                                    inputCheck(isZH
-                                        ? DateFormats.zh_h_m
-                                        : _dateFormat);
-                                  });
-                                }
-                              })
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-                new Container(
-                  alignment: Alignment.topLeft,
-                  height: 66.0,
-                  padding: const EdgeInsets.all(10.0),
-                  child: new Text(
-                    '$_checkResult',
-                    textAlign: TextAlign.start,
-                    style:
-                    new TextStyle(color: Colors.grey[600], fontSize: 14.0),
-                  ),
-                )
-              ],
-            ),
-          ),
-          new ListView(shrinkWrap: true, children: <Widget>[new Text("")])
+          new Text("获取当前毫秒值：" + DateUtils.getNowDateMs().toString()),
+          new Text("获取现在日期字符串：" + DateUtils.getNowDateString().toString()),
+          new Text("获取当前日期返回DateTime(utc)：" + DateUtils.getNowUtcDateTime().toString()),
+          new Text("获取当前日期，返回指定格式：" + DateUtils.getNowDateTimeFormat(DateFormats.PARAM_FULL).toString()),
+          new Text("获取当前日期，返回指定格式：" + DateUtils.getUtcDateTimeFormat(DateFormats.PARAM_Y_M_D_H_M).toString()),
+          new Text("格式化日期 DateTime：" + DateUtils.formatDate(dateTime)),
+          new Text("格式化日期 DateTime：" + DateUtils.formatDate(dateTime,format: DateFormats.Y_M_D_H_M)),
+          new Text("格式化日期字符串：" + DateUtils.formatDateString('2021-07-18 16:03:10', format: "yyyy/M/d HH:mm:ss")),
+          new Text("格式化日期字符串：" + DateUtils.formatDateString('2021-07-18 16:03:10', format: "yyyy/M/d HH:mm:ss")),
+          new Text("格式化日期毫秒时间：" + DateUtils.formatDateMilliseconds(1213423143312, format: "yyyy/M/d HH:mm:ss")),
+          new Text("获取dateTime是星期几：" + DateUtils.getWeekday(dateTime)),
+          new Text("获取毫秒值对应是星期几：" + DateUtils.getWeekdayByMilliseconds(1213423143312)),
+          new Text("根据时间戳判断是否是今天：" + DateUtils.isToday(1213423143312).toString()),
+          new Text("根据时间戳判断是否是今天：" + DateUtils.isToday(dateTime.millisecondsSinceEpoch).toString()),
+          new Text("根据时间判断是否是昨天：" + DateUtils.isYesterday(dateTime,dateTime).toString()),
+          new Text("根据时间戳判断是否是本周：" + DateUtils.isWeek(1213423143312).toString()),
+          new Text("根据时间戳判断是否是本周：" + DateUtils.isWeek(1213423143312).toString()),
+          new Text("根据时间戳判断是否是本周：" + DateUtils.isWeek(1213423143312).toString()),
+          new Text("是否是闰年：" + DateUtils.isLeapYear(dateTime).toString()),
+          new Text("是否是闰年：" + DateUtils.isLeapYearByMilliseconds(1213423143312).toString()),
         ],
       ),
     );

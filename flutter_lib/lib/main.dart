@@ -8,6 +8,7 @@ import 'package:flutter_lib/channel/method_channel_page.dart';
 import 'package:flutter_lib/channel/router_channel_page.dart';
 import 'package:flutter_lib/main_home_page.dart';
 
+/// `main()`函数中，它是Dart应用程序的起点
 void main() => runApp(new MyApp());
 
 

@@ -21,7 +21,16 @@ class DialogToastState extends State<DialogToastPage>{
       body: new Center(
         child: new ListView(
           children: [
-
+            new RaisedButton(
+                onPressed: () {
+                },
+                child: new Text("吐司")
+            ),
+            new RaisedButton(
+                onPressed: () {
+                },
+                child: new Text("立马销毁吐司")
+            ),
           ],
         ),
       ),

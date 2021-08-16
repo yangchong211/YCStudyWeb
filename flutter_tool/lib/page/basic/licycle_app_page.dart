@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:yc_flutter_tool/utils/log_utils.dart';
+import 'package:yc_flutter_utils/log/log_utils.dart';
 
 class LifecycleAppPage extends StatefulWidget {
   @override
@@ -18,32 +18,32 @@ class _LifecycleAppPageState extends State<LifecycleAppPage>
 
   @override
   void initState() {
-    LogUtils.showPrint('initState');
+    LogUtils.d('initState');
     super.initState();
     WidgetsBinding.instance.addObserver(this);
   }
 
   @override
   void didChangeDependencies() {
-    LogUtils.showPrint('didChangeDependencies');
+    LogUtils.d('didChangeDependencies');
     super.didChangeDependencies();
   }
 
   @override
   void didUpdateWidget(LifecycleAppPage oldWidget) {
-    LogUtils.showPrint('didUpdateWidget');
+    LogUtils.d('didUpdateWidget');
     super.didUpdateWidget(oldWidget);
   }
 
   @override
   void deactivate() {
-    LogUtils.showPrint('deactivate');
+    LogUtils.d('deactivate');
     super.deactivate();
   }
 
   @override
   void dispose() {
-    LogUtils.showPrint('dispose');
+    LogUtils.d('dispose');
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
@@ -52,16 +52,16 @@ class _LifecycleAppPageState extends State<LifecycleAppPage>
   void didChangeAppLifecycleState(AppLifecycleState state) {
     switch (state) {
       case AppLifecycleState.inactive:
-        LogUtils.showPrint('AppLifecycleState.inactive');
+        LogUtils.d('AppLifecycleState.inactive');
         break;
       case AppLifecycleState.paused:
-        LogUtils.showPrint('AppLifecycleState.paused');
+        LogUtils.d('AppLifecycleState.paused');
         break;
       case AppLifecycleState.resumed:
-        LogUtils.showPrint('AppLifecycleState.resumed');
+        LogUtils.d('AppLifecycleState.resumed');
         break;
       case AppLifecycleState.detached:
-        LogUtils.showPrint('AppLifecycleState.detached');
+        LogUtils.d('AppLifecycleState.detached');
         break;
     }
 
@@ -70,7 +70,7 @@ class _LifecycleAppPageState extends State<LifecycleAppPage>
 
   @override
   Widget build(BuildContext context) {
-    LogUtils.showPrint('build');
+    LogUtils.d('build');
     return new Scaffold(
       appBar: new AppBar(
         title: new Text('lifecycle生命周期 学习'),

@@ -1,12 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
-import 'dart:io';
-
 import 'package:yc_flutter_utils/file/file_utils.dart';
-
-
 
 class FileStoragePage extends StatefulWidget {
   @override
@@ -14,141 +9,202 @@ class FileStoragePage extends StatefulWidget {
 }
 
 class StorageState extends State<FileStoragePage> {
-  var _textFieldController = new TextEditingController();
-  var _storageString = '';
-  var _storageString2 = '';
 
-  saveString() async {
-    var string = _textFieldController.value.text.toString();
-    FileUtils.saveHeatString(string, 'file.text');
-  }
-
-  Future getString() async {
-    print("获取存在文件中的数据-----");
-    var string = await FileUtils.getCacheString("file.text");
-    print("获取存在文件中的数据"+string.toString());
-    setState(() {
-      _storageString = string;
-    });
-  }
+  bool isSuccess1 = false;
+  String string1 = "null";
+  bool isSuccess2 = false;
+  String string2 = "null";
+  bool isSuccess3 = false;
+  String string3 = "null";
+  bool isSuccess4 = false;
+  String string4 = "null";
 
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text('文件存储'),
+        title: new Text('FileUtils 文件工具类'),
       ),
-      body: new Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+      body: new ListView(
         children: <Widget>[
-          Text("文件存储字符串", textAlign: TextAlign.center),
-          TextField(
-            controller: _textFieldController,
-          ),
+          new Text("存储json文件1，状态 ：$isSuccess1"),
           MaterialButton(
-            onPressed: saveString,
-            child: new Text("存储"),
+            onPressed: save1,
+            child: new Text("存储json文件"),
+            color: Colors.cyan,
+          ),
+          new Text("获取json文件1，状态  ：$string1"),
+          MaterialButton(
+            onPressed: get1,
+            child: new Text("获取json文件"),
             color: Colors.cyan,
           ),
           MaterialButton(
-            onPressed: getString,
-            child: new Text("获取"),
-            color: Colors.deepOrange,
+            onPressed: clear1,
+            child: new Text("清除json文件"),
+            color: Colors.cyan,
           ),
-          Text('从文件存储中获取的值为  $_storageString'),
-          new Divider(height: 1,),
 
-          Text("文件存储model", textAlign: TextAlign.center),
+          new Text("存储json文件2，状态 ：$isSuccess2"),
           MaterialButton(
-            onPressed: saveStringModel,
-            child: new Text("存储model"),
+            onPressed: save2,
+            child: new Text("存储json文件2"),
             color: Colors.cyan,
           ),
+          new Text("获取json文件2，状态  ：$string2"),
           MaterialButton(
-            onPressed: getStringModel,
-            child: new Text("获取model"),
-            color: Colors.deepOrange,
+            onPressed: get2,
+            child: new Text("获取json文件2"),
+            color: Colors.cyan,
           ),
+
+          new Text("存储字符串文件1，状态 ：$isSuccess3"),
           MaterialButton(
-            onPressed: clearModel,
-            child: new Text("清除model文件"),
-            color: Colors.deepOrange,
+            onPressed: save3,
+            child: new Text("存储字符串文件"),
+            color: Colors.cyan,
           ),
-          Text('从文件存储中获取的值为  $_storageString2'),
+          new Text("获取字符串文件1，状态  ：$string3"),
+          MaterialButton(
+            onPressed: get3,
+            child: new Text("获取字符串文件"),
+            color: Colors.cyan,
+          ),
+
+          new Text("存储字符串文件2，状态 ：$isSuccess4"),
+          MaterialButton(
+            onPressed: save4,
+            child: new Text("存储字符串文件2"),
+            color: Colors.cyan,
+          ),
+          new Text("获取字符串文件2，状态  ：$string4"),
+          MaterialButton(
+            onPressed: get4,
+            child: new Text("获取字符串文件2"),
+            color: Colors.cyan,
+          ),
         ],
       ),
     );
   }
 
-  void saveStringModel() {
-    var mapPositionModel = new MapPositionModel();
-    mapPositionModel.lat = 1;
-    mapPositionModel.lng = 2;
+
+  void save1() {
     var mapHeatModel = new MapHeatModel();
-    var list = new List<MapPositionModel>();
-    list.add(mapPositionModel);
-    mapHeatModel.focusCenter = list;
-    mapHeatModel.version = "520";
-    FileCache.saveHeatString(mapHeatModel);
+    mapHeatModel.version = "100";
+    List<MapPositionModel> focusCenter = new List();
+    for(int i=0 ; i<2 ; i++){
+      MapPositionModel model = new MapPositionModel();
+      model.lng = i.toDouble();
+      model.lat = i.toDouble();
+      focusCenter.add(model);
+    }
+    mapHeatModel.focusCenter = focusCenter;
+    var encode = mapHeatModel.encode();
+    var future = FileUtils.writeJsonFileDir(encode, "map1.json");
+    setState(() {
+      if(future == null){
+        isSuccess1 = false;
+      } else {
+        isSuccess1 = true;
+      }
+    });
   }
 
 
-  void getStringModel() async {
-    print("获取存在文件中的bean数据-----");
-    var model = await FileCache.getHeatString();
-    if(model==null){
+  void get1() {
+    FileUtils.readStringDir("map1.json").then((value){
       setState(() {
-        _storageString2 = "获取为null";
+        string1 = value;
       });
-    } else {
-      print("获取存在文件中的bean数据-----"+model.version + "--"+model.focusCenter.length.toString());
+    });
+  }
+
+  void clear1() {
+    FileUtils.clearFileDataDir("map1.json").then((value){
       setState(() {
-        _storageString2 = model.version + "--"+model.focusCenter.length.toString();
+        isSuccess1 = value;
       });
+    });
+  }
+
+  void save2() async{
+    var mapHeatModel = new MapHeatModel();
+    mapHeatModel.version = "100";
+    List<MapPositionModel> focusCenter = new List();
+    for(int i=0 ; i<2 ; i++){
+      MapPositionModel model = new MapPositionModel();
+      model.lng = i.toDouble();
+      model.lat = i.toDouble();
+      focusCenter.add(model);
     }
-  }
-
-  void clearModel() async{
-    //获取文件
-    FileUtils.clearFileData("hot.json");
-  }
-
-}
-
-class FileCache{
-
-
-  //初始化文件路径
-  static Future<File> getFile(String fileName) async {
-    //获取应用文件目录类似于Ios的NSDocumentDirectory和Android上的 AppData目录
-    final fileDirectory = await getApplicationDocumentsDirectory();
-    //获取存储路径
-    final filePath = fileDirectory.path;
-    //或者file对象（操作文件记得导入import 'dart:io'）
-    return new File(filePath + "/"+fileName);
+    mapHeatModel.focusCenter = focusCenter;
+    var encode = mapHeatModel.encode();
+    String appDocDir = await FileUtils.getAppDocDir();
+    String filePath = appDocDir + '/map2.json';
+    var future = FileUtils.writeJsonCustomFile(encode,filePath);
+    setState(() {
+      if(future == null){
+        isSuccess2 = false;
+      } else {
+        isSuccess2 = true;
+      }
+    });
   }
 
 
-  static saveHeatString(MapHeatModel model) async {
-    if(model==null){
-      return;
-    }
-    //将model转化成json字符串
-    Map<String, dynamic> user = model.encode();
-    var encode = json.encode(user);
-    FileUtils.saveHeatString(encode, "hot.json");
+  void get2() async{
+    String appDocDir = await FileUtils.getAppDocDir();
+    String filePath = appDocDir + '/map2.json';
+    FileUtils.readStringCustomFile(filePath).then((value){
+      setState(() {
+        string2 = value;
+      });
+    });
+  }
+
+  void save3() async{
+    var future = FileUtils.writeStringDir("fadsfadsfasd","map3.txt");
+    setState(() {
+      if(future == null){
+        isSuccess3 = false;
+      } else {
+        isSuccess3 = true;
+      }
+    });
   }
 
 
-  static Future<MapHeatModel> getHeatString() async {
-    //获取文件
-    var cacheString = await FileUtils.getCacheString("hot.json");
-    if(cacheString==null || cacheString.length==0){
-      return null;
-    }
-    Map map = json.decode(cacheString);
-    MapHeatModel model = MapHeatModel.decode(map);
-    return model;
+  void get3() async{
+    FileUtils.readStringDir("map3.txt").then((value){
+      setState(() {
+        string3 = value;
+      });
+    });
+  }
+
+  void save4() async{
+    String appDocDir = await FileUtils.getAppDocDir();
+    String filePath = appDocDir + '/map4.txt';
+    var future = FileUtils.writeStringFile("dfadsfadsfdswe32",filePath);
+    setState(() {
+      if(future == null){
+        isSuccess4 = false;
+      } else {
+        isSuccess4 = true;
+      }
+    });
+  }
+
+
+  void get4() async{
+    String appDocDir = await FileUtils.getAppDocDir();
+    String filePath = appDocDir + '/map4.txt';
+    FileUtils.readStringCustomFile(filePath).then((value){
+      setState(() {
+        string4 = value;
+      });
+    });
   }
 
 }

@@ -3,8 +3,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:yc_flutter_tool/res/color/yc_colors.dart';
-import 'package:yc_flutter_tool/utils/log_utils.dart';
-import 'package:yc_flutter_tool/utils/screen_utils.dart';
+import 'package:yc_flutter_utils/log/log_utils.dart';
+import 'package:yc_flutter_utils/screen/screen_utils.dart';
 class PositionPage extends StatefulWidget{
 
   @override
@@ -17,8 +17,8 @@ class PositionPage extends StatefulWidget{
 class PositionState extends State<PositionPage>{
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.instance.init(context);
-    var screenWidth = ScreenUtil.screenWidth;
+    ScreenUtils.instance.init(context);
+    var screenWidth = ScreenUtils.screenWidth;
     return new Scaffold(
       appBar: new AppBar(
         title: new Text("Position"),
@@ -26,22 +26,28 @@ class PositionState extends State<PositionPage>{
       body: new Column(
         children: [
           new Text('Position，可以随意摆放一个组件，有点像绝对布局'),
+          //有点像绝对布局
           new Positioned(
             right: 10,
             bottom: 100,
             width: screenWidth,
-            child: Container(
-              child: Row(
-                children: [
-                  LeftComponent(),
-                  RightComponent(),
-                ],
-                crossAxisAlignment: CrossAxisAlignment.end,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              ),
-            ),
+            child: getWidget(),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget getWidget(){
+    return Container(
+      color: Colors.brown,
+      child: Row(
+        children: [
+          LeftComponent(),
+          RightComponent(),
+        ],
+        crossAxisAlignment: CrossAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
       ),
     );
   }
@@ -82,7 +88,7 @@ class _LeftComponentState extends State<LeftComponent> {
       child: GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTap: () {
-          LogUtils.log("--------_getSafetyButton------");
+          LogUtils.d("--------_getSafetyButton------");
         },
         child: Container(
             height: 50,

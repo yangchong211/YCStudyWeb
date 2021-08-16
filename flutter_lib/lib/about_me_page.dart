@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_lib/utils/log_utils.dart';
+import 'package:yc_flutter_utils/log/log_utils.dart';
 /*
  * <pre>
  *     @author yangchong
@@ -32,42 +32,42 @@ class AboutMeState extends State<AboutMePage> {
   void initState() {
     //初始化状态
     super.initState();
-    LogUtils.log(tag+"initState");
+    LogUtils.d(tag+"initState");
   }
 
   @override
   void didUpdateWidget(AboutMePage oldWidget) {
     super.didUpdateWidget(oldWidget);
-    LogUtils.log(tag+"didUpdateWidget");
+    LogUtils.d(tag+"didUpdateWidget");
   }
 
   @override
   void deactivate() {
     super.deactivate();
-    LogUtils.log(tag+"deactivate");
+    LogUtils.d(tag+"deactivate");
   }
 
   @override
   void dispose() {
     super.dispose();
-    LogUtils.log(tag+"dispose");
+    LogUtils.d(tag+"dispose");
   }
 
   @override
   void reassemble() {
     super.reassemble();
-    LogUtils.log(tag+"reassemble");
+    LogUtils.d(tag+"reassemble");
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    LogUtils.log(tag+"didChangeDependencies");
+    LogUtils.d(tag+"didChangeDependencies");
   }
 
   @override
   Widget build(BuildContext context) {
-    LogUtils.log(tag+"build");
+    LogUtils.d(tag+"build");
     Widget about = initAboutWidget();
     Widget api = initApiWidget();
     Widget zhy = initZhyWidget();

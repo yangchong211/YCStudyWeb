@@ -45,6 +45,14 @@ class LogUtilsState extends State<LogUtilsPage>{
               color: const Color(0xffff0000),
               child: new Text('打印e日志，并带有tag'),
             ),
+            new Divider(),
+            RaisedButton(
+              onPressed: () {
+                LogUtils.i("---------onPressed-",tag: "yangchong");
+              },
+              color: const Color(0xffff0000),
+              child: new Text('打印i日志，并带有tag'),
+            ),
           ],
         ));
   }

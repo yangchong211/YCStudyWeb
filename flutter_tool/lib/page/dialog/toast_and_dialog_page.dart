@@ -1,27 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:yc_flutter_utils/toast/snack_utils.dart';
 
 class ToastAndDialogPage extends StatelessWidget {
-  void _showSnackBarDialog(BuildContext context) {
-    Scaffold.of(context).showSnackBar(new SnackBar(
-      content: new Text("SanckBar is Showing "),
-      action: new SnackBarAction(
-          label: "撤销",
-          onPressed: () {
-            print("点击撤回---------------");
-          }),
-    ));
-  }
+
 
   void _showAboutDialog(BuildContext context) {
-    // showDialog(
-    //     context: context,
-    //     child: new AboutDialog(
-    //       applicationIcon: new Icon(Icons.android),
-    //       applicationName: "Flutter",
-    //       applicationVersion: "3.1.1",
-    //       children: <Widget>[new Text("更新摘要\n新增飞天遁地功能\n优化用户体验")],
-    //     ));
+    showDialog(
+        context: context,
+        child: new AboutDialog(
+          applicationIcon: new Icon(Icons.android),
+          applicationName: "Flutter",
+          applicationVersion: "3.1.1",
+          children: <Widget>[new Text("更新摘要\n新增飞天遁地功能\n优化用户体验")],
+        ));
   }
+
 
   //showModalBottomSheet与BottomSheet的区别是 BottomSheet充满屏幕，ModalBottomSheet半屏
   void _showModalBottomSheetDialog(BuildContext context) {
@@ -89,54 +82,54 @@ class ToastAndDialogPage extends StatelessWidget {
   }
 
   void _showSimpleDialog(BuildContext context) {
-    // showDialog(
-    //     context: context,
-    //     child: new SimpleDialog(
-    //       title: new Text("标题"),
-    //       contentPadding: const EdgeInsets.all(10.0),
-    //       children: <Widget>[
-    //         //SimpleDialog内可指定多个children
-    //         new Text("内容1"),
-    //         new ListTile(
-    //           leading: new Icon(Icons.android),
-    //           title: new Text("android"),
-    //         ),
-    //         new ListTile(
-    //           leading: new Icon(Icons.android),
-    //           title: new Text("andrpid"),
-    //         ),
-    //         new ListTile(
-    //           leading: new Icon(Icons.cake),
-    //           title: new Text("cake"),
-    //         ),
-    //         new ListTile(
-    //           leading: new Icon(Icons.local_cafe),
-    //           title: new Text("cofe"),
-    //         ),
-    //       ],
-    //     ));
+    showDialog(
+        context: context,
+        child: new SimpleDialog(
+          title: new Text("标题"),
+          contentPadding: const EdgeInsets.all(10.0),
+          children: <Widget>[
+            //SimpleDialog内可指定多个children
+            new Text("内容1"),
+            new ListTile(
+              leading: new Icon(Icons.android),
+              title: new Text("android"),
+            ),
+            new ListTile(
+              leading: new Icon(Icons.android),
+              title: new Text("andrpid"),
+            ),
+            new ListTile(
+              leading: new Icon(Icons.cake),
+              title: new Text("cake"),
+            ),
+            new ListTile(
+              leading: new Icon(Icons.local_cafe),
+              title: new Text("cofe"),
+            ),
+          ],
+        ));
   }
 
   void _shwoAlertDialog(BuildContext context) {
-    // showDialog(
-    //     context: context,
-    //     child: new AlertDialog(
-    //       title: new Text("标题"),
-    //       content: new Text("内容区域"),
-    //       actions: <Widget>[
-    //         new FlatButton(
-    //             onPressed: () {
-    //               Navigator.of(context).pop();
-    //             },
-    //             child: new Text("确定")),
-    //         new FlatButton(
-    //             onPressed: () {
-    //               Navigator.of(context).pop();
-    //               print("点击取消------");
-    //             },
-    //             child: new Text("取消")),
-    //       ],
-    //     ));
+    showDialog(
+        context: context,
+        child: new AlertDialog(
+          title: new Text("标题"),
+          content: new Text("内容区域"),
+          actions: <Widget>[
+            new FlatButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: new Text("确定")),
+            new FlatButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  print("点击取消------");
+                },
+                child: new Text("取消")),
+          ],
+        ));
   }
 
   @override
@@ -152,6 +145,8 @@ class ToastAndDialogPage extends StatelessWidget {
             textAlign: TextAlign.center,
             style: new TextStyle(fontSize: 20.0),
           ),
+
+
           new Tooltip(
               message: "Tooltip轻量级提示",
               child: Container(
@@ -170,6 +165,8 @@ class ToastAndDialogPage extends StatelessWidget {
               height: 100.0,
               //Tooltip的高度
               padding: EdgeInsets.symmetric(vertical: 50.0, horizontal: 50.0)),
+
+
           //值得注意的是这个context必须不能是Scaffold节点下的context,因为Scaffold.of（）
           // 方法需要从Widget树中去找到Scaffold的Context，所以如果直接在Scaffold中使用showSnackBar，
           // 需要在外城包括上Builder Widget，这个Builder不做任何的其他操作，只不过把Widget树往下移了一层而已。
@@ -177,7 +174,7 @@ class ToastAndDialogPage extends StatelessWidget {
             builder: (BuildContext context) {
               return MaterialButton(
                 onPressed: () {
-                  _showSnackBarDialog(context);
+                  SnackUtils.toast(context, "吐司");
                 },
                 child: new Text("SnackBar"),
                 color: Colors.redAccent,
@@ -185,11 +182,14 @@ class ToastAndDialogPage extends StatelessWidget {
             },
           ),
 
+
           Text(
             "对话框提示",
             textAlign: TextAlign.center,
             style: new TextStyle(fontSize: 20.0),
           ),
+
+
           MaterialButton(
             onPressed: () {
               _showAboutDialog(context);
@@ -197,6 +197,7 @@ class ToastAndDialogPage extends StatelessWidget {
             child: new Text("AboutDialog"),
             color: Colors.redAccent,
           ),
+
           MaterialButton(
             onPressed: () {
               _shwoAlertDialog(context);
@@ -204,6 +205,7 @@ class ToastAndDialogPage extends StatelessWidget {
             child: new Text("AlertDialog"),
             color: Colors.redAccent,
           ),
+
           MaterialButton(
             onPressed: () {
               _showSimpleDialog(context);
@@ -222,6 +224,7 @@ class ToastAndDialogPage extends StatelessWidget {
               color: Colors.redAccent,
             );
           }),
+
           MaterialButton(
             onPressed: () {
               _showModalBottomSheetDialog(context);
@@ -229,6 +232,10 @@ class ToastAndDialogPage extends StatelessWidget {
             child: new Text("ModalBottomSheetDialog"),
             color: Colors.redAccent,
           ),
+
+
+
+
         ],
       ),
     );

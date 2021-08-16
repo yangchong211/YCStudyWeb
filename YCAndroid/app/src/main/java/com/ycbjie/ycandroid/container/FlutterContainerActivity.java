@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.yc.fluttercontainer.FlutterCommons;
+import com.yc.fluttercontainer.FlutterEngineActivity;
 import com.ycbjie.ycandroid.R;
 
 import io.flutter.embedding.android.FlutterActivity;
@@ -28,12 +29,14 @@ public class FlutterContainerActivity extends AppCompatActivity implements View.
         TextView tv4 = findViewById(R.id.tv_4);
         TextView tv5 = findViewById(R.id.tv_5);
         TextView tv6 = findViewById(R.id.tv_6);
+        TextView tv7 = findViewById(R.id.tv_7);
         tv1.setOnClickListener(this);
         tv2.setOnClickListener(this);
         tv3.setOnClickListener(this);
         tv4.setOnClickListener(this);
         tv5.setOnClickListener(this);
         tv6.setOnClickListener(this);
+        tv7.setOnClickListener(this);
     }
 
     @Override
@@ -56,6 +59,14 @@ public class FlutterContainerActivity extends AppCompatActivity implements View.
                 break;
             case R.id.tv_6:
                 FlutterViewActivity3.start(FlutterContainerActivity.this);
+                break;
+            case R.id.tv_7:
+                Intent intent = new Intent(this, FlutterEngineActivity.class);
+                intent.putExtra(FlutterCommons.BUNDLE_KEY_PATH,"router_channel");
+                intent.putExtra("title","这个是标题");
+                intent.putExtra("age",28);
+                intent.putExtra("url","www.baidu.com");
+                startActivity(intent);
                 break;
             default:
                 break;

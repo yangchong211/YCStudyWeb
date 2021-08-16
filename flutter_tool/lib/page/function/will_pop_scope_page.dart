@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 class WillPopScopePage extends StatefulWidget{
 
+
   @override
   State<StatefulWidget> createState() {
     return new WillPopScopeState();
@@ -15,7 +16,6 @@ class WillPopScopePage extends StatefulWidget{
 class WillPopScopeState extends State<WillPopScopePage>{
   @override
   Widget build(BuildContext context) {
-    var willPopScopeTestRoute = new WillPopScopeTestRoute();
     return new Scaffold(
       appBar: new AppBar(
         title: new Text("导航返回拦截-WillPopScope"),
@@ -33,7 +33,7 @@ class WillPopScopeState extends State<WillPopScopePage>{
             ),
             Container(
               color: Colors.blue[50],
-              child: willPopScopeTestRoute,
+              child: new WillPopScopeTestRoute(),
             ),
 
           ],
@@ -56,6 +56,9 @@ class WillPopScopeTestRouteState extends State<WillPopScopeTestRoute> {
 
   @override
   Widget build(BuildContext context) {
+    // onWillPop是一个回调函数，当用户点击返回按钮时调用（包括导航返回按钮及Android物理返回按钮），
+    // 该回调需要返回一个Future对象，如果返回的Future最终值为false时，
+    // 则当前路由不出栈(不会返回)，最终值为true时，当前路由出栈退出。
     return new WillPopScope(
         onWillPop: () async {
           if (_lastPressedAt == null ||

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:yc_flutter_tool/page/basic/button_page.dart';
 import 'package:yc_flutter_tool/page/basic/icon_page.dart';
 import 'package:yc_flutter_tool/page/basic/image_page.dart';
-import 'package:yc_flutter_tool/page/basic/states_widget_page.dart';
+import 'package:yc_flutter_tool/page/event/states_widget_page.dart';
 import 'package:yc_flutter_tool/page/basic/switch_page.dart';
 import 'package:yc_flutter_tool/page/basic/text_field_page.dart';
 import 'package:yc_flutter_tool/page/basic/text_page.dart';

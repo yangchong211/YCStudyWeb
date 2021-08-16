@@ -3,6 +3,7 @@ package com.ycbjie.ycandroid;
 import android.app.Application;
 
 import com.yc.fluttercontainer.FlutterLoggerUtils;
+import com.yc.fluttercontainer.RouterManager;
 
 import io.flutter.Log;
 import io.flutter.embedding.engine.FlutterEngine;
@@ -19,7 +20,7 @@ public class App extends Application {
     private void initFlutter() {
         FlutterEngine engine = new FlutterEngine(this);
         GeneratedPluginRegistrant.registerWith(engine);
-
+        RouterManager.getInstance().setEngine(engine);
         FlutterLoggerUtils.setLogger(new FlutterLoggerUtils.Logger() {
             @Override
             public void log(String content) {
