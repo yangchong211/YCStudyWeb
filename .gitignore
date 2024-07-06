@@ -34,13 +34,7 @@ captures/
 
 # IntelliJ
 *.iml
-.idea/workspace.xml
-.idea/tasks.xml
-.idea/gradle.xml
-.idea/assetWizardSettings.xml
-.idea/dictionaries
-.idea/libraries
-.idea/caches
+.idea/
 
 # Keystore files
 # Uncomment the following line if you do not want to check your keystore files in.
@@ -63,3 +57,12 @@ fastlane/Preview.html
 fastlane/screenshots
 fastlane/test_output
 fastlane/readme.md
+
+# VuePress 默认临时文件目录
+.vuepress/.temp
+# VuePress 默认缓存目录
+.vuepress/.cache
+# VuePress 默认构建生成的静态文件目录
+.vuepress/dist
+# node
+node_modules/
