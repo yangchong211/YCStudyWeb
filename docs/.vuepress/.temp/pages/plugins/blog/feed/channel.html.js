@@ -1,0 +1,16 @@
+import comp from "/Users/yc/github/YCBlogBook/docs/.vuepress/.temp/pages/plugins/blog/feed/channel.html.vue"
+const data = JSON.parse("{\"path\":\"/plugins/blog/feed/channel.html\",\"title\":\"Channel Config\",\"lang\":\"en-US\",\"frontmatter\":{\"description\":\"Channel Config The channel plugin option is used to config the feed channel. channel.title Type: string Default: SiteConfig.title Channel title channel.link Type: string Default...\",\"head\":[[\"link\",{\"rel\":\"alternate\",\"hreflang\":\"zh-cn\",\"href\":\"https://ecosystem.vuejs.press/zh/plugins/blog/feed/channel.html\"}],[\"meta\",{\"property\":\"og:url\",\"content\":\"https://ecosystem.vuejs.press/plugins/blog/feed/channel.html\"}],[\"meta\",{\"property\":\"og:site_name\",\"content\":\"VuePress Ecosystem\"}],[\"meta\",{\"property\":\"og:title\",\"content\":\"Channel Config\"}],[\"meta\",{\"property\":\"og:description\",\"content\":\"Channel Config The channel plugin option is used to config the feed channel. channel.title Type: string Default: SiteConfig.title Channel title channel.link Type: string Default...\"}],[\"meta\",{\"property\":\"og:type\",\"content\":\"article\"}],[\"meta\",{\"property\":\"og:locale\",\"content\":\"en-US\"}],[\"meta\",{\"property\":\"og:locale:alternate\",\"content\":\"zh-CN\"}],[\"script\",{\"type\":\"application/ld+json\"},\"{\\\"@context\\\":\\\"https://schema.org\\\",\\\"@type\\\":\\\"Article\\\",\\\"headline\\\":\\\"Channel Config\\\",\\\"image\\\":[\\\"\\\"],\\\"dateModified\\\":null,\\\"author\\\":[]}\"]]},\"headers\":[{\"level\":2,\"title\":\"channel.title\",\"slug\":\"channel-title\",\"link\":\"#channel-title\",\"children\":[]},{\"level\":2,\"title\":\"channel.link\",\"slug\":\"channel-link\",\"link\":\"#channel-link\",\"children\":[]},{\"level\":2,\"title\":\"channel.description\",\"slug\":\"channel-description\",\"link\":\"#channel-description\",\"children\":[]},{\"level\":2,\"title\":\"channel.language\",\"slug\":\"channel-language\",\"link\":\"#channel-language\",\"children\":[]},{\"level\":2,\"title\":\"channel.copyright\",\"slug\":\"channel-copyright\",\"link\":\"#channel-copyright\",\"children\":[]},{\"level\":2,\"title\":\"channel.pubDate\",\"slug\":\"channel-pubdate\",\"link\":\"#channel-pubdate\",\"children\":[]},{\"level\":2,\"title\":\"channel.lastUpdated\",\"slug\":\"channel-lastupdated\",\"link\":\"#channel-lastupdated\",\"children\":[]},{\"level\":2,\"title\":\"channel.ttl\",\"slug\":\"channel-ttl\",\"link\":\"#channel-ttl\",\"children\":[]},{\"level\":2,\"title\":\"channel.image\",\"slug\":\"channel-image\",\"link\":\"#channel-image\",\"children\":[]},{\"level\":2,\"title\":\"channel.icon\",\"slug\":\"channel-icon\",\"link\":\"#channel-icon\",\"children\":[]},{\"level\":2,\"title\":\"channel.author\",\"slug\":\"channel-author\",\"link\":\"#channel-author\",\"children\":[]}],\"autoDesc\":true,\"filePathRelative\":\"plugins/blog/feed/channel.md\"}")
+export { comp, data }
+
+if (import.meta.webpackHot) {
+  import.meta.webpackHot.accept()
+  if (__VUE_HMR_RUNTIME__.updatePageData) {
+    __VUE_HMR_RUNTIME__.updatePageData(data)
+  }
+}
+
+if (import.meta.hot) {
+  import.meta.hot.accept(({ data }) => {
+    __VUE_HMR_RUNTIME__.updatePageData(data)
+  })
+}

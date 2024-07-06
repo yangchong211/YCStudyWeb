@@ -1,0 +1,17 @@
+<template><div><h1 id="sitemap" tabindex="-1"><a class="header-anchor" href="#sitemap"><span>sitemap</span></a></h1>
+<NpmBadge package="@vuepress/plugin-sitemap" /><h2 id="usage" tabindex="-1"><a class="header-anchor" href="#usage"><span>Usage</span></a></h2>
+<div class="language-bash" data-highlighter="prismjs" data-ext="sh" data-title="sh"><pre v-pre class="language-bash"><code><span class="line"><span class="token function">npm</span> i <span class="token parameter variable">-D</span> @vuepress/plugin-sitemap@next</span>
+<span class="line"></span></code></pre>
+</div><div class="language-typescript" data-highlighter="prismjs" data-ext="ts" data-title=".vuepress/config.ts"><pre v-pre class="language-typescript"><code><span class="line"><span class="token keyword">import</span> <span class="token punctuation">{</span> sitemapPlugin <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@vuepress/plugin-sitemap'</span></span>
+<span class="line"></span>
+<span class="line"><span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span></span>
+<span class="line">  plugins<span class="token operator">:</span> <span class="token punctuation">[</span></span>
+<span class="line">    <span class="token function">sitemapPlugin</span><span class="token punctuation">(</span><span class="token punctuation">{</span></span>
+<span class="line">      <span class="token comment">// options</span></span>
+<span class="line">    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token punctuation">]</span><span class="token punctuation">,</span></span>
+<span class="line"><span class="token punctuation">}</span></span>
+<span class="line"></span></code></pre>
+</div></div></template>
+
+

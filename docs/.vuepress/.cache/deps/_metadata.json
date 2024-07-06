@@ -1,0 +1,70 @@
+{
+  "hash": "dad72045",
+  "configHash": "4d332abb",
+  "lockfileHash": "10fbf024",
+  "browserHash": "d7cdd6d0",
+  "optimized": {
+    "@vue/devtools-api": {
+      "src": "../../../../node_modules/.pnpm/@vue+devtools-api@6.6.3/node_modules/@vue/devtools-api/lib/esm/index.js",
+      "file": "@vue_devtools-api.js",
+      "fileHash": "b20b2f5c",
+      "needsInterop": false
+    },
+    "@vuepress/shared": {
+      "src": "../../../../node_modules/.pnpm/@vuepress+shared@2.0.0-rc.14/node_modules/@vuepress/shared/dist/index.js",
+      "file": "@vuepress_shared.js",
+      "fileHash": "3ded4841",
+      "needsInterop": false
+    },
+    "vue": {
+      "src": "../../../../node_modules/.pnpm/vue@3.4.29_typescript@5.5.2/node_modules/vue/dist/vue.runtime.esm-bundler.js",
+      "file": "vue.js",
+      "fileHash": "f15983ec",
+      "needsInterop": false
+    },
+    "vue-router": {
+      "src": "../../../../node_modules/.pnpm/vue-router@4.3.3_vue@3.4.29_typescript@5.5.2_/node_modules/vue-router/dist/vue-router.esm-bundler.js",
+      "file": "vue-router.js",
+      "fileHash": "bc1a0fe7",
+      "needsInterop": false
+    },
+    "@vueuse/core": {
+      "src": "../../../../node_modules/.pnpm/@vueuse+core@10.11.0_vue@3.4.29_typescript@5.5.2_/node_modules/@vueuse/core/index.mjs",
+      "file": "@vueuse_core.js",
+      "fileHash": "a02eca94",
+      "needsInterop": false
+    },
+    "giscus": {
+      "src": "../../../../node_modules/.pnpm/giscus@1.5.0/node_modules/giscus/dist/giscus.mjs",
+      "file": "giscus.js",
+      "fileHash": "832781bb",
+      "needsInterop": false
+    },
+    "@docsearch/js": {
+      "src": "../../../../node_modules/.pnpm/@docsearch+js@3.6.0_@algolia+client-search@4.23.3_search-insights@2.13.0/node_modules/@docsearch/js/dist/esm/index.js",
+      "file": "@docsearch_js.js",
+      "fileHash": "47bd5539",
+      "needsInterop": false
+    },
+    "fflate/browser": {
+      "src": "../../../../node_modules/.pnpm/fflate@0.8.2/node_modules/fflate/esm/browser.js",
+      "file": "fflate_browser.js",
+      "fileHash": "fb09200b",
+      "needsInterop": false
+    },
+    "ts-debounce": {
+      "src": "../../../../node_modules/.pnpm/ts-debounce@4.0.0/node_modules/ts-debounce/dist/src/index.esm.js",
+      "file": "ts-debounce.js",
+      "fileHash": "abc9ddf1",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-LU2EZNKF": {
+      "file": "chunk-LU2EZNKF.js"
+    },
+    "chunk-DS4PHFRI": {
+      "file": "chunk-DS4PHFRI.js"
+    }
+  }
+}

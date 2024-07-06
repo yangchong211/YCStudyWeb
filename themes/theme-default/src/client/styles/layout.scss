@@ -1,0 +1,7 @@
+@import 'variables';
+
+.vp-hide-mobile {
+  @media screen and (max-width: $MQMobile) {
+    display: none;
+  }
+}

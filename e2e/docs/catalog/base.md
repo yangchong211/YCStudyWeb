@@ -1,0 +1,3 @@
+## Homepage Catalog
+
+<Catalog base="/" />
