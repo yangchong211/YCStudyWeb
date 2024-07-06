@@ -39,7 +39,7 @@ export default defineUserConfig({
     },
     '/zh/': {
       lang: 'zh-CN',
-      title: 'VuePress 打工充1',
+      title: '打工充学习网站',
       description: 'VuePress 官方主题和插件',
     },
   },
