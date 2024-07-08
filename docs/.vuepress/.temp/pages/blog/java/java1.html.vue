@@ -1,4 +1,0 @@
-<template><div><h1 id="java1" tabindex="-1"><a class="header-anchor" href="#java1"><span>Java1</span></a></h1>
-</div></template>
-
-
