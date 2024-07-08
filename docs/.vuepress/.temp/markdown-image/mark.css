@@ -1,0 +1,9 @@
+html:not(.dark) figure:has(img[data-mode="darkmode-only"]),
+html:not(.dark) img[data-mode="darkmode-only"] {
+  display: none !important;
+}
+
+html.dark figure:has(img[data-mode="lightmode-only"]),
+html.dark img[data-mode="lightmode-only"] {
+  display: none !important;
+}
