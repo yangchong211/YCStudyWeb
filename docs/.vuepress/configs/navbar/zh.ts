@@ -1,5 +1,5 @@
 import type { NavbarConfig } from '@vuepress/theme-default'
-
+//顶部导航栏
 export const navbarZh: NavbarConfig = [
   {
     text: '计算机基础',
@@ -245,10 +245,15 @@ export const navbarZh: NavbarConfig = [
     text: '工具',
     prefix: '/zh/tools/',
     children: [
+              {
+                  text: 'Json工具',
+                  link: 'helper/',
+                },
       {
         text: 'helper',
         link: 'helper/',
       },
+
     ],
   },
 ]

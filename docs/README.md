@@ -12,6 +12,10 @@ dist：是项目打包后的文件；
 
 
 # 02.打包和编译
+编译
+
+pnpm docs:build
+
 打包，先切换到docs的根目录路径下面，然后在cmd命令行中输入：
 
 pnpm docs:dev

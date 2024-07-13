@@ -1,5 +1,5 @@
 import type { SidebarConfig } from '@vuepress/theme-default'
-
+//侧边导航栏
 export const sidebarZh: SidebarConfig = {
   '/zh/plugins/': [
     {
@@ -85,15 +85,15 @@ export const sidebarZh: SidebarConfig = {
   ],
 
   '/zh/plugins/features/': [
-    'back-to-top',
-    'catalog',
-    'copy-code',
-    'copyright',
-    'medium-zoom',
-    'notice',
-    'nprogress',
-    'photo-swipe',
-    'watermark',
+    '01.面向对象六大原则',
+    '02.单一职责原则详解',
+    '03.开闭原则详细介绍',
+    '04.里式替换原则介绍',
+    '05.接口隔离原则介绍',
+    '06.依赖倒置原则介绍',
+    '07.迪米特原则介绍',
+    '08.代码保持简单原则',
+    '09.DRY原则简单介绍',
   ],
 
   '/zh/plugins/markdown/': [

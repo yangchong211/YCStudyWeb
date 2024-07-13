@@ -63,6 +63,9 @@ export default defineUserConfig({
     // },
   },
 
+  //指定 vuepress build 命令的输出目录。
+  //dest : '/.vuepress/dist',
+
   //打包
   //设置站点要使用的打包工具如果不设置该选项，将会使用默认的打包工具：
   //使用 vuepress 或 vuepress-vite 时，默认的打包工具是 Vite 。
