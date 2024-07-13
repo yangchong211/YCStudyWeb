@@ -37,12 +37,12 @@ export default defineUserConfig({
   //设置语言
   //站点的语言。它将会在最终渲染出的 HTML 中作为 <html> 标签的 lang 属性。它可以设置在不同语言的 locales 中。
   locales: {
-    '/': {
+    '/en/': {
       lang: 'en-US',
       title: 'VuePress Ecosystem',
       description: 'VuePress official themes and plugins',
     },
-    '/zh/': {
+    '/': {
       lang: 'zh-CN',
       //站点的标题。它将会作为所有页面标题的后缀，并且在默认主题的导航栏中显示。
       title: '杨充-程序员',
@@ -64,6 +64,9 @@ export default defineUserConfig({
   },
 
   //打包
+  //设置站点要使用的打包工具如果不设置该选项，将会使用默认的打包工具：
+  //使用 vuepress 或 vuepress-vite 时，默认的打包工具是 Vite 。
+  //使用 vuepress-webpack 时，默认的打包工具是 Webpack 。
   bundler: process.env.DOCS_BUNDLER === 'webpack' ? webpackBundler() : viteBundler(),
 
   //配置 markdown

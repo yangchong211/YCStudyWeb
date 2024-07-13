@@ -1,22 +1,7 @@
----
-home: true
-title: Home
-heroImage: /images/hero.png
-actions:
-  - text: Themes
-    link: ./themes/
-    type: primary
-
-  - text: Plugins
-    link: ./plugins/
-    type: primary
-
-footer: MIT Licensed | Copyright © 2018-present VuePress Community
----
-
 
 
 # 01.创建配置目录
+
 官网的目录结构是在把所有的文件都存储在 docs 目录下
 
 public：存储静态资源文件：网站图片，logo 等；

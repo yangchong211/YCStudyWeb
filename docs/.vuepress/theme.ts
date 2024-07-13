@@ -13,7 +13,7 @@ export default defaultTheme({
 
   // 主体
   locales: {
-    '/': {
+    '/en/': {
       // navbar
       navbar: navbarEn,
       // sidebar
@@ -22,7 +22,7 @@ export default defaultTheme({
       editLinkText: 'Edit this page on GitHub',
     },
 
-    '/zh/': {
+    '/': {
       // navbar
       navbar: navbarZh,
       selectLanguageName: '简体中文',
