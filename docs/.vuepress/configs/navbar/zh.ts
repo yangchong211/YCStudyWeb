@@ -2,7 +2,7 @@ import type { NavbarConfig } from '@vuepress/theme-default'
 
 export const navbarZh: NavbarConfig = [
   {
-    text: '主题',
+    text: '计算机基础',
     prefix: '/zh/themes/',
     children: [
       {
@@ -24,7 +24,7 @@ export const navbarZh: NavbarConfig = [
     ],
   },
   {
-    text: '插件',
+    text: '设计模式',
     prefix: '/zh/plugins/',
     children: [
       {
@@ -62,6 +62,56 @@ export const navbarZh: NavbarConfig = [
       {
         text: '工具',
         link: 'tools/',
+      },
+    ],
+  },
+  {
+    text: 'Java专栏',
+    prefix: '/zh/tools/',
+    children: [
+      {
+        text: 'helper',
+        link: 'helper/',
+      },
+    ],
+  },
+  {
+    text: 'C++专栏',
+    prefix: '/zh/tools/',
+    children: [
+      {
+        text: 'helper',
+        link: 'helper/',
+      },
+    ],
+  },
+  {
+    text: 'JavaScript专栏',
+    prefix: '/zh/tools/',
+    children: [
+      {
+        text: 'helper',
+        link: 'helper/',
+      },
+    ],
+  },
+  {
+    text: 'C语言专栏',
+    prefix: '/zh/tools/',
+    children: [
+      {
+        text: 'helper',
+        link: 'helper/',
+      },
+    ],
+  },
+  {
+    text: 'HTTP和网络',
+    prefix: '/zh/tools/',
+    children: [
+      {
+        text: 'helper',
+        link: 'helper/',
       },
     ],
   },

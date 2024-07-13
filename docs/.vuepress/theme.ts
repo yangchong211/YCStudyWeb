@@ -4,20 +4,15 @@ import { navbarEn, navbarZh, sidebarEn, sidebarZh } from './configs'
 
 const isProd = process.env.NODE_ENV === 'production'
 
+
 export default defaultTheme({
   logo: '/images/hero.png',
   repo: 'vuepress/ecosystem',
   docsDir: 'docs',
   hostname: 'https://ecosystem.vuejs.press',
 
-  // theme-level locales config
+  // 主体
   locales: {
-    /**
-     * English locale config
-     *
-     * As the default locale of @vuepress/theme-default is English,
-     * we don't need to set all of the locale fields
-     */
     '/': {
       // navbar
       navbar: navbarEn,
@@ -27,9 +22,6 @@ export default defaultTheme({
       editLinkText: 'Edit this page on GitHub',
     },
 
-    /**
-     * Chinese locale config
-     */
     '/zh/': {
       // navbar
       navbar: navbarZh,
@@ -62,9 +54,7 @@ export default defaultTheme({
   },
 
   themePlugins: {
-    // only enable git plugin in production mode
     git: isProd,
-    // use shiki plugin in production mode instead
     prismjs: isProd
       ? false
       : {

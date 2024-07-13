@@ -16,7 +16,9 @@ import { shikiPlugin } from '@vuepress/plugin-shiki'
 import { defineUserConfig } from 'vuepress'
 import type { UserConfig } from 'vuepress'
 import { getDirname, path } from 'vuepress/utils'
+//侧边栏
 import { head } from './configs/index.js'
+//主体
 import theme from './theme.js'
 
 const __dirname = getDirname(import.meta.url)
@@ -24,13 +26,16 @@ const __dirname = getDirname(import.meta.url)
 const isProd = process.env.NODE_ENV === 'production'
 
 export default defineUserConfig({
-  // set site base to default value
+  //部署站点的基础路径。
+  //如果你想让你的网站部署到一个子路径下，你将需要设置它。它的值应当总是以斜杠开始，并以斜杠结束。举例来说，如果你想将你的网站部署到 https://foo.github.io/bar/，那么 base 应该被设置成 "/bar/"。
+  //base 将会作为前缀自动地插入到以 / 开始的其他选项的链接中，所以你只需要指定一次。（head 中的属性除外）
   base: (process.env.BASE as `/${string}/` | '/') || '/',
 
-  // extra tags in `<head>`
+  //在最终渲染出的 HTML 的 <head> 标签内加入的额外标签。
   head,
 
-  // site-level locales config
+  //设置语言
+  //站点的语言。它将会在最终渲染出的 HTML 中作为 <html> 标签的 lang 属性。它可以设置在不同语言的 locales 中。
   locales: {
     '/': {
       lang: 'en-US',
@@ -39,16 +44,29 @@ export default defineUserConfig({
     },
     '/zh/': {
       lang: 'zh-CN',
-      title: '打工充学习网站',
-      description: 'VuePress 官方主题和插件',
+      //站点的标题。它将会作为所有页面标题的后缀，并且在默认主题的导航栏中显示。
+      title: '杨充-程序员',
+      //站点的描述。它将会在最终渲染出的 HTML 中作为 <meta name="description" /> 标签的 content 属性。
+      //它会被每个页面的 Frontmatter 中的 description 字段覆盖。
+      description: '这是我的第一个 VuePress 站点',
     },
+
+
+    //设置中文 /zh/
+    // '/': {
+    //   lang: 'zh-CN',
+    //   //站点的标题。它将会作为所有页面标题的后缀，并且在默认主题的导航栏中显示。
+    //   title: '打工充',
+    //   //站点的描述。它将会在最终渲染出的 HTML 中作为 <meta name="description" /> 标签的 content 属性。
+    //   //它会被每个页面的 Frontmatter 中的 description 字段覆盖。
+    //   description: '这是我的第一个 VuePress 站点',
+    // },
   },
 
-  // specify bundler via environment variable
-  bundler:
-    process.env.DOCS_BUNDLER === 'webpack' ? webpackBundler() : viteBundler(),
+  //打包
+  bundler: process.env.DOCS_BUNDLER === 'webpack' ? webpackBundler() : viteBundler(),
 
-  // configure markdown
+  //配置 markdown
   markdown: {
     importCode: {
       handleImportPath: (importPath) => {
@@ -74,7 +92,7 @@ export default defineUserConfig({
     md.use(footnote)
   },
 
-  // configure default theme
+  //设置主题，设置站点要使用的主题。如果不设置该选项，将会使用默认主题
   theme,
 
   // use plugins
@@ -101,18 +119,17 @@ export default defineUserConfig({
       componentsDir: path.resolve(__dirname, './components'),
     }),
     searchPlugin(),
-    // only enable shiki plugin in production mode
     isProd
       ? shikiPlugin({
-          langs: ['bash', 'diff', 'json', 'md', 'ts', 'vue'],
-          theme: 'dark-plus',
-          lineNumbers: 10,
-          notationDiff: true,
-          notationErrorLevel: true,
-          notationFocus: true,
-          notationHighlight: true,
-          notationWordHighlight: true,
-        })
+        langs: ['bash', 'diff', 'json', 'md', 'ts', 'vue'],
+        theme: 'dark-plus',
+        lineNumbers: 10,
+        notationDiff: true,
+        notationErrorLevel: true,
+        notationFocus: true,
+        notationHighlight: true,
+        notationWordHighlight: true,
+      })
       : [],
   ],
 }) as UserConfig
