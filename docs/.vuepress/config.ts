@@ -16,7 +16,7 @@ import { shikiPlugin } from '@vuepress/plugin-shiki'
 import { defineUserConfig } from 'vuepress'
 import type { UserConfig } from 'vuepress'
 import { getDirname, path } from 'vuepress/utils'
-//侧边栏
+//导航栏 + 侧边栏
 import { head } from './configs/index.js'
 //主体
 import theme from './theme.js'

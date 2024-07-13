@@ -3,24 +3,24 @@ import type { SidebarConfig } from '@vuepress/theme-default'
 export const sidebarZh: SidebarConfig = {
   '/zh/plugins/': [
     {
-      text: '常用功能',
+      text: '六大设计原则',
       link: 'features/',
     },
     {
-      text: 'Markdown',
+      text: '创建型设计模式',
       link: 'markdown/',
     },
     {
-      text: '搜索',
+      text: '结构型设计模式',
       link: 'search/',
     },
     {
-      text: '博客',
+      text: '行为型设计模式',
       link: 'blog/',
     },
 
     {
-      text: '分析统计',
+      text: '设计模式拓展',
       link: 'analytics/',
     },
     {
