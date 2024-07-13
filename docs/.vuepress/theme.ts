@@ -13,15 +13,6 @@ export default defaultTheme({
 
   // 主体
   locales: {
-    '/en/': {
-      // navbar
-      navbar: navbarEn,
-      // sidebar
-      sidebar: sidebarEn,
-      // page meta
-      editLinkText: 'Edit this page on GitHub',
-    },
-
     '/': {
       // navbar
       navbar: navbarZh,

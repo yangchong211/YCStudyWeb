@@ -37,11 +37,6 @@ export default defineUserConfig({
   //设置语言
   //站点的语言。它将会在最终渲染出的 HTML 中作为 <html> 标签的 lang 属性。它可以设置在不同语言的 locales 中。
   locales: {
-    '/en/': {
-      lang: 'en-US',
-      title: 'VuePress Ecosystem',
-      description: 'VuePress official themes and plugins',
-    },
     '/': {
       lang: 'zh-CN',
       //站点的标题。它将会作为所有页面标题的后缀，并且在默认主题的导航栏中显示。
