@@ -21,6 +21,7 @@ import { head } from './configs/index.js'
 //主体
 import theme from './theme.js'
 
+
 const __dirname = getDirname(import.meta.url)
 
 const isProd = process.env.NODE_ENV === 'production'
