@@ -25,6 +25,28 @@ export const navbarZh: NavbarConfig = [
   },
   {
     text: '设计模式',
+    prefix: '/zh/design/',
+    children: [
+      {
+        text: '六大设计原则',
+        link: 'principle/',
+      },
+      {
+        text: '创建型设计模式',
+        link: 'creational/',
+      },
+      {
+        text: '结构型设计模式',
+        link: 'behavioral/',
+      },
+      {
+        text: '行为型设计模式',
+        link: 'structural/',
+      },
+    ],
+  },
+  {
+    text: '模式',
     prefix: '/zh/plugins/',
     children: [
       {
