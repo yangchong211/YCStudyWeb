@@ -10,6 +10,7 @@ defineGiscusConfig({
   categoryId: 'DIC_kwDOKPxScM4CbWy7',
 })
 
+
 defineDocSearchConfig({
   appId: 'N7UOPMVZ5B',
   apiKey: 'aa626dfa43a5e32cd519ba84735ad384',
